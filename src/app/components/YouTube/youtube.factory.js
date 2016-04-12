@@ -6,14 +6,15 @@
 	.module('musicHead')
 	.factory('youtube', youtube);
 
-	youtube.$inject = ['$http'];
+	youtube.$inject = ['$http','youtubeDataService'];
 
-	function youtube($http) {
+	function youtube($http, youtubeDataService) {
 
 	// Accessible members
 
 		var factory = {
-			initConnection: initConnection
+			initConnection: initConnection,
+			showItems: showItems
 		};
 
 	// Returning object of functions
@@ -30,9 +31,18 @@
 				params: {
 						q:'madonna',
 						part:'snippet',
-						key: 'AIzaSyDuyfjnT7zY6FDNg5n7_D27RyICBkRAh7k'
+						key: 'AIzaSyC9Ye6LYcxQHxyMRECr_kFNoCJ13QJHinA'
 					}
 				});
-		}
+		};
+
+		function showItems(query) {
+			var ytRequestObject = youtubeDataService.getDataObject("search", query);
+			return $http({
+                method: 'GET',
+                url: ytRequestObject.url,
+                params: ytRequestObject.params
+            });
+		};
 	}
 })();
