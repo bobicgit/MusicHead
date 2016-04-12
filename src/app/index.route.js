@@ -7,7 +7,7 @@
 
   function routeConfig($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('/:artist?', {
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
         controllerAs: 'main'

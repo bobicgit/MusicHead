@@ -1,0 +1,6 @@
+<div class="row">
+	<div class="col-sm-6 col-md-4" ng-repeat = "clip in ytlCtrl.clips">
+		<iframe width = '300' height = '200' frameborder = '0' allowfullscreen
+	      ng-src = "{{ytlCtrl.getTrustedIframeSrc(clip.id.videoId)}}"></iframe>
+	</div>
+</div>   

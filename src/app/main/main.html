@@ -11,17 +11,25 @@
     <button type="submit" class="btn btn-default" >Generate</button>
   </form>
 
-<!--   <div id="results"  ng-repeat = "clip in main.clips">
-      <iframe width='300' height='200' frameborder='0' allowfullscreen
-              ng-src= "{{main.trustLink(main.getIframeSrc(clip.id.videoId))}}"></iframe>
-  </div> -->
-
-
   <div class="row">
-    <div class="col-sm-6 col-md-4" ng-repeat="clip in main.clips">
-      <iframe width='300' height='200' frameborder='0' allowfullscreen
-              ng-src= "{{main.getTrustedIframeSrc(clip.id.videoId)}}"></iframe>
-      </div>
+    <div class="col-md-3" ng-repeat = "artist in main.artistsArray">
+     <button type="button" class="btn btn-primary btn-lg" ng-click = "main.redirect(artist)">{{artist}}</button>
+    </div>
+  </div>
+
+
+  <div class = "row">
+    <div class = "col-md-6">
+      PLAYER
+    </div>
+    <div class = "col-md-6">
+      <div class = "row">
+        <div class = "col-sm-6 col-md-4" ng-repeat = "clip in main.clips">
+          <iframe width = '300' height = '200' frameborder = '0' allowfullscreen
+                ng-src = "{{main.getTrustedIframeSrc(clip.id.videoId)}}"></iframe>
+        </div>
+      </div>   
+    </div>
   </div>
 
 </div>
