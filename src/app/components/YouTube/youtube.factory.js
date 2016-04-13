@@ -14,13 +14,16 @@
 		var cache = [];
 		var cacheInput = [];
 		var cacheUrlId = '';
+		var cachedFlag = false;
 		var factory = {
 			showItems: showItems,
 			readCache: readCache,
 			cacheArray: cacheArray,
 			readInputFromCache: readInputFromCache,
 			cacheUrl: cacheUrl,
-			readCacheUrlId: readCacheUrlId
+			readCacheUrlId: readCacheUrlId,
+			cacheFlag: cacheFlag,
+			readCacheFlag: readCacheFlag
 		};
 
 	// Returning object of functions
@@ -60,6 +63,14 @@
 
 		function readCacheUrlId() {
 			return cacheUrlId;
+		};
+
+		function cacheFlag(flag) {
+			cachedFlag = flag;
+		};
+
+		function readCacheFlag() {
+			return cachedFlag;
 		}
 	}
 })();

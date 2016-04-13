@@ -7,11 +7,13 @@
 
   /** @ngInject */
   function MainController($timeout, youtube, toastr, $sce, $routeParams) {
+
     var vm = this;
+
+    var artistsArray = [];
 
     vm.addArtists = addArtists;
     vm.artistsList;
-    var artistsArray = [];
     vm.artistsArrayTrimmed;
     vm.classAnimation = '';
     vm.clips = [];
@@ -24,6 +26,7 @@
     vm.getFilter = getFilter();
     vm.changeVideo = changeVideo;
     vm.videoUrl = '';
+    vm.showPlayer = false;
     vm.loadDefVideo = loadDefVideo;
     // activate();
 
@@ -39,6 +42,7 @@
     vm.clips = youtube.readCache();
     vm.artistsArrayTrimmed = youtube.readInputFromCache();
     vm.videoUrl = getTrustedIframeSrc(youtube.readCacheUrlId());
+    vm.showPlayer = youtube.readCacheFlag()
 
     function getFilter(){
       if(vm.routeArtist === 'undefined') {
@@ -49,18 +53,12 @@
     }
 
     function loadDefVideo(artist) {
+      
       var myClips = youtube.readCache();
-      console.log(artist, myClips);
-      for(var i = 0 ; i < myClips.length ; i++) {debugger;
-        
-        console.log(myClips[i].snippet.title.indexOf(artist))
-//        var jedna = if(myClips[i].snippet.title.tolowercase
-          //var druga = (artist.tolowercase) > -1) {
-        if(myClips[i].snippet.title.indexOf(artist) > -1) {
-
-
-
-        if(myClips[i].snippet.title.indexOf(artist) > -1) {
+      for(var i = 0 ; i < myClips.length ; i++) {;
+        var dbTitle = myClips[i].snippet.title.toLowerCase();
+        var inputTitle = artist.toLowerCase();
+        if(dbTitle.indexOf(inputTitle) > -1) {
             youtube.cacheUrl(myClips[i].id.videoId);
             break;
           }
@@ -74,6 +72,8 @@
     }
 
     function generateArtists() { 
+      vm.showPlayer = true;
+      youtube.cacheFlag(vm.showPlayer);
       splitArtists(); 
       for(var i = 0 ; i<vm.artistsArrayTrimmed.length; i++) {
         vm.addArtists(vm.artistsArrayTrimmed[i]);
@@ -102,24 +102,24 @@
 
 ///////////// ESCAPING UNTRUSTED LINKS
 
+    function trustLink(src) {
+      return $sce.trustAsResourceUrl(src);
+    };
+
     function getTrustedThumbnailSrc(id) {
       return trustLink(getThumbnailSrc(id));
-    }
+    };
+
+    function getTrustedIframeSrc(id) {
+      return trustLink(getIframeSrc(id));
+    };
 
     function getThumbnailSrc(videoId) {
       return 'http://img.youtube.com/vi/' + videoId + '/default.jpg';
     };
 
-    function getTrustedIframeSrc(id) {
-      return trustLink(getIframeSrc(id));
-    }
-
     function getIframeSrc(videoId) {
       return 'http://www.youtube.com/embed/' + videoId + '?autoplay=1';   
-    };
-
-    function trustLink(src) {
-      return $sce.trustAsResourceUrl(src);
     };
 
 ////////// HELPERS

@@ -13,14 +13,17 @@
 
   <div class="row" ng-show =true>
     <div class="col-md-3" ng-repeat = "artist in main.artistsArrayTrimmed">
-     <a href="#/{{artist}}" ng-click = "main.loadDefVideo(artist)"class="btn btn-primary btn-lg active" role="button">{{artist}}</a>
+      <a href="#/{{artist}}" 
+         ng-click = "main.loadDefVideo(artist)" 
+         class="btn btn-primary btn-lg active" 
+         role="button">{{artist}}</a>
     </div>
   </div>
 
 
   <div class = "row">
     <div class = "col-md-8">
-      <div class="vid-container">
+      <div class="vid-container" ng-show = "main.showPlayer">
         <iframe id="vid_frame" ng-src="{{main.videoUrl}}" width="560" height="315" frameborder="0" autoplay></iframe>
       </div>
     </div>
