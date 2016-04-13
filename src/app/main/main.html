@@ -5,31 +5,36 @@
   </div>
 
 
-  <form name = 'artistsForm' ng-submit = 'main.splitArtists()'>
+  <form name = 'artistsForm' ng-submit = 'main.generateArtists()'>
     <textarea class="form-control" rows="3" placeholder="What artists you want to listen?" 
               ng-model="main.artistsList"></textarea>
     <button type="submit" class="btn btn-default" >Generate</button>
   </form>
 
-  <div class="row">
-    <div class="col-md-3" ng-repeat = "artist in main.artistsArray">
-     <button type="button" class="btn btn-primary btn-lg" ng-click = "main.redirect(artist)">{{artist}}</button>
+  <div class="row" ng-show =true>
+    <div class="col-md-3" ng-repeat = "artist in main.artistsArrayTrimmed">
+     <a href="#/{{artist}}" ng-click = "main.loadDefVideo(artist)"class="btn btn-primary btn-lg active" role="button">{{artist}}</a>
     </div>
   </div>
 
 
   <div class = "row">
-    <div class = "col-md-6">
-      PLAYER
+    <div class = "col-md-8">
+      <div class="vid-container">
+        <iframe id="vid_frame" ng-src="{{main.videoUrl}}" width="560" height="315" frameborder="0" autoplay></iframe>
+      </div>
     </div>
-    <div class = "col-md-6">
+    <div class = "col-md-4">
       <div class = "row">
-        <div class = "col-sm-6 col-md-4" ng-repeat = "clip in main.clips">
-          <iframe width = '300' height = '200' frameborder = '0' allowfullscreen
-                ng-src = "{{main.getTrustedIframeSrc(clip.id.videoId)}}"></iframe>
+        <div class = "col-sm-6 col-md-4" ng-repeat = "clip in main.clips | filter: main.getFilter" ng-click = "main.changeVideo(clip)"> 
+          <div class="thumbnail">
+            <img frameborder = '0' ng-src = "{{main.getTrustedThumbnailSrc(clip.id.videoId)}}"/>
+          </div>
+          <div class="description">
+            {{clip.snippet.title}}
+          </div>
         </div>
       </div>   
     </div>
   </div>
-
 </div>
