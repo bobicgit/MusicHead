@@ -11,6 +11,7 @@
     var vm = this;
 
     var artistsArray = [];
+    var template = '';
 
     vm.addArtists = addArtists;
     vm.artistsList;
@@ -28,32 +29,30 @@
     vm.videoUrl = '';
     vm.showPlayer = false;
     vm.loadDefVideo = loadDefVideo;
-    // activate();
 
-    // function activate() {
-    //   //getWebDevTec();
-    //   return youtube
-    //         .initConnection()
-    //         .then(function(data) {
-    //           vm.awesomeThings.push(data);
-    //         });
-    // }
+  // Caching all clips, array of artists from input, video url to display and flag
+  // for displaying those elements in view when controller reloads.
 
     vm.clips = youtube.readCache();
     vm.artistsArrayTrimmed = youtube.readInputFromCache();
-    vm.videoUrl = getTrustedIframeSrc(youtube.readCacheUrlId());
-    vm.showPlayer = youtube.readCacheFlag()
+    vm.showPlayer = youtube.readCacheFlag();
+
+  // Function that filters view of my thumbnails, depends on routeparameter.
 
     function getFilter(){
       if(vm.routeArtist === 'undefined') {
         vm.routeArtist = '';
       }
-      console.log('');
       return {snippet: {title: vm.routeArtist}};
     }
 
-    function loadDefVideo(artist) {
-      
+  // Function that displays first video in each route, for each artist.
+  // It is loaded on click in each link and reads what is already in cache.
+  // In cache are all objects, so I need to determinate first clip of specific artist (which was clicked).
+  // after that I am caching my url to factory. It is read at the beggining of controller, to
+  // load after controller is reloaded.
+
+    function loadDefVideo(artist) { 
       var myClips = youtube.readCache();
       for(var i = 0 ; i < myClips.length ; i++) {;
         var dbTitle = myClips[i].snippet.title.toLowerCase();
@@ -65,41 +64,54 @@
         }
     };
 
-    function splitArtists() {
-      artistsArray = vm.artistsList.split(",");
-      vm.artistsArrayTrimmed = trimmingArray(artistsArray); 
-      youtube.cacheArray(vm.artistsArrayTrimmed);  
-    }
+  // Function that runs on form submit. It change the flag showPlayer, and cache that flag, for further purpose
+  // of diplaying player on other routes. It runs splitArtists function, and iterate the array of artists names.
+  // in each iteration function addArtists is calling, which is using factory and service to send
+  // request to youtube API.
 
     function generateArtists() { 
       vm.showPlayer = true;
-      youtube.cacheFlag(vm.showPlayer);
+      template = '';
+      youtube.cacheFlag(vm.showPlayer); // cache flag for displaying player in other routes
+      youtube.clearCacheClips();
       splitArtists(); 
       for(var i = 0 ; i<vm.artistsArrayTrimmed.length; i++) {
         vm.addArtists(vm.artistsArrayTrimmed[i]);
       }
     };
 
+
+    function splitArtists() {
+      console.log('wow');
+      artistsArray = vm.artistsList.split(",");
+      vm.artistsArrayTrimmed = trimmingArray(artistsArray); 
+      youtube.cacheArray(vm.artistsArrayTrimmed);  // cache array of artists, becouse i use it in view to display links with artists names
+    };
+
+
     function addArtists(artist) {
       vm.clips = [];
       youtube
       .showItems(artist)
       .then(function(items) {
-        vm.artistsList = '';
-        vm.videoUrl = getTrustedIframeSrc(items[0].id.videoId);
+        vm.artistsList = ''; // clear input
+        vm.videoUrl = getTrustedIframeSrc(items[0].id.videoId);// auto adding first video
         angular.forEach(items, function(item, index) {
           vm.clips.push(item);
-          // console.log(item);
           shuffle(vm.clips);    
         });
       })
     };
 
+// Function that takes an object of clicked video and chacnging src parameter in iframe player.
+
     function changeVideo(video) {
-      vm.videoUrl = getTrustedIframeSrc(video.id.videoId);
-      console.log(video);
+      vm.videoUrl = getTrustedIframeSrc(video.id.videoId); // changing only src of ifram on click in thumbnail
+      //console.log(video);
     }
 
+
+ vm.videoUrl = getTrustedIframeSrc(youtube.readCacheUrlId());
 ///////////// ESCAPING UNTRUSTED LINKS
 
     function trustLink(src) {
@@ -115,17 +127,29 @@
     };
 
     function getThumbnailSrc(videoId) {
-      return 'http://img.youtube.com/vi/' + videoId + '/default.jpg';
+      return 'http://img.youtube.com/vi/' + videoId + '/mqdefault.jpg';
     };
 
     function getIframeSrc(videoId) {
-      return 'http://www.youtube.com/embed/' + videoId + '?autoplay=1';   
+      console.log(vm.routeArtist)
+      var allIDs = [];
+      var myClips = youtube.readCache();
+      template = '?autoplay=1&loop=1&playlist=';
+
+      angular.forEach(myClips, function(item) {
+        item.id.videoId === videoId ? videoId : allIDs.push(item.id.videoId);   
+      });
+      angular.forEach(allIDs, function(item) {
+        template += item + ",";
+      });
+      return 'http://www.youtube.com/embed/' + videoId + template;//'?autoplay=1&loop=1&playlist=96kI8Mp1uOU,96kI8Mp1uOU,96kI8Mp1uOU,96kI8Mp1uOU'; //+ zmienna    
     };
 
 ////////// HELPERS
 
     function trimmingArray(arr) {
       var trimmedArray = [];
+
       angular.forEach(arr, function(item) {
         item = item.trim();
         trimmedArray.push(item);

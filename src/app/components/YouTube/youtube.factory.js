@@ -15,6 +15,7 @@
 		var cacheInput = [];
 		var cacheUrlId = '';
 		var cachedFlag = false;
+
 		var factory = {
 			showItems: showItems,
 			readCache: readCache,
@@ -23,7 +24,8 @@
 			cacheUrl: cacheUrl,
 			readCacheUrlId: readCacheUrlId,
 			cacheFlag: cacheFlag,
-			readCacheFlag: readCacheFlag
+			readCacheFlag: readCacheFlag,
+			clearCacheClips: clearCacheClips
 		};
 
 	// Returning object of functions
@@ -71,6 +73,10 @@
 
 		function readCacheFlag() {
 			return cachedFlag;
-		}
+		};
+
+		function clearCacheClips() {
+			cache = [];
+		};
 	}
 })();
