@@ -1,0 +1,13 @@
+<section class="videoList">
+  <div class="row">
+    <div class="col-md-6" ng-repeat = "clip in main.clips | filter: main.getFilter">
+      <div class="description">
+          <article>Title: {{clip.snippet.title}}</article>
+          <p>Channel Title: {{clip.snippet.channelTitle}}</p>
+      </div>
+      <div class="thumbnails" ng-click = "main.changeVideo(clip)">
+        <img frameborder = '0' ng-src = "{{main.getTrustedThumbnailSrc(clip.id.videoId)}}"/>
+      </div>
+    </div>          
+  </div>  
+</section>  

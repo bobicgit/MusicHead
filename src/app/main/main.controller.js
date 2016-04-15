@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, youtube, toastr, $sce, $routeParams) {
+  function MainController($timeout, youtube, toastr, $sce, $routeParams, $location) {
 
     var vm = this;
 
@@ -18,6 +18,7 @@
     vm.artistsArrayTrimmed;
     vm.classAnimation = '';
     vm.clips = [];
+    vm.clearCache = clearCache;
     vm.creationDate = 1460370332351;
     vm.routeArtist = $routeParams.artist;
     vm.showToastr = showToastr;
@@ -36,11 +37,12 @@
     vm.clips = youtube.readCache();
     vm.artistsArrayTrimmed = youtube.readInputFromCache();
     vm.showPlayer = youtube.readCacheFlag();
-
+    vm.videoUrl = getTrustedIframeSrc(youtube.readCacheUrlId());
   // Function that filters view of my thumbnails, depends on routeparameter.
-
+console.log($routeParams);
     function getFilter(){
-      if(vm.routeArtist === 'undefined') {
+
+      if(vm.routeArtist === 'undefined' || vm.routeArtist === 'artists') {
         vm.routeArtist = '';
       }
       return {snippet: {title: vm.routeArtist}};
@@ -82,7 +84,6 @@
 
 
     function splitArtists() {
-      console.log('wow');
       artistsArray = vm.artistsList.split(",");
       vm.artistsArrayTrimmed = trimmingArray(artistsArray); 
       youtube.cacheArray(vm.artistsArrayTrimmed);  // cache array of artists, becouse i use it in view to display links with artists names
@@ -97,8 +98,11 @@
         vm.artistsList = ''; // clear input
         vm.videoUrl = getTrustedIframeSrc(items[0].id.videoId);// auto adding first video
         angular.forEach(items, function(item, index) {
+          $location.path("artists");  
           vm.clips.push(item);
-          shuffle(vm.clips);    
+          shuffle(vm.clips);
+    
+          
         });
       })
     };
@@ -111,7 +115,7 @@
     }
 
 
- vm.videoUrl = getTrustedIframeSrc(youtube.readCacheUrlId());
+ 
 ///////////// ESCAPING UNTRUSTED LINKS
 
     function trustLink(src) {
@@ -131,7 +135,7 @@
     };
 
     function getIframeSrc(videoId) {
-      console.log(vm.routeArtist)
+      // console.log(vm.routeArtist)
       var allIDs = [];
       var myClips = youtube.readCache();
       template = '?autoplay=1&loop=1&playlist=';
@@ -142,8 +146,13 @@
       angular.forEach(allIDs, function(item) {
         template += item + ",";
       });
-      return 'http://www.youtube.com/embed/' + videoId + template;//'?autoplay=1&loop=1&playlist=96kI8Mp1uOU,96kI8Mp1uOU,96kI8Mp1uOU,96kI8Mp1uOU'; //+ zmienna    
+      return 'http://www.youtube.com/embed/' + videoId + template;
     };
+
+    function clearCache() {
+      //console.log('clearcache function');
+      youtube.clearCacheClips();
+    }
 
 ////////// HELPERS
 

@@ -1,0 +1,26 @@
+<section id = "linkContainer">
+  <div class="row" ng-show =true>
+    <div class="col-md-6">
+      <a href="#/artists" 
+      ng-show = "main.showPlayer"
+      class="btn btn-success btn-lg active" 
+      role="button"
+      id = "allArtistsButton">All Artists</a>
+    </div>
+    <div class="col-md-6">
+      <a href="#/" 
+      ng-show = "main.showPlayer"
+      class="btn btn-danger btn-lg active" 
+      role="button"
+      id = "backToFormButton"
+      ng-click = "main.clearCache()">Back to form</a>
+    </div>
+
+    <div class="col-md-3" ng-repeat = "artist in main.artistsArrayTrimmed">
+      <a href="#/artists/{{artist}}" 
+         ng-click = "main.loadDefVideo(artist)" 
+         class="btn btn-primary btn-lg active" 
+         role="button">{{artist}}</a>
+    </div>
+  </div> 
+</section>

@@ -1,24 +1,39 @@
-body {
+
+
+html, body {
+	height: 100%;
 	background-color: #333;
 }
-
-.browsehappy {
+/*#header {
+margin-bottom: 20px;
+}
+*/.browsehappy {
   margin: 0.2em 0;
   background: #ccc;
   color: #000;
   padding: 0.2em 0;
 }
-
 .description {
-	float: left;
-  letter-spacing: 1px;
-  font-size: 16px;
-  color: #fff;
-  margin-top: 10px;
-  display: block;
-  margin-left: 55px;
-  width: 150px;
+	width:217px;
+	float:left;
 }
+.description article {
+	letter-spacing: 1px;
+	font-size: 14px;
+	color: #fff;
+	margin-top: 8px;
+	display: block;
+	margin-left: 55px;
+}
+
+.description p {
+	letter-spacing: 1px;
+	font-size: 10px;
+	color: #fff;
+	margin-top: 18px;
+	margin-left: 55px;
+}
+
 .thumbnails  {
 	padding:5px;
 	overflow: hidden;
@@ -56,6 +71,20 @@ section#linkContainer div a {
 	color: #eff3ff;
 	font-size:17px;
 }
+
+section#linkContainer div a#allArtistsButton{
+	background-color: #009000 ;
+}
+section#linkContainer div a#allArtistsButton:hover{
+	background-color: #00B700 ;
+}
+section#linkContainer div a#backToFormButton{
+	background-color: #990000 ;
+}
+section#linkContainer div a#backToFormButton:hover{
+	background-color:#B22222 ;
+}
+
 section#linkContainer div a:hover {
 	background-color: #8B9DC3;
 	color: #fff;
@@ -63,9 +92,25 @@ section#linkContainer div a:hover {
 textarea.form-control {
 	width: 484px;
 	margin: 10px auto 20px auto;
+	color:#000;
+	font-size: 20px;
+}
+#form h1 {
+	color:#fff;
+	text-align: center;
+	font-size: 25px;
+}
+#form p {
+	color:#fff;
+	text-align: center;
+	font-size: 14px;
+	margin-bottom: 30px;
 }
 section.videoList{
 	margin-bottom: 30px;
+}
+img:hover {
+	opacity: 0.5;
 }
 section #footer {
 	text-align: center;
@@ -73,8 +118,80 @@ section #footer {
 	padding: 10px 0;
 	margin: 30px 0;
 }
-
 #logo{
 	text-align: center;
 	color:#fff;
+	width: 220px;
+	height: 220px;
+	border-radius: 50%;
+	border: 5px solid black;
+	background-color: #990000;
+	position:relative;
+	margin: 10px auto 0px auto;
+}
+
+#logo h1{
+	position: absolute;
+	top: 30%;
+	left:8%;
+}
+textarea.ng-invalid {
+	background-color:#ff8888;
+}
+textarea.ng-valid {
+	background-color: #78FA89;
+}
+
+textarea:-webkit-input-placeholder {
+	color: green;
+	font-size: 11px;
+	text-align: left;
+}
+textarea:-moz-placeholder { /* Firefox 18- */
+	color: green;
+	font-size: 16px;
+	text-align: left;  
+} 
+textarea:-moz-placeholder {  /* Firefox 19+ */
+	color: green;
+	font-size: 16px;
+	text-align: left;  
+} 
+textarea:-ms-input-placeholder {  
+	color: green;
+	font-size: 16px;
+	text-align: left;  
+}
+
+div#startPageLeftSide {
+	position:relative;
+	top:190px;
+}
+
+div#startPageRightSide {
+	background-color: #333 ;
+	text-align: center;
+	position: relative;
+	background-color: #add8e6 ;
+	height:65vh;
+	border-radius: 50px;
+	box-shadow: 0px 0px 70px #C0C0C0;
+	margin-top:20px;	
+}
+
+#startPageRightSide .content {
+	display: block;
+	margin: 0 auto;
+    position: absolute;
+    top: 32%;
+    left: 5%;
+}
+
+#startPageRightSide .content p {
+	margin-bottom: 50px;
+	font-size: 25px;
+}
+
+#startRow {
+/*//display: table;*/
 }
