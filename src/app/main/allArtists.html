@@ -14,14 +14,14 @@
     </form>  
   </section>
 
-<!--   <section id = "linkContainer">
+  <section id = "linkContainer">
        <div class="row" ng-show =true>
        <a href="#/" 
-            ng-show = "main.showPlayer"
+            
             class="btn btn-primary btn-lg active" 
             role="button">All Artists</a>
         <div class="col-md-3" ng-repeat = "artist in main.artistsArrayTrimmed">
-          <a href="#/{{artist}}" 
+          <a href="#/allArtists/{{artist}}" 
              ng-click = "main.loadDefVideo(artist)" 
              class="btn btn-primary btn-lg active" 
              role="button">{{artist}}</a>
@@ -29,12 +29,12 @@
       </div> 
   </section>
 
+<youtube-player-container></youtube-player-container>
 
-
-  <section id="player">
+<!--   <section id="player">
      <div class = "row">
       <div class = "col-md-12">
-        <div class="vid-container" ng-show = "main.showPlayer">
+        <div class="vid-container" >
           <youtube-player videoid="main.videoId"></youtube-player>
           <span class="glyphicon glyphicon-play" ng-click="main.sendControlEvent(main.YT_event.PLAY)"></span>
           <span class="glyphicon glyphicon-pause" ng-click="main.sendControlEvent(main.YT_event.PAUSE)"></span>
@@ -45,11 +45,11 @@
       </div>
     </div> 
   </section>
-
+ -->
 
   <section class="videoList">
     <div class="row">
-      <div class="col-md-6" ng-repeat = "clip in main.clips | filter: main.getFilter">
+      <div class="col-md-6" ng-repeat = "clip in main.clips ">
         <div class="description">
             <p>{{clip.snippet.title}}</p>
         </div>
@@ -61,14 +61,14 @@
   </section>  
 
 
-  <section ng-show = "main.showPlayer">
+  <section>
     <div class="container">
       <div id="footer">
         Maciej Mańko &copy; 2016r.
-      </div> 
-    </div>  
+      </div><!-- #/footer -->   
+    </div><!-- ./container -->  
   </section>
-      -->
+     
         
         
       

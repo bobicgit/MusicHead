@@ -6,46 +6,54 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, youtube, toastr, $sce, $routeParams, $location) {
+  function MainController(youtube, $scope, $sce, $routeParams, $location, YT_event, cachingFactory) {
 
     var vm = this;
 
     var artistsArray = [];
-    var template = '';
+
+
+    vm.sendControlEvent = sendControlEvent;// function sending controlls to youtubeplpayer directive
+    vm.YT_event = YT_event;// contants for controlls of player
+    vm.videoId = ""; // variable to change in youtubeplayer directive. and watch inside this directive.
+
 
     vm.addArtists = addArtists;
     vm.artistsList;
     vm.artistsArrayTrimmed;
     vm.classAnimation = '';
     vm.clips = [];
-    vm.clearCache = clearCache;
-    vm.creationDate = 1460370332351;
+  
     vm.routeArtist = $routeParams.artist;
-    vm.showToastr = showToastr;
     vm.splitArtists = splitArtists;
     vm.generateArtists = generateArtists;
     vm.getTrustedThumbnailSrc = getTrustedThumbnailSrc;
     vm.getFilter = getFilter();
     vm.changeVideo = changeVideo;
     vm.videoUrl = '';
-    vm.showPlayer = false;
     vm.loadDefVideo = loadDefVideo;
 
   // Caching all clips, array of artists from input, video url to display and flag
   // for displaying those elements in view when controller reloads.
 
     vm.clips = youtube.readCache();
-    vm.artistsArrayTrimmed = youtube.readInputFromCache();
-    vm.showPlayer = youtube.readCacheFlag();
-    vm.videoUrl = getTrustedIframeSrc(youtube.readCacheUrlId());
-  // Function that filters view of my thumbnails, depends on routeparameter.
-console.log($routeParams);
-    function getFilter(){
+    vm.artistsArrayTrimmed = cachingFactory.readInputFromCache();
+    vm.videoId  = cachingFactory.readCacheUrlId();
 
-      if(vm.routeArtist === 'undefined' || vm.routeArtist === 'artists') {
-        vm.routeArtist = '';
-      }
-      return {snippet: {title: vm.routeArtist}};
+console.log(vm.clips);
+  // Sending controlls to directive for my youtube player. Inside YoutubePlayerDirective in link 
+  // function are handlers for each controlls. (Play, Pause, Stop)
+
+    function sendControlEvent(ctrlEvent) {
+      console.log("SENDING");
+      console.log(ctrlEvent);
+      $scope.$broadcast(ctrlEvent);
+    }
+
+  // Function that filters view of my thumbnails, depends on routeparameter.
+
+    function getFilter(){
+      return {snippet: {title: vm.routeArtist || ''}};
     }
 
   // Function that displays first video in each route, for each artist.
@@ -54,104 +62,75 @@ console.log($routeParams);
   // after that I am caching my url to factory. It is read at the beggining of controller, to
   // load after controller is reloaded.
 
-    function loadDefVideo(artist) { 
+    function loadDefVideo(artist) {
       var myClips = youtube.readCache();
-      for(var i = 0 ; i < myClips.length ; i++) {;
+      for(var i = 0 ; i < myClips.length ; i++) {
         var dbTitle = myClips[i].snippet.title.toLowerCase();
         var inputTitle = artist.toLowerCase();
         if(dbTitle.indexOf(inputTitle) > -1) {
-            youtube.cacheUrl(myClips[i].id.videoId);
+            cachingFactory.cacheUrlId(myClips[i].id.videoId);
             break;
           }
         }
-    };
+    }
 
   // Function that runs on form submit. It change the flag showPlayer, and cache that flag, for further purpose
   // of diplaying player on other routes. It runs splitArtists function, and iterate the array of artists names.
   // in each iteration function addArtists is calling, which is using factory and service to send
   // request to youtube API.
 
-    function generateArtists() { 
-      vm.showPlayer = true;
-      template = '';
-      youtube.cacheFlag(vm.showPlayer); // cache flag for displaying player in other routes
+    function generateArtists() {
+      vm.clips = []; 
       youtube.clearCacheClips();
       splitArtists(); 
       for(var i = 0 ; i<vm.artistsArrayTrimmed.length; i++) {
         vm.addArtists(vm.artistsArrayTrimmed[i]);
       }
-    };
+    }
 
 
     function splitArtists() {
       artistsArray = vm.artistsList.split(",");
       vm.artistsArrayTrimmed = trimmingArray(artistsArray); 
-      youtube.cacheArray(vm.artistsArrayTrimmed);  // cache array of artists, becouse i use it in view to display links with artists names
-    };
+      cachingFactory.cacheArray(vm.artistsArrayTrimmed);  // cache array of artists, becouse i use it in view to display links with artists names
+    }
 
 
     function addArtists(artist) {
-      vm.clips = [];
       youtube
       .showItems(artist)
       .then(function(items) {
         vm.artistsList = ''; // clear input
-        vm.videoUrl = getTrustedIframeSrc(items[0].id.videoId);// auto adding first video
-        angular.forEach(items, function(item, index) {
-          $location.path("artists");  
+        $location.path("allArtists"); 
+        cachingFactory.cacheUrlId(items[0].id.videoId);
+        vm.videoId  = cachingFactory.readCacheUrlId();
+        angular.forEach(items, function(item) {
           vm.clips.push(item);
-          shuffle(vm.clips);
-    
-          
-        });
+          shuffle(vm.clips); 
+        })
       })
-    };
+    }
 
 // Function that takes an object of clicked video and chacnging src parameter in iframe player.
 
     function changeVideo(video) {
-      vm.videoUrl = getTrustedIframeSrc(video.id.videoId); // changing only src of ifram on click in thumbnail
-      //console.log(video);
+      vm.videoId = video.id.videoId;
+      console.log(vm.YT_event.PLAY);
+      $scope.$broadcast(vm.YT_event.PLAY);
     }
-
-
  
 ///////////// ESCAPING UNTRUSTED LINKS
 
     function trustLink(src) {
       return $sce.trustAsResourceUrl(src);
-    };
+    }
 
     function getTrustedThumbnailSrc(id) {
       return trustLink(getThumbnailSrc(id));
-    };
-
-    function getTrustedIframeSrc(id) {
-      return trustLink(getIframeSrc(id));
-    };
+    }
 
     function getThumbnailSrc(videoId) {
       return 'http://img.youtube.com/vi/' + videoId + '/mqdefault.jpg';
-    };
-
-    function getIframeSrc(videoId) {
-      // console.log(vm.routeArtist)
-      var allIDs = [];
-      var myClips = youtube.readCache();
-      template = '?autoplay=1&loop=1&playlist=';
-
-      angular.forEach(myClips, function(item) {
-        item.id.videoId === videoId ? videoId : allIDs.push(item.id.videoId);   
-      });
-      angular.forEach(allIDs, function(item) {
-        template += item + ",";
-      });
-      return 'http://www.youtube.com/embed/' + videoId + template;
-    };
-
-    function clearCache() {
-      //console.log('clearcache function');
-      youtube.clearCacheClips();
     }
 
 ////////// HELPERS
@@ -181,11 +160,6 @@ console.log($routeParams);
       }
       return array;
     }
-
-    function showToastr() {
-      toastr.info('Fork <a href="https://github.com/Swiip/generator-gulp-angular" target="_blank"><b>generator-gulp-angular</b></a>');
-      vm.classAnimation = '';
-    };
   }
 
 })();

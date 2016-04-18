@@ -2,7 +2,7 @@
 
 html, body {
 	height: 100%;
-	background-color: #333;
+	background-color: #ddd;
 }
 /*#header {
 margin-bottom: 20px;
@@ -129,7 +129,9 @@ section #footer {
 	position:relative;
 	margin: 10px auto 0px auto;
 }
-
+.glyphicon {
+    font-size: 50px;
+}
 #logo h1{
 	position: absolute;
 	top: 30%;

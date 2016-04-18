@@ -12,20 +12,12 @@
 
 	// Accessible members
 		var cache = [];
-		var cacheInput = [];
-		var cacheUrlId = '';
-		var cachedFlag = false;
 
 		var factory = {
 			showItems: showItems,
 			readCache: readCache,
-			cacheArray: cacheArray,
-			readInputFromCache: readInputFromCache,
-			cacheUrl: cacheUrl,
-			readCacheUrlId: readCacheUrlId,
-			cacheFlag: cacheFlag,
-			readCacheFlag: readCacheFlag,
-			clearCacheClips: clearCacheClips
+			clearCacheClips: clearCacheClips,
+			test: test
 		};
 
 	// Returning object of functions
@@ -45,38 +37,18 @@
             	cache = cache.concat(response.data.items);
             	return response.data.items;
             })
-		};
+		}
 
 		function readCache() {
 			return cache;
-		};
-
-		function cacheArray(arr) {
-			cacheInput = arr;
-		};
-
-		function readInputFromCache() {
-			return cacheInput;
-		};
-
-		function cacheUrl(id) {
-			cacheUrlId = id;
-		};
-
-		function readCacheUrlId() {
-			return cacheUrlId;
-		};
-
-		function cacheFlag(flag) {
-			cachedFlag = flag;
-		};
-
-		function readCacheFlag() {
-			return cachedFlag;
-		};
+		}
 
 		function clearCacheClips() {
 			cache = [];
-		};
+		}
+
+		function test() {
+			console.log(cache);
+		}
 	}
 })();
