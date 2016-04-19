@@ -4,20 +4,20 @@
 
 	angular
 		.module('musicHead')
-		.factory('youtube', youtube);
+		.factory('youtubeFactory', youtubeFactory);
 
-	youtube.$inject = ['$http','youtubeDataService'];
+	youtubeFactory.$inject = ['$http','youtubeDataService'];
 
-	function youtube($http, youtubeDataService) {
+	function youtubeFactory($http, youtubeDataService) {
 
 	// Accessible members
 		var cache = [];
+		var player;
 
 		var factory = {
 			showItems: showItems,
 			readCache: readCache,
-			clearCacheClips: clearCacheClips,
-			test: test
+			clearCacheClips: clearCacheClips
 		};
 
 	// Returning object of functions
@@ -45,10 +45,6 @@
 
 		function clearCacheClips() {
 			cache = [];
-		}
-
-		function test() {
-			console.log(cache);
 		}
 	}
 })();

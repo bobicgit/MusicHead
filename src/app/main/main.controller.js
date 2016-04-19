@@ -6,24 +6,18 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController(youtube, $scope, $sce, $routeParams, $location, YT_event, cachingFactory) {
+  function MainController(youtubeFactory, $sce, $routeParams, $location, cachingFactory) {
 
     var vm = this;
-
     var artistsArray = [];
 
-
-    vm.sendControlEvent = sendControlEvent;// function sending controlls to youtubeplpayer directive
-    vm.YT_event = YT_event;// contants for controlls of player
     vm.videoId = ""; // variable to change in youtubeplayer directive. and watch inside this directive.
-
-
     vm.addArtists = addArtists;
     vm.artistsList;
     vm.artistsArrayTrimmed;
     vm.classAnimation = '';
     vm.clips = [];
-  
+
     vm.routeArtist = $routeParams.artist;
     vm.splitArtists = splitArtists;
     vm.generateArtists = generateArtists;
@@ -36,19 +30,9 @@
   // Caching all clips, array of artists from input, video url to display and flag
   // for displaying those elements in view when controller reloads.
 
-    vm.clips = youtube.readCache();
+    vm.clips = youtubeFactory.readCache();
     vm.artistsArrayTrimmed = cachingFactory.readInputFromCache();
     vm.videoId  = cachingFactory.readCacheUrlId();
-
-console.log(vm.clips);
-  // Sending controlls to directive for my youtube player. Inside YoutubePlayerDirective in link 
-  // function are handlers for each controlls. (Play, Pause, Stop)
-
-    function sendControlEvent(ctrlEvent) {
-      console.log("SENDING");
-      console.log(ctrlEvent);
-      $scope.$broadcast(ctrlEvent);
-    }
 
   // Function that filters view of my thumbnails, depends on routeparameter.
 
@@ -63,7 +47,7 @@ console.log(vm.clips);
   // load after controller is reloaded.
 
     function loadDefVideo(artist) {
-      var myClips = youtube.readCache();
+      var myClips = youtubeFactory.readCache();
       for(var i = 0 ; i < myClips.length ; i++) {
         var dbTitle = myClips[i].snippet.title.toLowerCase();
         var inputTitle = artist.toLowerCase();
@@ -80,9 +64,9 @@ console.log(vm.clips);
   // request to youtube API.
 
     function generateArtists() {
-      vm.clips = []; 
-      youtube.clearCacheClips();
-      splitArtists(); 
+      vm.clips = [];
+      youtubeFactory.clearCacheClips();
+      splitArtists();
       for(var i = 0 ; i<vm.artistsArrayTrimmed.length; i++) {
         vm.addArtists(vm.artistsArrayTrimmed[i]);
       }
@@ -91,23 +75,27 @@ console.log(vm.clips);
 
     function splitArtists() {
       artistsArray = vm.artistsList.split(",");
-      vm.artistsArrayTrimmed = trimmingArray(artistsArray); 
+      vm.artistsArrayTrimmed = trimmingArray(artistsArray);
       cachingFactory.cacheArray(vm.artistsArrayTrimmed);  // cache array of artists, becouse i use it in view to display links with artists names
     }
 
 
     function addArtists(artist) {
-      youtube
+
+      youtubeFactory
       .showItems(artist)
       .then(function(items) {
         vm.artistsList = ''; // clear input
-        $location.path("allArtists"); 
         cachingFactory.cacheUrlId(items[0].id.videoId);
         vm.videoId  = cachingFactory.readCacheUrlId();
         angular.forEach(items, function(item) {
           vm.clips.push(item);
-          shuffle(vm.clips); 
+          shuffle(vm.clips);
         })
+      }).then(function() {
+        if(vm.clips.length == 3*vm.artistsArrayTrimmed.length) {
+          $location.path("allArtists");
+        }
       })
     }
 
@@ -115,10 +103,8 @@ console.log(vm.clips);
 
     function changeVideo(video) {
       vm.videoId = video.id.videoId;
-      console.log(vm.YT_event.PLAY);
-      $scope.$broadcast(vm.YT_event.PLAY);
     }
- 
+
 ///////////// ESCAPING UNTRUSTED LINKS
 
     function trustLink(src) {
@@ -141,8 +127,8 @@ console.log(vm.clips);
       angular.forEach(arr, function(item) {
         item = item.trim();
         trimmedArray.push(item);
-      });   
-      return trimmedArray;   
+      });
+      return trimmedArray;
     }
 
     function shuffle(array) {

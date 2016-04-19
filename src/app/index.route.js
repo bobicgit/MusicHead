@@ -13,12 +13,12 @@
         controllerAs: 'main'
       })
       .when('/allArtists', {
-        templateUrl: 'app/main/allArtists.html',
+        templateUrl: 'app/AllArtistsPage/allArtists.html',
         controller: 'MainController',
         controllerAs: 'main'
       })
       .when('/allArtists/:artist', {
-        templateUrl: 'app/main/artist.html',
+        templateUrl: 'app/ArtistPage/artist.html',
         controller: 'MainController',
         controllerAs: 'main'
       })
@@ -26,5 +26,4 @@
         redirectTo: '/'
       });
   }
-
 })();

@@ -6,71 +6,57 @@
     .module('musicHead')
     .directive('youtubePlayer', youtubePlayer);
 
-    youtubePlayer.$inject = ['$window','YT_event','youtube','$interval'];
+    youtubePlayer.$inject = ['$window','YT_event','$interval'];
 
-    function youtubePlayer($window, YT_event, youtube, $interval) { 
+    function youtubePlayer($window, YT_event, $interval) {
 
       var myPlayer;
 
       return {
         restrict: "E",
-
         scope: {
           videoid: "="
         },
-
         require: '^youtubePlayerContainer',
-
         template: '<div></div>',
-
         link: function(scope, element, attributes, youtubePlayerContainerCtrl) {
+console.log(arguments );
           var myClips;
           var i = 0;
-          console.log(arguments);
-          var tag = document.createElement('script');
-          tag.src = "https://www.youtube.com/iframe_api";
-          var firstScriptTag = document.getElementsByTagName('script')[0];
-          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-          
-          $window.onYouTubeIframeAPIReady = function () {
-            myPlayer =  new YT.Player(element.children()[0], {
-  
-                height: '390',
-                width: '640',
-                videoId: scope.videoid,
-                playerVars: {
-                  html5: 1,
-                  modesbranding: 1,
-                  iv_load_policy: 3,
-                  showinfo: 1,
-                  controls: 1,
-                  autoplay: 1
-                },
-                events: {
-                  'onReady': initialize,
-                  'onStateChange': changeVideo
 
-                }
-              });        
-          }
+          myPlayer =  new YT.Player(element.children()[0], {
+            height: '390',
+            width: '640',
+            videoId: scope.videoid,
+            playerVars: {
+              html5: 1,
+              modesbranding: 1,
+              iv_load_policy: 3,
+              showinfo: 1,
+              controls: 1,
+              autoplay: 1
+            },
+            events: {
+              'onReady': initialize,
+              'onStateChange': changeVideo
+            }
+          });
 
           function initialize() {
 
             updateTimerDisplay();
-
             // Clear any old interval.
             clearInterval(time_update_interval);
-
             // Start interval to update elapsed time display and
             // the elapsed part of the progress bar every second.
             var time_update_interval = $interval(function () {
               updateTimerDisplay();
-            },1000)
+            }, 1000)
           }
 
         // This function is called by initialize()
-          function updateTimerDisplay(){
 
+          function updateTimerDisplay(){
             youtubePlayerContainerCtrl.currentTime = formatTime(myPlayer.getCurrentTime());
             youtubePlayerContainerCtrl.duration = formatTime(myPlayer.getDuration());
           }
@@ -83,7 +69,6 @@
             return minutes + ":" + seconds;
           }
 
-           
           function changeVideo(event) {
             if(event.data == YT.PlayerState.ENDED) {
               myClips = youtube.readCache();
@@ -101,7 +86,10 @@
               return;
             }
             myPlayer.cueVideoById(scope.videoid);
+            myPlayer.playVideo();
           });
+
+
 
           // Handlers for player controlls.
           scope.$on(YT_event.STOP, function () {
@@ -111,13 +99,13 @@
 
           scope.$on(YT_event.PLAY, function () {
             myPlayer.playVideo();
-          }); 
+          });
 
           scope.$on(YT_event.PAUSE, function () {
             myPlayer.pauseVideo();
-          });  
+          });
 
-        }  
+        }
     };
   }
 })();
