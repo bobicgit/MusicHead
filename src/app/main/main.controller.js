@@ -6,38 +6,49 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController(youtubeFactory, $sce, $routeParams, $location, cachingFactory) {
+  function MainController(youtubeFactory, $sce, $routeParams, cachingFactory, $timeout) {
 
-    var vm = this;
-    var artistsArray = [];
-
-    vm.videoId = ""; // variable to change in youtubeplayer directive. and watch inside this directive.
-    vm.addArtists = addArtists;
-    vm.artistsList;
-    vm.artistsArrayTrimmed;
-    vm.classAnimation = '';
-    vm.clips = [];
-
-    vm.routeArtist = $routeParams.artist;
-    vm.splitArtists = splitArtists;
-    vm.generateArtists = generateArtists;
-    vm.getTrustedThumbnailSrc = getTrustedThumbnailSrc;
-    vm.getFilter = getFilter();
-    vm.changeVideo = changeVideo;
-    vm.videoUrl = '';
-    vm.loadDefVideo = loadDefVideo;
+    var vm = this,
+        requestArtists = requestArtists,
+        routeArtist = $routeParams.artist;
 
   // Caching all clips, array of artists from input, video url to display and flag
   // for displaying those elements in view when controller reloads.
 
+    vm.artistsArrayTrimmed = cachingFactory.readInputArrayFromCache();
+    vm.clips = youtubeFactory.clearCacheClips();
     vm.clips = youtubeFactory.readCache();
-    vm.artistsArrayTrimmed = cachingFactory.readInputFromCache();
-    vm.videoId  = cachingFactory.readCacheUrlId();
+    vm.changeVideo = changeVideo;
+    vm.getFilter = getFilter();
+    vm.getTrustedThumbnailSrc = getTrustedThumbnailSrc;
+    vm.loadDefVideo = loadDefVideo;
+    vm.videoId = cachingFactory.readCacheUrlId();
+
+    activate();
+
+    function activate() {
+
+       for(var i = 0 ; i<vm.artistsArrayTrimmed.length; i++) {
+        requestArtists(vm.artistsArrayTrimmed[i]);
+      }
+    }
+
+    function requestArtists(artist) {
+      youtubeFactory
+      .showItems(artist)
+      .then(function(items) {
+        vm.videoId = items[0].id.videoId;
+        console.log(vm.videoId);
+        angular.forEach(items, function(item) {
+          vm.clips.push(item);
+        })
+      })
+    }
 
   // Function that filters view of my thumbnails, depends on routeparameter.
 
-    function getFilter(){
-      return {snippet: {title: vm.routeArtist || ''}};
+    function getFilter() {
+      return {snippet: {title: routeArtist || ''}};
     }
 
   // Function that displays first video in each route, for each artist.
@@ -47,6 +58,7 @@
   // load after controller is reloaded.
 
     function loadDefVideo(artist) {
+
       var myClips = youtubeFactory.readCache();
       for(var i = 0 ; i < myClips.length ; i++) {
         var dbTitle = myClips[i].snippet.title.toLowerCase();
@@ -56,47 +68,6 @@
             break;
           }
         }
-    }
-
-  // Function that runs on form submit. It change the flag showPlayer, and cache that flag, for further purpose
-  // of diplaying player on other routes. It runs splitArtists function, and iterate the array of artists names.
-  // in each iteration function addArtists is calling, which is using factory and service to send
-  // request to youtube API.
-
-    function generateArtists() {
-      vm.clips = [];
-      youtubeFactory.clearCacheClips();
-      splitArtists();
-      for(var i = 0 ; i<vm.artistsArrayTrimmed.length; i++) {
-        vm.addArtists(vm.artistsArrayTrimmed[i]);
-      }
-    }
-
-
-    function splitArtists() {
-      artistsArray = vm.artistsList.split(",");
-      vm.artistsArrayTrimmed = trimmingArray(artistsArray);
-      cachingFactory.cacheArray(vm.artistsArrayTrimmed);  // cache array of artists, becouse i use it in view to display links with artists names
-    }
-
-
-    function addArtists(artist) {
-
-      youtubeFactory
-      .showItems(artist)
-      .then(function(items) {
-        vm.artistsList = ''; // clear input
-        cachingFactory.cacheUrlId(items[0].id.videoId);
-        vm.videoId  = cachingFactory.readCacheUrlId();
-        angular.forEach(items, function(item) {
-          vm.clips.push(item);
-          shuffle(vm.clips);
-        })
-      }).then(function() {
-        if(vm.clips.length == 3*vm.artistsArrayTrimmed.length) {
-          $location.path("allArtists");
-        }
-      })
     }
 
 // Function that takes an object of clicked video and chacnging src parameter in iframe player.
@@ -119,33 +90,6 @@
       return 'http://img.youtube.com/vi/' + videoId + '/mqdefault.jpg';
     }
 
-////////// HELPERS
-
-    function trimmingArray(arr) {
-      var trimmedArray = [];
-
-      angular.forEach(arr, function(item) {
-        item = item.trim();
-        trimmedArray.push(item);
-      });
-      return trimmedArray;
-    }
-
-    function shuffle(array) {
-      var currentIndex = array.length, temporaryValue, randomIndex;
-    // While there remain elements to shuffle...
-      while (0 !== currentIndex) {
-      // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-      }
-      return array;
-    }
   }
 
 })();

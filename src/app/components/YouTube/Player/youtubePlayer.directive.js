@@ -6,9 +6,9 @@
     .module('musicHead')
     .directive('youtubePlayer', youtubePlayer);
 
-    youtubePlayer.$inject = ['$window','YT_event','$interval'];
+    youtubePlayer.$inject = ['$window','YT_event','$interval','youtubeFactory'];
 
-    function youtubePlayer($window, YT_event, $interval) {
+    function youtubePlayer($window, YT_event, $interval, youtubeFactory) {
 
       var myPlayer;
 
@@ -20,7 +20,7 @@
         require: '^youtubePlayerContainer',
         template: '<div></div>',
         link: function(scope, element, attributes, youtubePlayerContainerCtrl) {
-console.log(arguments );
+          console.log(arguments );
           var myClips;
           var i = 0;
 
@@ -69,11 +69,13 @@ console.log(arguments );
             return minutes + ":" + seconds;
           }
 
+          /// ON state change
+
           function changeVideo(event) {
             if(event.data == YT.PlayerState.ENDED) {
-              myClips = youtube.readCache();
+              myClips = youtubeFactory.readCache();
               console.log(i, myClips)
-              myPlayer.cueVideoById(myClips[i+1].id.videoId);
+              myPlayer.cueVideoById(myClips[i+2].id.videoId);
               i++;
               myPlayer.playVideo();
               if(i === myClips.length - 1) { i = 0; }
@@ -88,8 +90,6 @@ console.log(arguments );
             myPlayer.cueVideoById(scope.videoid);
             myPlayer.playVideo();
           });
-
-
 
           // Handlers for player controlls.
           scope.$on(YT_event.STOP, function () {

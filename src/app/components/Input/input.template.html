@@ -1,0 +1,7 @@
+<section id="form">
+    <form name = 'artistsForm' ng-submit = 'startCtrl.getArtists()'>
+      <input class="form-control" rows="3" placeholder="What artists you want to listen?"
+                ng-model="startCtrl.artistsList" required></input>
+      <button type="submit" class="btn btn-danger">Generate</button>
+    </form>
+</section>

@@ -9,9 +9,9 @@
     .module('musicHead')
     .directive('youtubePlayerContainer', youtubePlayerContainer);
 
-    youtubePlayerContainer.$inject = ['ytPlayerApi','YT_event','youtubeFactory'];
+    youtubePlayerContainer.$inject = ['ytPlayerApi','YT_event','youtubeFactory','cachingFactory', '$routeParams'];
 
-    function youtubePlayerContainer(ytPlayerApi, YT_event, $scope, youtubeFactory) {
+    function youtubePlayerContainer(ytPlayerApi, YT_event, $scope, youtubeFactory, cachingFactory, $routeParams ) {
 
     return {
       restrict: "E",
@@ -21,8 +21,11 @@
       link: ytContainerLink
     }
 
-    function ytContainerController($scope, youtubeFactory) {
-      var vm = this;
+    function ytContainerController($scope, youtubeFactory, cachingFactory, $routeParams) {
+      var vm = this,
+          routeArtist = $routeParams.artist;
+
+
 
       vm.apiReady = false;
       vm.currentTime;
@@ -30,7 +33,7 @@
       vm.play = play;
       vm.stop = stop;
       vm.pause = pause;
-            vm.clips = [];
+      vm.clips = [];
       vm.currentPage = 0;
       vm.pageSize = 4;
       vm.clips = youtubeFactory.readCache();

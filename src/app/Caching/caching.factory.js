@@ -9,15 +9,16 @@
 	function cachingFactory() {
 
 	// Accessible members
-		var cacheInput = [];
-		var cachedUrlId = '';
+		var cacheInputArray = [];
+		var cachedUrlId;
 		var cachedFlag = false;
 
 		var factory = {
 			cacheArray: cacheArray,
-			readInputFromCache: readInputFromCache,
+			readInputArrayFromCache: readInputArrayFromCache,
 			cacheUrlId: cacheUrlId,
-			readCacheUrlId: readCacheUrlId
+			readCacheUrlId: readCacheUrlId,
+      clearCachedUrlId: clearCachedUrlId
 		};
 
 	// Returning object of functions
@@ -27,11 +28,11 @@
 	// Functions declatarions
 
 		function cacheArray(arr) {
-			cacheInput = arr;
+			cacheInputArray = arr;
 		}
 
-		function readInputFromCache() {
-			return cacheInput;
+		function readInputArrayFromCache() {
+			return cacheInputArray;
 		}
 
 		function cacheUrlId(id) {
@@ -41,5 +42,9 @@
 		function readCacheUrlId() {
 			return cachedUrlId;
 		}
+
+    function clearCachedUrlId() {
+      cachedUrlId = undefined;
+    }
 	}
 })();

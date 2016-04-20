@@ -1,0 +1,36 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-6">
+      <section id="header">
+        <a href="#/">
+          <div class="logo"></div>
+        </a>
+      </section>
+    </div>
+    <div class="col-md-6">
+    <section id = "linkContainer">
+         <div class="row" ng-show = true>
+         <a href="#/allArtists"
+              class="btn btn-danger btn-lg "
+              role="button">All Artists</a>
+          <div class="col-md-3" ng-repeat = "artist in main.artistsArrayTrimmed">
+            <a href="#/allArtists/{{artist}}"
+               ng-click = "main.loadDefVideo(artist)"
+               class="btn btn-danger btn-lg "
+               role="button">{{artist}}</a>
+          </div>
+        </div>
+    </section>
+    </div>
+  </div>
+
+  <youtube-player-container></youtube-player-container>
+
+  <div id="footer">
+    Maciej Mańko &copy; 2016r.
+  </div>
+
+</div>
+
+

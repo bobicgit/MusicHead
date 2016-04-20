@@ -8,12 +8,10 @@
   function routeConfig($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'app/main/main.html',
-        controller: 'MainController',
-        controllerAs: 'main'
+        templateUrl: 'app/StartPage/startPage.html'
       })
       .when('/allArtists', {
-        templateUrl: 'app/AllArtistsPage/allArtists.html',
+        templateUrl: 'app/main/allArtists.html',
         controller: 'MainController',
         controllerAs: 'main'
       })

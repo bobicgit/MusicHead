@@ -2,11 +2,12 @@
 
 html, body {
 	height: 100%;
-	background-color: #ddd;
+	background-image: url("/app/img/1.jpg");
 }
 
 .container {
     background-color: #fff;
+    background: rgba(25, 25, 25, .5);
 }
 /*#header {
 margin-bottom: 20px;
@@ -42,7 +43,6 @@ margin-bottom: 20px;
   width: 92%;
   overflow: hidden;
   margin-top: 20px;
-  /*margin-left:4%;*/
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -87,23 +87,27 @@ margin-bottom: 20px;
 .arrow-left {
   color: #fff;
   position: absolute;
-  background: #e52d27;
+  background: #d9534f;
   padding: 15px;
   left: -80px;
-  top: -180px;
-  z-index: 99;
+  top: -195px;
+  z-index: 100;
   cursor: pointer;
 }
 
 .arrow-right {
   color: #fff;
   position: absolute;
-  background: #e52d27;
+  background: #d9534f;
   padding: 15px;
   right: -80px;
-  top: -180px;
+  top: -195px;
   z-index:100;
   cursor: pointer;
+}
+
+.arrow-left:hover, .arrow-right:hover{
+  background: #d43f3a;
 }
 
 /*Reposition left & right arrows on small screens*/
@@ -125,9 +129,22 @@ margin-bottom: 20px;
   }
 }
 
-.btn-default {
+/*Video Controlls*/
+.vid-container span.controlls {
+  color:#fff;
+  margin-bottom: 20px;
+}
+.vid-container span.controlls:hover {
+  color:#333;
+}
+#current-time {
+  float:right;
+  color:#fff;
+  font-size: 25px;
+}
+.btn-danger {
 	display: block;
-	margin: 0 auto;
+	margin: 30px auto;
 }
 
 .vid-container {
@@ -153,8 +170,8 @@ section#linkContainer div {
 section#linkContainer div a {
 	display: block;
 	margin:5px;
-	background-color: #3b5998;
-	color: #eff3ff;
+/*	background-color: #3b5998;
+	color: #eff3ff;*/
 	font-size:17px;
 }
 
@@ -171,11 +188,11 @@ section#linkContainer div a#backToFormButton:hover{
 	background-color:#B22222 ;
 }
 
-section#linkContainer div a:hover {
+/*section#linkContainer div a:hover {
 	background-color: #8B9DC3;
 	color: #fff;
-}
-textarea.form-control {
+}*/
+input.form-control {
 	width: 450px;
 	margin: 10px auto 20px auto;
 	color:#000;
@@ -204,49 +221,50 @@ img:hover {
 	padding: 10px 0;
 	margin: 20px 0;
 }
-#logo{
-	text-align: center;
-	color:#fff;
-	width: 220px;
-	height: 220px;
-	border-radius: 50%;
-	border: 5px solid black;
-	background-color: #990000;
-	position:relative;
-	margin: 10px auto 0px auto;
+.logo{
+    background-image: url('/assets/images/logo.png');
+    width: 150px;
+    height: 150px;
+    background-size: 190%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    margin: 30px auto;
 }
 .glyphicon {
     font-size: 50px;
 }
-#logo h1{
+#logo a{
 	position: absolute;
 	top: 30%;
 	left:8%;
+  color:#fff;
+  text-align: center;
+  font-size: 25px;
 }
-textarea.ng-invalid {
-	background-color:#ff8888;
+input.ng-invalid {
+	border-color:#ff8888;
 }
-textarea.ng-valid {
-	background-color: #78FA89;
+input.ng-valid {
+	border-color: #78FA89;
 }
 
-textarea:-webkit-input-placeholder {
-	color: green;
+input:-webkit-input-placeholder {
+	border-color: green;
 	font-size: 11px;
 	text-align: left;
 }
-textarea:-moz-placeholder { /* Firefox 18- */
-	color: green;
+input:-moz-placeholder { /* Firefox 18- */
+	border-color: green;
 	font-size: 16px;
 	text-align: left;
 }
-textarea:-moz-placeholder {  /* Firefox 19+ */
-	color: green;
+input:-moz-placeholder {  /* Firefox 19+ */
+	border-color: green;
 	font-size: 16px;
 	text-align: left;
 }
-textarea:-ms-input-placeholder {
-	color: green;
+input:-ms-input-placeholder {
+	border-color: green;
 	font-size: 16px;
 	text-align: left;
 }
