@@ -1,31 +1,27 @@
 (function() {
+
   'use strict';
 
   angular
     .module('musicHead')
-    .controller('StartController', StartController);
+    .factory('helpersFactory', helpersFactory);
 
-  /** @ngInject */
-  function StartController($location, cachingFactory, youtubeFactory) {
+  function helpersFactory() {
 
-    var vm = this,
-    artistsArray;
+  // Accessible members
 
-    vm.artistsList;
-    vm.getArtists = getArtists;
 
-    function getArtists() {
-      cachingFactory.clearCachedUrlId();
-      youtubeFactory.clearCacheClips();
-      artistsArray = vm.artistsList.split(",");
-      artistsArray = trimmingArray(artistsArray);
-      artistsArray = shuffle(artistsArray);
-      cachingFactory.cacheArray(artistsArray);
-      vm.artistsList = ''; // clear input
-      $location.path("allArtists");
-    }
+    var factory = {
+      trimmingArray: trimmingArray,
+      shuffle: shuffle,
+      formatTime: formatTime
+    };
 
-////////// HELPERS
+  // Returning object of functions
+
+    return factory;
+
+  // Functions declatarions
 
     function trimmingArray(arr) {
       var trimmedArray = [];
@@ -50,5 +46,16 @@
       }
       return array;
     }
+
+    // Function for formating time into minutes and seconds
+
+      function formatTime(time) {
+        time = Math.round(time);
+        var minutes = Math.floor(time / 60),
+        seconds = time - minutes * 60;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        return minutes + ":" + seconds;
+      }
+
   }
 })();

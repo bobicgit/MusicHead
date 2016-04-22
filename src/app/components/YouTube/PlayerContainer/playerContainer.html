@@ -1,25 +1,43 @@
 <section id="player">
    <div class = "row">
    <div class="col-md-12" ng-if="!ytContainerCtrl.apiReady && !main.videoId">
-      Loading...
+      LOADING
    </div>
     <div class="col-md-12" ng-if="ytContainerCtrl.apiReady && main.videoId">
       <div class="vid-container">
-        <span class="glyphicon glyphicon-play controlls" ng-click="ytContainerCtrl.play()"></span>
-        <span class="glyphicon glyphicon-pause controlls" ng-click="ytContainerCtrl.pause()"></span>
-        <span class="glyphicon glyphicon-stop controlls" ng-click="ytContainerCtrl.stop()"></span>
-        <div id="current-time">{{ ytContainerCtrl.currentTime }} / {{ ytContainerCtrl.duration }}</div>
-      <div id="player">
-          <youtube-player videoid="main.videoId"></youtube-player>
-      </div>
+        <span class="glyphicon glyphicon-play controlls"
+              ng-click="ytContainerCtrl.play()"></span>
+        <span class="glyphicon glyphicon-pause controlls"
+              ng-click="ytContainerCtrl.pause()"></span>
+        <span class="glyphicon glyphicon-stop controlls"
+              ng-click="ytContainerCtrl.stop()"></span>
+        <span class="glyphicon glyphicon-fast-forward controlls"
+              ng-click="ytContainerCtrl.next()"></span>
+        <div id="current-time">
+          {{ ytContainerCtrl.currentTime }} / {{ ytContainerCtrl.duration }}
+        </div>
+        <input  type="range"
+                id="progress-bar"
+                value="0"
+                min="0"
+                max="100"
+                step="1"
+                ng-model="ytContainerCtrl.progress"
+                ng-change="ytContainerCtrl.getProgressValue()">
 
+        <div id="player">
+          <youtube-player videoid="main.videoId"></youtube-player>
+        </div>
+<pre>{{main.videoId}} </pre>
         <div class="vid-list-container">
           <div class="vid-list">
             <div class="vid-item col-md-3"
                  ng-repeat = "clip in main.clips
                               | filter: main.getFilter
-                              | pagination: ytContainerCtrl.currentPage * ytContainerCtrl.pageSize |limitTo: ytContainerCtrl.pageSize"
-                 ng-click = "main.changeVideo(clip)" >
+                              | pagination: ytContainerCtrl.currentPage * ytContainerCtrl.pageSize
+                              | limitTo: ytContainerCtrl.pageSize"
+                 ng-click = "main.changeVideo(clip)"
+                 ng-class="{selected : main.videoId == clip.id.videoId}" >
                   <div class="thumbnails">
                     <img frameborder = '0' ng-src = "{{main.getTrustedThumbnailSrc(clip.id.videoId)}}"/>
                   </div>
@@ -32,19 +50,16 @@
         <div class="arrows">
           <div  class="arrow-left"
                 ng-if="ytContainerCtrl.currentPage != 0">
-              <span class="glyphicon glyphicon-chevron-left"
-                    ng-click="ytContainerCtrl.currentPage=ytContainerCtrl.currentPage - 1"></span>
+            <span class="glyphicon glyphicon-chevron-left"
+                  ng-click="ytContainerCtrl.currentPage=ytContainerCtrl.currentPage - 1"></span>
           </div>
           <div  class="arrow-right"
                 ng-if="ytContainerCtrl.currentPage < (ytContainerCtrl.clips | filter: main.getFilter).length/ytContainerCtrl.pageSize - 1"   >
-              <span class="glyphicon glyphicon-chevron-right"
-                    ng-click="ytContainerCtrl.currentPage = ytContainerCtrl.currentPage + 1"></span>
+            <span class="glyphicon glyphicon-chevron-right"
+                  ng-click="ytContainerCtrl.currentPage = ytContainerCtrl.currentPage + 1"></span>
           </div>
         </div>
-
-        <!-- //<div id="duration">{{ ytContainerCtrl.duration }}</div> -->
-<!--         <input type="number" id="volume-change" ng-model="ytContainerCtrl.volume"></input> -->
-      </div>
+      </div> <!-- /. vid-container -->
     </div>
   </div>
 </section>

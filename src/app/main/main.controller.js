@@ -6,10 +6,9 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController(youtubeFactory, $sce, $routeParams, cachingFactory, $timeout) {
+  function MainController(youtubeFactory, $sce, $routeParams, cachingFactory, helpersFactory) {
 
     var vm = this,
-        requestArtists = requestArtists,
         routeArtist = $routeParams.artist;
 
   // Caching all clips, array of artists from input, video url to display and flag
@@ -27,7 +26,6 @@
     activate();
 
     function activate() {
-
        for(var i = 0 ; i<vm.artistsArrayTrimmed.length; i++) {
         requestArtists(vm.artistsArrayTrimmed[i]);
       }
@@ -37,11 +35,18 @@
       youtubeFactory
       .showItems(artist)
       .then(function(items) {
-        vm.videoId = items[0].id.videoId;
-        console.log(vm.videoId);
         angular.forEach(items, function(item) {
           vm.clips.push(item);
         })
+      })
+      .then(function() {
+        helpersFactory.shuffle(vm.clips);
+        youtubeFactory.saveCache(vm.clips);
+      })
+      .then(function() {
+        if(vm.clips.length === 3*vm.artistsArrayTrimmed.length) {
+          vm.videoId = vm.clips[0].id.videoId;
+        }
       })
     }
 

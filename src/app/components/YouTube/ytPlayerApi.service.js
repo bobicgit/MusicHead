@@ -1,3 +1,4 @@
+/*eslint angular/document-service: 1*/
 (function() {
 
     'use strict';

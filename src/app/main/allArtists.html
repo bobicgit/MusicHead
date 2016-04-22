@@ -9,19 +9,19 @@
       </section>
     </div>
     <div class="col-md-6">
-    <section id = "linkContainer">
-         <div class="row" ng-show = true>
-         <a href="#/allArtists"
+      <section id = "linkContainer">
+        <div class="row" ng-show = 'main.artistsArrayTrimmed.length > 0'>
+          <a  href="#/allArtists"
               class="btn btn-danger btn-lg "
               role="button">All Artists</a>
           <div class="col-md-3" ng-repeat = "artist in main.artistsArrayTrimmed">
-            <a href="#/allArtists/{{artist}}"
-               ng-click = "main.loadDefVideo(artist)"
-               class="btn btn-danger btn-lg "
-               role="button">{{artist}}</a>
+            <a  href="#/allArtists/{{artist}}"
+                ng-click = "main.loadDefVideo(artist)"
+                class="btn btn-danger btn-lg "
+                role="button">{{artist}}</a>
           </div>
         </div>
-    </section>
+      </section>
     </div>
   </div>
 
@@ -30,7 +30,6 @@
   <div id="footer">
     Maciej Mańko &copy; 2016r.
   </div>
-
 </div>
 
 

@@ -11,7 +11,6 @@
 	// Accessible members
 		var cacheInputArray = [];
 		var cachedUrlId;
-		var cachedFlag = false;
 
 		var factory = {
 			cacheArray: cacheArray,

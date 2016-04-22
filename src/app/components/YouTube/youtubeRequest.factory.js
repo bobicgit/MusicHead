@@ -12,10 +12,10 @@
 
 	// Accessible members
 		var cache = [];
-		var player;
 
 		var factory = {
 			showItems: showItems,
+      saveCache: saveCache,
 			readCache: readCache,
 			clearCacheClips: clearCacheClips
 		};
@@ -32,12 +32,15 @@
                 method: 'GET',
                 url: ytRequestObject.url,
                 params: ytRequestObject.params
-            })
-            .then(function(response) {
-            	cache = cache.concat(response.data.items);
-            	return response.data.items;
+            }).then(function(response) {
+            cache = cache.concat(response.data.items);
+            return response.data.items;
             })
 		}
+
+    function saveCache(arr) {
+      cache = arr;
+    }
 
 		function readCache() {
 			return cache;
