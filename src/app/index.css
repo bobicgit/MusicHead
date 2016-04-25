@@ -3,7 +3,7 @@
 html, body {
 	height: 100%;
 	background-image: url("/assets/images/1.jpg");
-  background-repeat: initial;
+  background-size: cover;
 }
 
 .container {
@@ -76,7 +76,7 @@ html, body {
 
 .selected {
   border-color: rgba(175, 47, 47, 0.1);
-  background-color: rgba(175, 47, 47, 0.1);
+  background-color: rgba(228, 228, 235, 0.3);
 }
 /*ARROWS*/
 
@@ -131,6 +131,9 @@ html, body {
 }
 
 /*Video Controlls*/
+.glyphicon {
+    font-size: 50px;
+}
 .vid-container span.controlls {
   color:#fff;
   margin-bottom: 20px;
@@ -146,9 +149,9 @@ html, body {
   color:#fff;
   font-size: 25px;
 }
-
 #progress-bar {
   margin-bottom: 15px;
+/*  width: 300px;*/
 }
 /*///*/
 
@@ -157,9 +160,9 @@ html, body {
 	margin: 30px auto;
 }
 
-/*.vid-container {
+.vid-container {
 	padding: 15px;
-}*/
+}
 
 iframe {
 	display: block;
@@ -173,15 +176,12 @@ section#linkContainer {
 
 section#linkContainer div {
 	display: block;
-	/*margin: 0 auto;*/
 	padding:5px;
 }
 
 section#linkContainer div a {
 	display: block;
 	margin:5px;
-/*	background-color: #3b5998;
-	color: #eff3ff;*/
 	font-size:17px;
 }
 
@@ -198,10 +198,6 @@ section#linkContainer div a#backToFormButton:hover{
 	background-color:#B22222 ;
 }
 
-/*section#linkContainer div a:hover {
-	background-color: #8B9DC3;
-	color: #fff;
-}*/
 input.form-control {
 	width: 450px;
 	margin: 10px auto 20px auto;
@@ -227,7 +223,7 @@ img:hover {
 }
 #footer {
 	text-align: center;
-	color: #000;
+	color: #fff;
 	padding: 10px 0;
 	margin: 20px 0;
 }
@@ -240,9 +236,7 @@ img:hover {
     background-repeat: no-repeat;
     margin: 30px auto;
 }
-.glyphicon {
-    font-size: 50px;
-}
+
 #logo a{
 	position: absolute;
 	top: 30%;
@@ -279,32 +273,4 @@ input:-ms-input-placeholder {
 	text-align: left;
 }
 
-div#startPageLeftSide {
-	position:relative;
-	top:190px;
-}
-
-div#startPageRightSide {
-	background-color: #333 ;
-	text-align: center;
-	position: relative;
-	background-color: #add8e6 ;
-	height:65vh;
-	border-radius: 50px;
-	box-shadow: 0px 0px 70px #C0C0C0;
-	margin-top:20px;
-}
-
-#startPageRightSide .content {
-	display: block;
-	margin: 0 auto;
-    position: absolute;
-    top: 32%;
-    left: 5%;
-}
-
-#startPageRightSide .content p {
-	margin-bottom: 50px;
-	font-size: 25px;
-}
 

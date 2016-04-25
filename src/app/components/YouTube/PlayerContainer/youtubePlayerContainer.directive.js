@@ -10,7 +10,7 @@
     .module('musicHead')
     .directive('youtubePlayerContainer', youtubePlayerContainer);
 
-    youtubePlayerContainer.$inject = ['ytPlayerApi','YT_event','youtubeFactory','cachingFactory'];
+    youtubePlayerContainer.$inject = ['ytPlayerApi','YT_event','youtubeFactory'];
 
     function youtubePlayerContainer(ytPlayerApi, YT_event) {
 
@@ -21,9 +21,9 @@
       controllerAs: 'ytContainerCtrl'
     }
 
-    function ytContainerController($scope, youtubeFactory, cachingFactory) {
+    function ytContainerController($scope, youtubeFactory) {
       var vm = this;
-      var i =0;
+
       vm.apiReady = false;
       vm.currentTime;
       vm.duration;
@@ -61,11 +61,6 @@
       }
 
       function next() {
-
-        // var id = vm.clips[i+1].id.videoId;
-        // i++
-        // console.log(id);
-        // cachingFactory.cacheUrlId(id);
         $scope.$broadcast(YT_event.NEXT);
       }
 

@@ -15,7 +15,6 @@
   // for displaying those elements in view when controller reloads.
 
     vm.artistsArrayTrimmed = cachingFactory.readInputArrayFromCache();
-    vm.clips = youtubeFactory.clearCacheClips();
     vm.clips = youtubeFactory.readCache();
     vm.changeVideo = changeVideo;
     vm.getFilter = getFilter();
@@ -23,12 +22,12 @@
     vm.loadDefVideo = loadDefVideo;
     vm.videoId = cachingFactory.readCacheUrlId();
 
-    activate();
+    vm.clips.length === 0 ? activate() : void(0);
 
     function activate() {
-       for(var i = 0 ; i<vm.artistsArrayTrimmed.length; i++) {
+      for(var i = 0 ; i<vm.artistsArrayTrimmed.length; i++) {
         requestArtists(vm.artistsArrayTrimmed[i]);
-      }
+        }
     }
 
     function requestArtists(artist) {
@@ -40,8 +39,9 @@
         })
       })
       .then(function() {
-        helpersFactory.shuffle(vm.clips);
-        youtubeFactory.saveCache(vm.clips);
+        helpersFactory.shuffle(vm.clips); // shuffle clips, after each request
+        youtubeFactory.saveCache(vm.clips); // cache clips after each request. Caching all clips after last request, to have
+        // the same queueing in each route.
       })
       .then(function() {
         if(vm.clips.length === 3*vm.artistsArrayTrimmed.length) {

@@ -6,9 +6,9 @@
     .module('musicHead')
     .directive('youtubePlayer', youtubePlayer);
 
-    youtubePlayer.$inject = ['$window','YT_event','$interval','youtubeFactory','helpersFactory'];
+    youtubePlayer.$inject = ['$window','YT_event','$interval','youtubeFactory','helpersFactory','$routeParams'];
 
-    function youtubePlayer($window, YT_event, $interval, youtubeFactory, helpersFactory) {
+    function youtubePlayer($window, YT_event, $interval, youtubeFactory, helpersFactory, $routeParams) {
 
       var myPlayer;
 
@@ -20,8 +20,16 @@
         require: '^youtubePlayerContainer',
         template: '<div></div>',
         link: function(scope, element, attributes, youtubePlayerContainerCtrl) {
-          var myClips;
-          var i = 0;
+          var dbTitle,
+              myClips = youtubeFactory.readCache(),
+              i = 0,
+              routeArtist = $routeParams.artist;
+
+    // Condition that checks if we are on a specific artist route
+
+          (myClips.length !== 0 && angular.isDefined(routeArtist)) ?  myClips = getRouteArtists() : void(0);
+
+    // Create Player
 
           myPlayer =  new YT.Player(element.children()[0], {
             height: '390',
@@ -32,7 +40,7 @@
               modesbranding: 1,
               iv_load_policy: 3,
               showinfo: 1,
-              controls: 1,
+              controls: 0,
               autoplay: 1
             },
             events: {
@@ -41,7 +49,7 @@
             }
           });
 
-          // Function called by 'onReady' youtube player event
+      // Function called by 'onReady' youtube player event
 
           function initialize() {
             updateTimerDisplay();
@@ -67,10 +75,9 @@
             youtubePlayerContainerCtrl.progress = ((myPlayer.getCurrentTime() / myPlayer.getDuration()) * 100);
           }
 
-         // Function called by 'onStateChange' youtube player event
+      // Function called by 'onStateChange' youtube player event
 
           function changeVideo(event) {
-            myClips = youtubeFactory.readCache();
             if(event.data == YT.PlayerState.ENDED) {
               (i === myClips.length - 1) ? i=0 : i++;
               myPlayer.cueVideoById(myClips[i].id.videoId);
@@ -79,7 +86,21 @@
             }
           }
 
-          // Watching if videoId have changed, generally. If it has, placeing new Id in player.
+      // Function that overwrite vm.clips on specific artist route
+
+          function getRouteArtists() {
+            var myRouteClips = myClips.filter(function(clip) {
+              dbTitle = clip.snippet.title.toLowerCase();
+              routeArtist = routeArtist.toLowerCase();
+              if(dbTitle.indexOf(routeArtist) > -1) {
+                return true;
+              }
+            });
+            return myRouteClips;
+          }
+
+      // Watching if videoId have changed, generally. If it has, placeing new Id in player.
+
           scope.$watch('videoid', function(newValue, oldValue) {
             if (newValue == oldValue) {
               return;
@@ -88,7 +109,8 @@
             myPlayer.playVideo();
           });
 
-          // Handlers for player controlls.
+      // Handlers for player controlls.
+
           scope.$on(YT_event.STOP, function () {
             myPlayer.seekTo(0);
             myPlayer.stopVideo();
