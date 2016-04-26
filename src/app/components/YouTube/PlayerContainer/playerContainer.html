@@ -13,15 +13,29 @@
               ng-click="ytContainerCtrl.stop()"></span>
         <span class="glyphicon glyphicon-fast-forward controlls"
               ng-click="ytContainerCtrl.next()"></span>
+              <!-- NOT WORKING -->
+        <span class="glyphicon glyphicon-fullscreen controlls"
+              ng-click="ytContainerCtrl.fullScreen()"></span>
+              <!-- ! -->
         <div id="current-time">
           {{ ytContainerCtrl.currentTime }} / {{ ytContainerCtrl.duration }}
         </div>
+        <div class="vol-container">
+          <span class="glyphicon glyphicon-volume-up"
+              ></span>
+          <input  type='range'
+                  min='0'
+                  max='100'
+                  step='1'
+                  ng-model="ytContainerCtrl.volume"
+                  ng-change="ytContainerCtrl.setVolume()"></input>
+        </div>
+
         <input  type="range"
                 id="progress-bar"
                 value="0"
                 min="0"
-                max="100"
-                step="1"
+                max="ytContainerCtrl.currentDuration"
                 ng-model="ytContainerCtrl.progress"
                 ng-change="ytContainerCtrl.getProgressValue()">
 

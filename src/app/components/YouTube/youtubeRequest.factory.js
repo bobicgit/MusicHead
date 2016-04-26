@@ -1,3 +1,5 @@
+// Factory taht handles youtube request and cache response from server. This cache only takes objects from youtube.
+
 (function() {
 
 	'use strict';

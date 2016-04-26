@@ -34,9 +34,12 @@
       vm.clips = youtubeFactory.readCache();
       vm.currentPage = 0;
       vm.pageSize = 4;
-
+      vm.currentDuration;
       vm.progress = 0;
       vm.getProgressValue = getProgressValue;
+      vm.volume = 100;
+      vm.setVolume = setVolume;
+      vm.fullScreen = fullScreen;
 
 // Changing the flag, that informs youtube api is ready. in this way, api will be ready
 // when this directive is loaded, and will be ready even on another route.
@@ -65,8 +68,20 @@
       }
 
       function getProgressValue() {
-        $scope.$broadcast('progress',vm.progress);
+        $scope.$broadcast('progress', vm.progress);
       }
+
+      function setVolume() {
+        $scope.$broadcast('volume', vm.volume)
+      }
+
+      function fullScreen() { // NOT WORKING
+        $scope.$broadcast(YT_event.FULLSCREEN);
+      }
+
+      $scope.$on('currentVideoDuration', function () {
+        vm.currentDuration = arguments[1];
+      });
     }
   }
 })();

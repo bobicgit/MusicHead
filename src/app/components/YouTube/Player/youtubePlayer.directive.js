@@ -41,7 +41,8 @@
               iv_load_policy: 3,
               showinfo: 1,
               controls: 0,
-              autoplay: 1
+              autoplay: 1,
+              fs: 1
             },
             events: {
               'onReady': initialize,
@@ -54,6 +55,7 @@
           function initialize() {
             updateTimerDisplay();
             updateProgressBar();
+            scope.$emit('currentVideoDuration', myPlayer.getDuration());
             // Clear any old interval.
             clearInterval(time_update_interval);
             // Start interval to update elapsed time display and
@@ -72,7 +74,7 @@
           }
 
           function updateProgressBar() {
-            youtubePlayerContainerCtrl.progress = ((myPlayer.getCurrentTime() / myPlayer.getDuration()) * 100);
+            youtubePlayerContainerCtrl.progress = ((myPlayer.getCurrentTime() / myPlayer.getDuration()) *100);
           }
 
       // Function called by 'onStateChange' youtube player event
@@ -131,6 +133,14 @@
           scope.$on('progress', function () {
             var newTime = myPlayer.getDuration() * (youtubePlayerContainerCtrl.progress / 100)
             myPlayer.seekTo(newTime);
+          });
+
+          scope.$on('volume', function () {
+            myPlayer.setVolume(youtubePlayerContainerCtrl.volume);
+          });
+
+          scope.$on(YT_event.FULLSCREEN, function () {
+            myPlayer.requestFullScreen();
           });
         }
     };

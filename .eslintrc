@@ -9,6 +9,7 @@
     "angular": true,
     "module": true,
     "inject": true,
-    "YT": true
+    "YT": true,
+    "FB": true
   }
 }

@@ -8,7 +8,10 @@
   function routeConfig($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'app/StartPage/startPage.html'
+        templateUrl: 'app/StartPage/startPage.html',
+        controller: "FacebookController",
+        controllerAs: 'fbCtrl'
+
       })
       .when('/allArtists', {
         templateUrl: 'app/main/allArtists.html',

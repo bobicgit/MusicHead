@@ -5,8 +5,10 @@
     .module('musicHead')
     .controller('MainController', MainController);
 
+  MainController.$inject = ['youtubeFactory','$sce','$routeParams','cachingFactory','helpersFactory','FBApiService','$q'];
+
   /** @ngInject */
-  function MainController(youtubeFactory, $sce, $routeParams, cachingFactory, helpersFactory) {
+  function MainController(youtubeFactory, $sce, $routeParams, cachingFactory, helpersFactory, FBApiService,$q) {
 
     var vm = this,
         routeArtist = $routeParams.artist;
@@ -21,33 +23,38 @@
     vm.getTrustedThumbnailSrc = getTrustedThumbnailSrc;
     vm.loadDefVideo = loadDefVideo;
     vm.videoId = cachingFactory.readCacheUrlId();
+    vm.logOut = logOut;
+    vm.facebookLogFlag = cachingFactory.readFacebookLogFlag();
+    vm.clips.length === 0 ? activate().then(getVideosAndSetId) : void(0);
 
-    vm.clips.length === 0 ? activate() : void(0);
+
+  // Inside activate, in for loop, i am filling array with promises. I got those promises from requestArtists function
+  // that uses youtubeFactory to return promise. Function activate is waiting for all promises to be return, and then
+  // return this array of promises. This array is passed to getVideosAndSetId function, to get clips and videoId.
 
     function activate() {
+      var arrayOfRequestPromises = [];
       for(var i = 0 ; i<vm.artistsArrayTrimmed.length; i++) {
-        requestArtists(vm.artistsArrayTrimmed[i]);
-        }
+        arrayOfRequestPromises.push(requestArtists(vm.artistsArrayTrimmed[i]));
+      }
+      return $q.all(arrayOfRequestPromises);
+    }
+
+    function getVideosAndSetId() {
+      angular.forEach(arguments[0], function(array) {
+          angular.forEach(array, function(item) {
+            vm.clips.push(item);
+        })
+      })
+      helpersFactory.shuffle(vm.clips)
+      youtubeFactory.saveCache(vm.clips);
+      vm.videoId = vm.clips[0].id.videoId;
     }
 
     function requestArtists(artist) {
-      youtubeFactory
-      .showItems(artist)
-      .then(function(items) {
-        angular.forEach(items, function(item) {
-          vm.clips.push(item);
-        })
-      })
-      .then(function() {
-        helpersFactory.shuffle(vm.clips); // shuffle clips, after each request
-        youtubeFactory.saveCache(vm.clips); // cache clips after each request. Caching all clips after last request, to have
-        // the same queueing in each route.
-      })
-      .then(function() {
-        if(vm.clips.length === 3*vm.artistsArrayTrimmed.length) {
-          vm.videoId = vm.clips[0].id.videoId;
-        }
-      })
+      var reqestPromise = youtubeFactory
+                          .showItems(artist);
+      return reqestPromise;
     }
 
   // Function that filters view of my thumbnails, depends on routeparameter.
@@ -79,6 +86,13 @@
 
     function changeVideo(video) {
       vm.videoId = video.id.videoId;
+    }
+
+    function logOut() {
+      FBApiService.logOut()
+      .then(function() {
+        youtubeFactory.clearCacheClips();
+      });
     }
 
 ///////////// ESCAPING UNTRUSTED LINKS

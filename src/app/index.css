@@ -7,16 +7,10 @@ html, body {
 }
 
 .container {
+    width: 1170px;
     background-color: #fff;
     background: rgba(25, 25, 25, .5);
 }
-
-/*.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
-}*/
 
 /*PLAYER*/
 #player {
@@ -132,7 +126,7 @@ html, body {
 
 /*Video Controlls*/
 .glyphicon {
-    font-size: 50px;
+  font-size: 50px;
 }
 .vid-container span.controlls {
   color:#fff;
@@ -144,21 +138,131 @@ html, body {
   color:#333;
 }
 #current-time {
-  margin-top: 25px;
+  display: inline-block;
+  margin-left: 15px;
+  margin-top: 7px;
   float:right;
   color:#fff;
   font-size: 25px;
 }
 #progress-bar {
   margin-bottom: 15px;
-/*  width: 300px;*/
 }
+
+.vol-container {
+  display: inline-block;
+  float:right;
+  color:#fff;
+  width: 280px;
+}
+.vol-container span {
+  float:left;
+}
+.vol-container input {
+  color:#000;
+  width: 70%;
+  float:left;
+  margin-top:23px;
+  margin-left:10px;
+}
+input[type=range] {
+    background: #D9534F;
+    -webkit-appearance: none;
+    height: 4px;
+}
+input[type=range]::-webkit-slider-thumb {
+    background: #D9534F;
+    width: 15px;
+    height: 15px;
+    -webkit-appearance: none;
+    border: 4px solid #FFFFFF;
+    border-radius: 20px;
+}
+
 /*///*/
+
+/*FACEBOOK BUTTON*/
+
+button.fbLogin {
+  margin: 0 auto;
+  padding-right: 45px;
+  height: 35px;
+  background: none;
+  border: none;
+  display: block;
+  background-size: 35px 35px;
+  background-position: right center;
+  background-repeat: no-repeat;
+  border-radius: 4px;
+  color: white;
+  font-family:"Merriweather Sans", sans-serif;
+  font-size: 14px;
+  margin-bottom: 15px;
+  width: 205px;
+  border-bottom: 2px solid transparent;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  box-shadow: 0 4px 2px -2px gray;
+  text-shadow: rgba(0, 0, 0, .5) -1px -1px 0;
+  border-color: #2d5073;
+  background-color: #3b5998;
+  background-image: url(http://icons.iconarchive.com/icons/danleech/simple/512/facebook-icon.png);
+}
+button.fbLogin:hover {
+  background-color: #8b9dc3;
+}
+button.fbLogout {
+  margin: 0 auto;
+  padding-right: 45px;
+  height: 46px;
+  background: none;
+  border: none;
+  display: block;
+  background-size: 35px 35px;
+  background-position: right center;
+  background-repeat: no-repeat;
+  border-radius: 4px;
+  color: white;
+  font-family: "Merriweather Sans", sans-serif;
+  font-size: 14px;
+  margin-bottom: 15px;
+  width: 163px;
+  border-bottom: 2px solid transparent;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  box-shadow: 0 4px 2px -2px gray;
+  text-shadow: rgba(0, 0, 0, .5) -1px -1px 0;
+  border-color: #2d5073;
+  background-color: #3b5998;
+  background-image: url(http://icons.iconarchive.com/icons/danleech/simple/512/facebook-icon.png);
+}
+button.fbLogout:hover {
+  background-color: #8b9dc3;
+}
+.col-md-5 h1 {
+  color:#fff;
+  text-align: center;
+  font-size: 25px;
+}
+.col-md-5 p {
+  color:#fff;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+/*MIDDLE BORDER*/
+.middle-border {
+  min-height: 230px;
+  border-right: 1px solid rgba(255, 255, 255, 0.6);
+}
 
 .btn-danger {
 	display: block;
 	margin: 30px auto;
 }
+
+
 
 .vid-container {
 	padding: 15px;
@@ -199,7 +303,7 @@ section#linkContainer div a#backToFormButton:hover{
 }
 
 input.form-control {
-	width: 450px;
+
 	margin: 10px auto 20px auto;
 	color:#000;
 	font-size: 20px;

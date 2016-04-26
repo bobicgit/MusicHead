@@ -1,20 +1,20 @@
 <div class="container">
-
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-2">
       <section id="header">
         <a href="#/">
           <div class="logo"></div>
         </a>
+        <button  ng-show="main.facebookLogFlag" class="fbLogout" ng-click="main.logOut()">Logout from Facebook</button>
       </section>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-10">
       <section id = "linkContainer">
         <div class="row" ng-show = 'main.artistsArrayTrimmed.length > 0'>
           <a  href="#/allArtists"
               class="btn btn-danger btn-lg "
               role="button">All Artists</a>
-          <div class="col-md-3" ng-repeat = "artist in main.artistsArrayTrimmed">
+          <div class="col-md-4" ng-repeat = "artist in main.artistsArrayTrimmed">
             <a  href="#/allArtists/{{artist}}"
                 ng-click = "main.loadDefVideo(artist)"
                 class="btn btn-danger btn-lg "

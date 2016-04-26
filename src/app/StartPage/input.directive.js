@@ -7,9 +7,9 @@
     .module('musicHead')
     .directive('appInput', appInput);
 
-    appInput.$inject = ['youtubeFactory','cachingFactory','$location','helpersFactory'];
+  appInput.$inject = ['youtubeFactory','cachingFactory','$location','helpersFactory'];
 
-    function appInput(youtubeFactory, cachingFactory, $location, helpersFactory) {
+  function appInput(youtubeFactory, cachingFactory, $location, helpersFactory) {
 
     return {
       restrict: "E",
