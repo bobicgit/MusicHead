@@ -130,12 +130,17 @@
             myPlayer.seekTo(myPlayer.getDuration());
           });
 
+          scope.$on(YT_event.MUTE, function () {
+            myPlayer.isMuted() ? myPlayer.unMute() : myPlayer.mute();
+          });
+
           scope.$on('progress', function () {
             var newTime = myPlayer.getDuration() * (youtubePlayerContainerCtrl.progress / 100)
             myPlayer.seekTo(newTime);
           });
 
           scope.$on('volume', function () {
+            myPlayer.isMuted() ? myPlayer.unMute() : false;
             myPlayer.setVolume(youtubePlayerContainerCtrl.volume);
           });
 

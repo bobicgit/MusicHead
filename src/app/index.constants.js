@@ -11,7 +11,8 @@
         PLAY:1,
         PAUSE:2,
         NEXT:3,
-        FULLSCREEN:4
+        FULLSCREEN:4,
+        MUTE: 5
 });
 
 })();

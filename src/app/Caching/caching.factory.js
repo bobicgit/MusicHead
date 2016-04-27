@@ -15,7 +15,8 @@
 		var
     cacheInputArray = [],
     cachedUrlId,
-    facebookLogFlag;
+    facebookLogFlag,
+    inputApproachFlag;
 
 		var factory = {
 			cacheArray: cacheArray,
@@ -25,7 +26,10 @@
       clearCachedUrlId: clearCachedUrlId,
       clearCachedArray: clearCachedArray,
       cacheFacebookLogFlag: cacheFacebookLogFlag,
-      readFacebookLogFlag: readFacebookLogFlag
+      readFacebookLogFlag: readFacebookLogFlag,
+      cacheInputApprachFlag:cacheInputApprachFlag,
+      readInputApprachFlag: readInputApprachFlag
+
 		};
 
 	// Returning object of functions
@@ -64,6 +68,14 @@
 
     function clearCachedArray() {
       cacheInputArray = [];
+    }
+
+    function cacheInputApprachFlag(flag) {
+      inputApproachFlag = flag;
+    }
+
+    function readInputApprachFlag() {
+      return inputApproachFlag;
     }
 	}
 })();

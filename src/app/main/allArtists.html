@@ -13,12 +13,13 @@
         <div class="row" ng-show = 'main.artistsArrayTrimmed.length > 0'>
           <a  href="#/allArtists"
               class="btn btn-danger btn-lg "
-              role="button">All Artists</a>
+              role="button"
+              ng-class="{currentArtist : !main.routeArtist}">All Artists</a>
           <div class="col-md-4" ng-repeat = "artist in main.artistsArrayTrimmed">
             <a  href="#/allArtists/{{artist}}"
-                ng-click = "main.loadDefVideo(artist)"
                 class="btn btn-danger btn-lg "
-                role="button">{{artist}}</a>
+                role="button"
+                ng-class="{currentArtist : vm.routeArtist  == artist }">{{artist}}</a>
           </div>
         </div>
       </section>

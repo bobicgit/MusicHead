@@ -19,17 +19,20 @@
     }
 
     function startController() {
-      var vm = this;
+      var vm = this,
+          inputApproach = false;
 
       vm.artistsList;
       vm.getArtists = getArtists;
 
       function getArtists() {
+        inputApproach = true;
         cachingFactory.clearCachedUrlId();
         youtubeFactory.clearCacheClips();
         vm.artistsList = vm.artistsList.split(",");
         vm.artistsList = helpersFactory.trimmingArray(vm.artistsList);
         cachingFactory.cacheArray(vm.artistsList);
+        cachingFactory.cacheInputApprachFlag(inputApproach);
         vm.artistsList = ''; // clear input
         $location.path("/allArtists");
       }

@@ -1,4 +1,4 @@
-// Service will be returning data object that will be use for making a requests in 
+// Service will be returning data object that will be use for making a requests in
 // youtube factory, for specific data from YT.
 
 (function() {
@@ -7,8 +7,6 @@
 	angular
 	.module('musicHead')
 	.service('youtubeDataService', youtubeDataService);
-
-	//youtubeDataService.$inject = ['$http'];	
 
 	function youtubeDataService() {
 		var vm = this;
@@ -32,7 +30,7 @@
 					videoDuration: 'medium',
 					maxResults: 3,
 					order: 'viewCount',
-					key: "AIzaSyA-CgKHZFkogn14QSaYrxuCRRCvqPaQ3hI"					
+					key: "AIzaSyA-CgKHZFkogn14QSaYrxuCRRCvqPaQ3hI"
 				}
 			}
 			return ytRequestObject;

@@ -9,7 +9,7 @@
 
   FBApi.$inject = ['$q','$location', 'cachingFactory'];
 
-  function FBApi($q, $location,cachingFactory) {
+  function FBApi($q, $location, cachingFactory) {
 
     var self = this,
         logged = false;
@@ -17,6 +17,18 @@
     self.logIn = logIn;
     self.logOut = logOut;
     self.fbArtistsArray = [];
+    self.checkStatus = checkStatus;
+    self.musicRequest = musicRequest;
+
+
+    function checkStatus() {
+      var defer = $q.defer();
+      FB.getLoginStatus(function(response) {
+        defer.resolve(response);
+          });
+      return defer.promise;
+    }
+
 
     function logIn() {
       var defer = $q.defer();
@@ -39,9 +51,6 @@
       FB.getLoginStatus(function(response) {
         if (response.status === 'connected') {
             FB.logout(function(response) {
-              logged = false;
-              cachingFactory.cacheFacebookLogFlag(logged);
-              $location.path("/");
               defer.resolve(response);
             });
         } else {

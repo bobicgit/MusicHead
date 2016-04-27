@@ -10,7 +10,7 @@
     .module('musicHead')
     .directive('youtubePlayerContainer', youtubePlayerContainer);
 
-    youtubePlayerContainer.$inject = ['ytPlayerApi','YT_event','youtubeFactory'];
+    youtubePlayerContainer.$inject = ['ytPlayerApi','YT_event','youtubeFactory', 'dataService', '$routeParams'];
 
     function youtubePlayerContainer(ytPlayerApi, YT_event) {
 
@@ -21,8 +21,9 @@
       controllerAs: 'ytContainerCtrl'
     }
 
-    function ytContainerController($scope, youtubeFactory) {
-      var vm = this;
+    function ytContainerController($scope, youtubeFactory, dataService, $routeParams) {
+      var vm = this,
+          routeArtist = $routeParams.artist;
 
       vm.apiReady = false;
       vm.currentTime;
@@ -31,7 +32,6 @@
       vm.stop = stop;
       vm.pause = pause;
       vm.next = next;
-      vm.clips = youtubeFactory.readCache();
       vm.currentPage = 0;
       vm.pageSize = 4;
       vm.currentDuration;
@@ -40,6 +40,9 @@
       vm.volume = 100;
       vm.setVolume = setVolume;
       vm.fullScreen = fullScreen;
+      vm.link = link;
+      vm.filterThumbnails = filterThumbnails();
+      vm.mute = mute;
 
 // Changing the flag, that informs youtube api is ready. in this way, api will be ready
 // when this directive is loaded, and will be ready even on another route.
@@ -79,9 +82,24 @@
         $scope.$broadcast(YT_event.FULLSCREEN);
       }
 
+      function mute() {
+        vm.volume === 0 ? vm.volume = 100 : vm.volume = 0;
+        $scope.$broadcast(YT_event.MUTE);
+      }
+
       $scope.$on('currentVideoDuration', function () {
         vm.currentDuration = arguments[1];
       });
+
+      function link(id) {
+        return dataService.getTrustedThumbnailSrc(id);
+      }
+
+      function filterThumbnails() {
+        return {snippet: {title: routeArtist || ''}};
+      }
+
+
     }
   }
 })();
