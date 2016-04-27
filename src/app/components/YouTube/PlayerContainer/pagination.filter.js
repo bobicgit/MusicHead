@@ -8,9 +8,10 @@
 
     function pagination() {
       return function(input, start) {
-        start = +start; //parse to int
-        return input.slice(start);
-      }
+        if (!input || !input.length) { return; }
+          start = parseInt(start, 10);
+      return input.slice(start);
     }
+  }
 
 })();

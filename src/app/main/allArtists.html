@@ -1,27 +1,48 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-2">
+<!--     <div class="col-md-2">
       <section id="header">
         <a href="#/">
           <div class="logo"></div>
         </a>
         <button  ng-show="main.facebookLogFlag" class="fbLogout" ng-click="main.logOut()">Logout from Facebook</button>
       </section>
-    </div>
-    <div class="col-md-10">
+    </div> -->
+    <div class="col-md-12">
       <section id = "linkContainer">
         <div class="row" ng-show = 'main.artistsArrayTrimmed.length > 0'>
           <a  href="#/allArtists"
               class="btn btn-danger btn-lg "
               role="button"
               ng-class="{currentArtist : !main.routeArtist}">All Artists</a>
-          <div class="col-md-4" ng-repeat = "artist in main.artistsArrayTrimmed">
+          <div class="col-md-4" ng-repeat = "artist in main.artistsArrayTrimmed
+           | pagination: main.currentPage * main.pageSize
+                              | limitTo: main.pageSize ">
             <a  href="#/allArtists/{{artist}}"
                 class="btn btn-danger btn-lg "
                 role="button"
                 ng-class="{currentArtist : vm.routeArtist  == artist }">{{artist}}</a>
           </div>
         </div>
+        <div class="arrows">
+            <div  class="arrow-left"
+                  ng-if="main.currentPage != 0">
+              <span class="glyphicon glyphicon-chevron-left"
+                    ng-click="main.currentPage=main.currentPage - 1"></span>
+            </div>
+            <div  class="arrow-right"
+            ng-if="main.currentPage < main.artistsArrayTrimmed.length/main.pageSize - 1"
+            >
+              <span class="glyphicon glyphicon-chevron-right"
+                    ng-click="main.currentPage = main.currentPage + 1"></span>
+            </div>
+          </div>
+          <div class="rangePaginationBar">
+              <li class = "paginationList list-group-item list-group-item-danger"ng-repeat="n in main.range()" ng-class="{activePage : n == main.currentPage}" ng-click="main.setPage(n)">
+                <a  href="#/allArtists">{{n+1}}</a>
+              </li>
+          </div>
+
       </section>
     </div>
   </div>

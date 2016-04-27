@@ -15,11 +15,26 @@
                 class="btn btn-danger btn-lg "
                 role="button"
                 ng-class="{currentArtist : !main.routeArtist}">All Artists</a>
-            <div class="col-md-4" ng-repeat = "artist in main.artistsArrayTrimmed">
-              <a href="#/allArtists/{{artist}}"
+            <div class="col-md-4" ng-repeat = "artist in main.artistsArrayTrimmed
+                                          | pagination: main.currentPage * main.pageSize
+                              | limitTo: main.pageSize ">
+              <a href="#/allArtists/{{artist}}" 
                  class="btn btn-danger btn-lg "
                  role="button"
                  ng-class="{currentArtist : main.routeArtist  == artist}">{{artist}}</a>
+            </div>
+          </div>
+          <div class="arrows">
+            <div  class="arrow-left"
+                  ng-if="main.currentPage != 0">
+              <span class="glyphicon glyphicon-chevron-left"
+                    ng-click="main.currentPage=main.currentPage - 1"></span>
+            </div>
+            <div  class="arrow-right"
+            ng-if="main.currentPage < main.artistsArrayTrimmed.length/main.pageSize - 1"  
+            >
+              <span class="glyphicon glyphicon-chevron-right"
+                    ng-click="main.currentPage = main.currentPage + 1"></span>
             </div>
           </div>
       </section>

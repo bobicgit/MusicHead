@@ -5,10 +5,10 @@
     .module('musicHead')
     .controller('MainController', MainController);
 
-  MainController.$inject = ['dataService','cachingFactory','helpersFactory', 'youtubeFactory', '$routeParams','$location'];
+  MainController.$inject = ['dataService','cachingFactory','helpersFactory', 'youtubeFactory', '$routeParams','$location', '$scope'];
 
   /** @ngInject */
-  function MainController(dataService, cachingFactory, helpersFactory, youtubeFactory, $routeParams, $location) {
+  function MainController(dataService, cachingFactory, helpersFactory, youtubeFactory, $routeParams, $location, $scope) {
 
     var vm = this,
 
@@ -21,7 +21,13 @@
     vm.facebookLogFlag;
     vm.logOut = logOut;
     vm.changeVideo = changeVideo;
-    vm.routeArtist = $routeParams.artist,
+    vm.routeArtist = $routeParams.artist;
+    vm.currentPage = 0;
+    vm.pageSize = 9;
+    vm.range = range;
+    vm.setPage = setPage;
+    vm.pageCount = pageCount;
+    $scope.Math=Math;
 
 
     init();
@@ -41,7 +47,9 @@
 
           dataService.getArtists(connected)
             .then(function(artists) {
+
               vm.artistsArrayTrimmed = artists;
+
               return artists;
             })
             .then(function(artists) {
@@ -68,5 +76,39 @@
     function logOut() {
       dataService.logOutFromFb();
     }
-  }
+
+    function setPage(n) {
+      vm.currentPage = n;
+    }
+
+    function range() {
+      var rangeSize = 3;
+      var ret = [];
+      var start;
+
+      start = vm.currentPage;
+      if ( start > vm.pageCount()-rangeSize ) {
+        start = vm.pageCount()-rangeSize+1;
+      }
+
+      for (var i=start; i<start+rangeSize; i++) {
+        ret.push(i);
+      }
+       return ret;
+    }
+
+    function pageCount() {
+      return Math.ceil(vm.artistsArrayTrimmed.length/vm.pageSize)-1;
+    }
+
+}
+
+
+          // $scope.maxSize = 5;
+          // $scope.bigTotalItems = 175;
+          // $scope.bigCurrentPage = 1;
+        // });
+
+    
+  
 })();

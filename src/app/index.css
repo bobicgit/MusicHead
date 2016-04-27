@@ -2,12 +2,15 @@
 
 html, body {
 	height: 100%;
-	background-image: url("/assets/images/1.jpg");
+  background: url("/assets/images/1.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
 }
 
 .container {
-    width: 1170px;
+ /*   width: 1170px;*/
     background-color: #fff;
     background: rgba(25, 25, 25, .5);
 }
@@ -283,6 +286,8 @@ section#linkContainer div a {
 
 .currentArtist {
   background-color:#c9302c;
+  border: 3px solid #fff;
+  font-weight: bold;
 }
 
 input.form-control {
@@ -360,3 +365,27 @@ input:-ms-input-placeholder {
 }
 
 
+.paginationList {
+  float:left;
+  margin: 0px 15px;
+  background-color: #d9534f;
+  /*margin: 0 auto;*/
+}
+
+.paginationList a {
+  font-size:20px;
+  color:#fff;
+}
+
+.activePage {
+  font-weight: bold;
+  border: 3px solid #fff;
+  background-color: #c9302c;
+}
+
+.rangePaginationBar  {
+  /*position: relative;*/
+  margin-left: auto;
+  margin-right: auto;
+
+}
