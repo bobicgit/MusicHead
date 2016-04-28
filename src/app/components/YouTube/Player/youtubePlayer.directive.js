@@ -57,24 +57,29 @@
             updateProgressBar();
             scope.$emit('currentVideoDuration', myPlayer.getDuration());
             // Clear any old interval.
-            clearInterval(time_update_interval);
+            $interval.cancel(time_update_interval);
             // Start interval to update elapsed time display and
             // the elapsed part of the progress bar every second.
             var time_update_interval = $interval(function () {
               updateTimerDisplay();
               updateProgressBar();
-            }, 1000);
+            }, 1000)
+
           }
 
         // This function is called by initialize()
 
           function updateTimerDisplay() {
-            youtubePlayerContainerCtrl.currentTime = helpersFactory.formatTime(myPlayer.getCurrentTime());
-            youtubePlayerContainerCtrl.duration = helpersFactory.formatTime(myPlayer.getDuration());
+            if(myPlayer.getCurrentTime) {
+              youtubePlayerContainerCtrl.currentTime = helpersFactory.formatTime(myPlayer.getCurrentTime());
+              youtubePlayerContainerCtrl.duration = helpersFactory.formatTime(myPlayer.getDuration());
+            }
           }
 
           function updateProgressBar() {
-            youtubePlayerContainerCtrl.progress = ((myPlayer.getCurrentTime() / myPlayer.getDuration()) *100);
+            if(myPlayer.getCurrentTime) {
+              youtubePlayerContainerCtrl.progress = ((myPlayer.getCurrentTime() / myPlayer.getDuration()) *100);
+            }
           }
 
       // Function called by 'onStateChange' youtube player event
@@ -139,9 +144,8 @@
             myPlayer.seekTo(newTime);
           });
 
-          scope.$on('volume', function () {
-            myPlayer.isMuted() ? myPlayer.unMute() : false;
-            myPlayer.setVolume(youtubePlayerContainerCtrl.volume);
+          scope.$on(YT_event.VOLUME, function (event, volume) {
+            myPlayer.setVolume(volume);
           });
 
           scope.$on(YT_event.FULLSCREEN, function () {

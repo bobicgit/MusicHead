@@ -16,7 +16,8 @@
     cacheInputArray = [],
     cachedUrlId,
     facebookLogFlag,
-    inputApproachFlag;
+    inputApproachFlag,
+    currentPage=1;
 
 		var factory = {
 			cacheArray: cacheArray,
@@ -28,7 +29,9 @@
       cacheFacebookLogFlag: cacheFacebookLogFlag,
       readFacebookLogFlag: readFacebookLogFlag,
       cacheInputApprachFlag:cacheInputApprachFlag,
-      readInputApprachFlag: readInputApprachFlag
+      readInputApprachFlag: readInputApprachFlag,
+      saveCurrentPaginationPage: saveCurrentPaginationPage,
+      readCurrentPaginationPage: readCurrentPaginationPage
 
 		};
 
@@ -76,6 +79,14 @@
 
     function readInputApprachFlag() {
       return inputApproachFlag;
+    }
+
+    function saveCurrentPaginationPage(page) {
+      currentPage = page;
+    }
+
+    function readCurrentPaginationPage() {
+      return currentPage
     }
 	}
 })();

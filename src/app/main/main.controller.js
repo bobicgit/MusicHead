@@ -5,10 +5,10 @@
     .module('musicHead')
     .controller('MainController', MainController);
 
-  MainController.$inject = ['dataService','cachingFactory','helpersFactory', 'youtubeFactory', '$routeParams','$location', '$scope'];
+  MainController.$inject = ['dataService','cachingFactory','helpersFactory', 'youtubeFactory', '$routeParams','$location'];
 
   /** @ngInject */
-  function MainController(dataService, cachingFactory, helpersFactory, youtubeFactory, $routeParams, $location, $scope) {
+  function MainController(dataService, cachingFactory, helpersFactory, youtubeFactory, $routeParams, $location) {
 
     var vm = this,
 
@@ -22,13 +22,11 @@
     vm.logOut = logOut;
     vm.changeVideo = changeVideo;
     vm.routeArtist = $routeParams.artist;
-    vm.currentPage = 0;
-    vm.pageSize = 9;
-    vm.range = range;
-    vm.setPage = setPage;
-    vm.pageCount = pageCount;
-    $scope.Math=Math;
+    vm.keepPage = keepPage;
 
+    //GDZIE TO WRZUCIC
+    vm.currentPage;
+    vm.pageSize = 9;
 
     init();
 
@@ -47,9 +45,7 @@
 
           dataService.getArtists(connected)
             .then(function(artists) {
-
               vm.artistsArrayTrimmed = artists;
-
               return artists;
             })
             .then(function(artists) {
@@ -62,6 +58,7 @@
               return dataService.getMusicVideosFromYt(artistsArray);
             })
             .then(function(artistsClips) {
+              vm.currentPage = cachingFactory.readCurrentPaginationPage();
                 var objOfClipsAndId = dataService.getVideosAndPlayId(artistsClips);
                 vm.clips = objOfClipsAndId.clips;
                 vm.videoId = objOfClipsAndId.id;
@@ -77,38 +74,9 @@
       dataService.logOutFromFb();
     }
 
-    function setPage(n) {
-      vm.currentPage = n;
+    function keepPage() {
+      cachingFactory.saveCurrentPaginationPage(vm.currentPage);
     }
+  }
 
-    function range() {
-      var rangeSize = 3;
-      var ret = [];
-      var start;
-
-      start = vm.currentPage;
-      if ( start > vm.pageCount()-rangeSize ) {
-        start = vm.pageCount()-rangeSize+1;
-      }
-
-      for (var i=start; i<start+rangeSize; i++) {
-        ret.push(i);
-      }
-       return ret;
-    }
-
-    function pageCount() {
-      return Math.ceil(vm.artistsArrayTrimmed.length/vm.pageSize)-1;
-    }
-
-}
-
-
-          // $scope.maxSize = 5;
-          // $scope.bigTotalItems = 175;
-          // $scope.bigCurrentPage = 1;
-        // });
-
-    
-  
 })();

@@ -12,7 +12,8 @@
         PAUSE:2,
         NEXT:3,
         FULLSCREEN:4,
-        MUTE: 5
+        MUTE: 5,
+        VOLUME: 6
 });
 
 })();

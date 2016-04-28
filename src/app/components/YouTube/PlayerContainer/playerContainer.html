@@ -1,38 +1,14 @@
+
 <section id="player">
    <div class = "row">
-   <div class="col-md-12" ng-if="!ytContainerCtrl.apiReady && !main.videoId">
-      LOADING
-   </div>
+     <div class="col-md-12" ng-if="!ytContainerCtrl.apiReady && !main.videoId">
+        LOADING
+     </div>
     <div class="col-md-12" ng-if="ytContainerCtrl.apiReady && main.videoId">
       <div class="vid-container">
-        <span class="glyphicon glyphicon-play controlls"
-              ng-click="ytContainerCtrl.play()"></span>
-        <span class="glyphicon glyphicon-pause controlls"
-              ng-click="ytContainerCtrl.pause()"></span>
-        <span class="glyphicon glyphicon-stop controlls"
-              ng-click="ytContainerCtrl.stop()"></span>
-        <span class="glyphicon glyphicon-fast-forward controlls"
-              ng-click="ytContainerCtrl.next()"></span>
-              <!-- NOT WORKING -->
-        <span class="glyphicon glyphicon-fullscreen controlls"
-              ng-click="ytContainerCtrl.fullScreen()"></span>
-              <!-- ! -->
         <div id="current-time">
           {{ ytContainerCtrl.currentTime }} / {{ ytContainerCtrl.duration }}
         </div>
-        <div class="vol-container">
-          <span class="glyphicon "
-                ng-click="ytContainerCtrl.mute()"
-                ng-class="{'glyphicon-volume-up' : ytContainerCtrl.volume  > 0, 'glyphicon-volume-off' : ytContainerCtrl.volume  === 0  }"
-                ></span>
-          <input  type='range'
-                  min='0'
-                  max='100'
-                  step='1'
-                  ng-model="ytContainerCtrl.volume"
-                  ng-change="ytContainerCtrl.setVolume()"></input>
-        </div>
-
         <input  type="range"
                 id="progress-bar"
                 value="0"
@@ -49,8 +25,7 @@
             <div class="vid-item col-md-3"
                  ng-repeat = "clip in main.clips
                               | filter: ytContainerCtrl.filterThumbnails
-                              | pagination: ytContainerCtrl.currentPage * ytContainerCtrl.pageSize
-                              | limitTo: ytContainerCtrl.pageSize"
+                              | limitTo: ytContainerCtrl.pageSize : (ytContainerCtrl.currentPage - 1)*ytContainerCtrl.pageSize"
                  ng-click = "main.changeVideo(clip)"
                  ng-class="{selected : main.videoId == clip.id.videoId}" >
                   <div class="thumbnails">
@@ -62,22 +37,33 @@
             </div>
           </div>
         </div>
-        <div class="arrows">
-          <div  class="arrow-left"
-                ng-if="ytContainerCtrl.currentPage != 0">
-            <span class="glyphicon glyphicon-chevron-left"
-                  ng-click="ytContainerCtrl.currentPage=ytContainerCtrl.currentPage - 1"></span>
+          <div class="arrows">
+            <div  class="arrow-left" id="vidLeftArrow"
+                  ng-if="ytContainerCtrl.currentPage != 1">
+              <span class="glyphicon glyphicon-chevron-left"
+                    ng-click="ytContainerCtrl.currentPage=ytContainerCtrl.currentPage - 1"></span>
+            </div>
+            <div  class="arrow-right" id="vidRightArrow"
+                  ng-if="ytContainerCtrl.currentPage < main.clips.length/ytContainerCtrl.pageSize ">
+              <span class="glyphicon glyphicon-chevron-right"
+                    ng-click="ytContainerCtrl.currentPage = ytContainerCtrl.currentPage + 1"></span>
+            </div>
           </div>
-          <div  class="arrow-right"
-                ng-if="ytContainerCtrl.currentPage < (main.clips | filter: ytContainerCtrl.filterThumbnails).length/ytContainerCtrl.pageSize - 1"   >
-            <span class="glyphicon glyphicon-chevron-right"
-                  ng-click="ytContainerCtrl.currentPage = ytContainerCtrl.currentPage + 1"></span>
+          <div class = "rangePaginationBarVideos"
+                ng-if = "main.clips.length > ytContainerCtrl.pageSize">
+            <uib-pagination total-items="main.clips.length" ng-model="ytContainerCtrl.currentPage" max-size="5"  boundary-links="false" rotate="false" items-per-page="ytContainerCtrl.pageSize" direction-links="false">
           </div>
-        </div>
-<!--         <li ng-repeat="n in main.range()" ng-class="{selected: n == main.currentPage}" ng-click="main.setPage(n)">
-             <a  href="#/allArtists">{{n+1}}</a>
-              </li> -->
       </div> <!-- /. vid-container -->
     </div>
   </div>
+  <div class = "row" id="footerContainer">
+    <div class="col-md-12">
+      <div id="footer">
+        <p>
+           Maciej Mańko &copy; 2016r.
+        </p>
+      </div>
+    </div>
+  </div>
+
 </section>
