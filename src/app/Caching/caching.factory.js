@@ -17,7 +17,8 @@
     cachedUrlId,
     facebookLogFlag,
     inputApproachFlag,
-    currentPage=1;
+    currentPage=1,
+    facebookProfilePicture = {};
 
 		var factory = {
 			cacheArray: cacheArray,
@@ -31,7 +32,9 @@
       cacheInputApprachFlag:cacheInputApprachFlag,
       readInputApprachFlag: readInputApprachFlag,
       saveCurrentPaginationPage: saveCurrentPaginationPage,
-      readCurrentPaginationPage: readCurrentPaginationPage
+      readCurrentPaginationPage: readCurrentPaginationPage,
+      cacheFacebookProfilePicture: cacheFacebookProfilePicture,
+      readFacebookProfilePicture: readFacebookProfilePicture
 
 		};
 
@@ -87,6 +90,14 @@
 
     function readCurrentPaginationPage() {
       return currentPage
+    }
+
+    function cacheFacebookProfilePicture(picObj) {
+      facebookProfilePicture = picObj;
+    }
+
+    function readFacebookProfilePicture() {
+      return facebookProfilePicture
     }
 	}
 })();

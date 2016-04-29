@@ -294,7 +294,7 @@ iframe {
 }
 
 section#linkContainer {
-	padding:15px;
+	padding: 15px 15px 0px 15px;
   margin-top: 85px;
   text-align: center;
 }
@@ -446,4 +446,13 @@ li.pagination-page>a:hover {
 .pagination > li > a {
   margin: 0px 5px;
   min-width: 50px;
+}
+
+#profilePicture {
+  float:left;
+  margin-right: 10px;
+  margin-top: 8px;
+}
+img#profilePicture:hover {
+  opacity: 1;
 }

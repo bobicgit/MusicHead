@@ -21,6 +21,7 @@
     that.getTrustedThumbnailSrc = getTrustedThumbnailSrc;
     that.logOutFromFb = logOutFromFb;
     that.getArtists = getArtists;
+    that.getProfilePicture = FBApiService.pictureRequest;
 
     function getMusicInfoFromFb() {
       var defer = $q.defer();
@@ -57,6 +58,7 @@
       })
       helpersFactory.shuffle(clips);
       youtubeFactory.saveCache(clips);
+
       id = clips[0].id.videoId;
       obj = {
         clips: clips,

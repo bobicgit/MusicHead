@@ -10,9 +10,9 @@
     .module('musicHead')
     .directive('youtubePlayerContainer', youtubePlayerContainer);
 
-    youtubePlayerContainer.$inject = ['ytPlayerApi','YT_event','youtubeFactory', 'dataService', '$routeParams'];
+    youtubePlayerContainer.$inject = ['ytPlayerApi','youtubeFactory', 'dataService', '$routeParams'];
 
-    function youtubePlayerContainer(ytPlayerApi, YT_event) {
+    function youtubePlayerContainer(ytPlayerApi) {
 
     return {
       restrict: "E",

@@ -10,9 +10,9 @@
     .module('musicHead')
     .directive('navBar', navBar);
 
-    navBar.$inject = ['cachingFactory','dataService','YT_event'];
+    navBar.$inject = ['YT_event'];
 
-    function navBar(cachingFactory, dataService) {
+    function navBar() {
 
     return {
       restrict: "E",
@@ -21,7 +21,7 @@
       controllerAs: 'navBarCtrl'
     }
 
-    function navBarController(cachingFactory, dataService, YT_event, $scope) {
+    function navBarController(dataService, YT_event, $scope) {
 
       var vm = this;
 
@@ -34,11 +34,18 @@
       vm.mute = mute;
       vm.muted=false;
       vm.volume = 100;
+      vm.profilePictureUrl;
+      vm.facebookLogFlag;
 
-      dataService
-        .checkLogStatus()
+      dataService.checkLogStatus()
         .then(function(response) {
             vm.facebookLogFlag = response.status === 'connected';
+            if(vm.facebookLogFlag) {
+              return dataService.getProfilePicture()
+                      .then(function(picture) {
+                        vm.profilePictureUrl = picture.data.url ;
+                      })
+            }
         })
 
       function logOut() {
@@ -67,7 +74,6 @@
 
       function mute() {
         vm.muted=!vm.muted;
-        //vm.volume === 0 ? vm.volume = 100 : vm.volume = 0;
         $scope.$broadcast(YT_event.MUTE);
       }
 
