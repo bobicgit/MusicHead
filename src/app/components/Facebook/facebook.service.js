@@ -25,8 +25,12 @@
     function checkStatus() {
       var defer = $q.defer();
       FB.getLoginStatus(function(response) {
-        defer.resolve(response);
-          });
+        if(response.status === 'connected') {
+          defer.resolve(response);
+        } else {
+          defer.reject();
+        }
+      });
       return defer.promise;
     }
 
@@ -37,12 +41,14 @@
         if(response.authResponse) {
             logged = true;
             cachingFactory.cacheFacebookLogFlag(logged);
-            pictureRequest().then(function(picture) {
-              cachingFactory.cacheFacebookProfilePicture(picture);
-            })
-            musicRequest().then(function() {
-              defer.resolve(response);
-            });
+            pictureRequest()
+              .then(function(picture) {
+                cachingFactory.cacheFacebookProfilePicture(picture);
+              })
+            musicRequest()
+              .then(function(fbArtistsArray) {
+                defer.resolve(fbArtistsArray);
+              });
         } else {
           defer.reject();
         }
@@ -66,11 +72,10 @@
 
     function musicRequest() {
       var defer = $q.defer();
-        FB.api(
-          '/me/music',
-          'GET',
-          {},
-          function(response) {
+        FB.api('/me/music', 'GET', {}, function(response) {
+          if (!response || response.error) {
+            defer.reject(response.error.data)
+          } else {
             self.fbArtistsArray = [];
             angular.forEach(response.data, function(value) {
               self.fbArtistsArray.push(value.name)
@@ -78,28 +83,28 @@
             cachingFactory.clearCachedUrlId();
             cachingFactory.clearCachedArray();
             cachingFactory.cacheArray(self.fbArtistsArray);
-            defer.resolve(self.fbArtistsArray);
+            defer.resolve(self.fbArtistsArray);            
           }
-        );
+        });
         return defer.promise;
-        // ////
-        // FB.api("https://graph.facebook.com/v2.6/1065979653474352/music?access_token=EAALYpwp0yqwBAOIgcaYyMJwYk3LPo7tzM4J5J2wMEwZBsPq1Hk9P05vEJ6BWahIQKShoXtNXZACg2oBTSNk0ZAQxdGgHIzLnfECV7CoNmqYx1j5OOg8zF8ZBBfH2JZC87rD4kGAVv7fm5tthzM6qTznxxfo5uIgzEtV3fY7lSQgZDZD&pretty=0&limit=25&after=MzA5NzU2ODc2ODIZD",
-        //   function(response){console.log(response)});
-        // ////
     }
 
     function pictureRequest() {
       var defer = $q.defer();
-      FB.api(
-          '/me/picture',
-          'GET',
-          {},
-          function(picture) {
-            defer.resolve(picture);
-          }
-      );
+      FB.api('/me/picture', 'GET', {}, function(picture) {
+        if (!picture || picture.error) {
+          defer.reject(picture.error.data)
+        } else {
+          defer.resolve(picture);
+        }  
+      });
       return defer.promise;
     }
-
   }
 })();
+
+
+///        // ////
+        // FB.api("https://graph.facebook.com/v2.6/1065979653474352/music?access_token=EAALYpwp0yqwBAOIgcaYyMJwYk3LPo7tzM4J5J2wMEwZBsPq1Hk9P05vEJ6BWahIQKShoXtNXZACg2oBTSNk0ZAQxdGgHIzLnfECV7CoNmqYx1j5OOg8zF8ZBBfH2JZC87rD4kGAVv7fm5tthzM6qTznxxfo5uIgzEtV3fY7lSQgZDZD&pretty=0&limit=25&after=MzA5NzU2ODc2ODIZD",
+        //   function(response){console.log(response)});
+        // ////

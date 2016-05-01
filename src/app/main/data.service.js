@@ -7,15 +7,15 @@
       .module('musicHead')
       .service('dataService', dataService);
 
-  dataService.$inject = ['FBApiService', 'youtubeFactory', '$q', 'helpersFactory', '$sce', '$location','cachingFactory'];
+  dataService.$inject = ['FBApiService', 'youtubeFactory', '$q', 'helpersFactory', '$sce', '$location','cachingFactory','toastr'];
 
-  function dataService(FBApiService, youtubeFactory, $q, helpersFactory, $sce, $location, cachingFactory) {
+  function dataService(FBApiService, youtubeFactory, $q, helpersFactory, $sce, $location, cachingFactory, toastr) {
 
     var that = this,
         id;
 
     that.checkLogStatus = FBApiService.checkStatus;
-    that.getMusicInfoFromFb = getMusicInfoFromFb;
+    that.getMusicInfoFromFb = FBApiService.musicRequest;
     that.getMusicVideosFromYt = getMusicVideosFromYt;
     that.getVideosAndPlayId = getVideosAndPlayId;
     that.getTrustedThumbnailSrc = getTrustedThumbnailSrc;
@@ -23,14 +23,6 @@
     that.getArtists = getArtists;
     that.getProfilePicture = FBApiService.pictureRequest;
 
-    function getMusicInfoFromFb() {
-      var defer = $q.defer();
-      FBApiService.musicRequest()
-                  .then(function(response) {
-                    defer.resolve(response);
-                  })
-      return defer.promise;
-    }
 
   // Inside activate, in for loop, i am filling array with promises. I got those promises from requestArtists function
   // that uses youtubeFactory to return promise. Function activate is waiting for all promises to be return, and then
@@ -51,20 +43,27 @@
     function getVideosAndPlayId(artistsClips) {//artistsClips
       var obj = {},
           clips = [];
+          
       angular.forEach(artistsClips, function(array) {
           angular.forEach(array, function(item) {
             clips.push(item);
         })
       })
-      helpersFactory.shuffle(clips);
-      youtubeFactory.saveCache(clips);
+      if(clips.length > 0) {
+        helpersFactory.shuffle(clips);
+        youtubeFactory.saveCache(clips);
 
-      id = clips[0].id.videoId;
-      obj = {
-        clips: clips,
-        id: id
+        id = clips[0].id.videoId;
+        obj = {
+          clips: clips,
+          id: id
+        }
+        return obj;
+      } else {debugger;
+        toastr.info('There are no clips for display');
+
       }
-      return obj;
+
     }
 
     function getArtists(connected) {

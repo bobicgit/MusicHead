@@ -27,7 +27,6 @@
 
           $window.onYouTubeIframeAPIReady = function () {
             apiReady.resolve();
-              // $timeout(apiReady.resolve, 500);
           }
         }
     }

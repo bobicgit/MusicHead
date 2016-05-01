@@ -34,10 +34,18 @@
                 method: 'GET',
                 url: ytRequestObject.url,
                 params: ytRequestObject.params
-            }).then(function(response) {
-            cache = cache.concat(response.data.items);
-            return response.data.items;
-            })
+            	})
+							.then(showItemsComplete)
+            	.catch(showItemsFail);
+
+       function showItemsComplete(response) {
+          cache = cache.concat(response.data.items);
+          return response.data.items;       	
+       }
+
+       function showItemsFail(error) {
+       		return error.data;
+       }
 		}
 
     function saveCache(arr) {

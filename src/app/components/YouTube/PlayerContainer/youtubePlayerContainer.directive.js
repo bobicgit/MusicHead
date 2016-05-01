@@ -26,18 +26,16 @@
           routeArtist = $routeParams.artist;
 
       vm.apiReady = false;
+      vm.currentDuration;
+      vm.currentPage = 1;
       vm.currentTime;
       vm.duration;
-      vm.currentPage = 1;
-      vm.pageSize = 4;
-      vm.currentDuration;
-      vm.progress = 0;
-      vm.getProgressValue = getProgressValue;
-      vm.volume = 100;
-
-      vm.link = link;
       vm.filterThumbnails = filterThumbnails();
-
+      vm.getProgressValue = getProgressValue;
+      vm.link = link;
+      vm.pageSize = 4;
+      vm.progress = 0;
+      vm.volume = 100;
 
 // Changing the flag, that informs youtube api is ready. in this way, api will be ready
 // when this directive is loaded, and will be ready even on another route.
@@ -65,8 +63,6 @@
       function filterThumbnails() {
         return {snippet: {title: routeArtist || ''}};
       }
-
-
     }
   }
 })();

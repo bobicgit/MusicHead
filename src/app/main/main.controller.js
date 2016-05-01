@@ -23,7 +23,6 @@
     vm.changeVideo = changeVideo;
     vm.routeArtist = $routeParams.artist;
     vm.keepPage = keepPage;
-    // vm.profilePicture;
 
     //GDZIE TO WRZUCIC
     vm.currentPage;
@@ -60,9 +59,13 @@
             })
             .then(function(artistsClips) {
                 vm.currentPage = cachingFactory.readCurrentPaginationPage();
-                var objOfClipsAndId = dataService.getVideosAndPlayId(artistsClips);
-                vm.clips = objOfClipsAndId.clips;
-                vm.videoId = objOfClipsAndId.id;
+                if(artistsClips.length > 1 || artistsClips[0].length) {
+                  var objOfClipsAndId = dataService.getVideosAndPlayId(artistsClips);
+                  vm.clips = objOfClipsAndId.clips;
+                  vm.videoId = objOfClipsAndId.id;                  
+                } else {
+                  dataService.getVideosAndPlayId(artistsClips);
+                }
               });
         });
     }
