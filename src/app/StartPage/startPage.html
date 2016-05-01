@@ -1,4 +1,15 @@
+
 <div class="container">
+  <spinner name="mySpinner" on-loaded="fbCtrl.getResource()">
+    <div class="overlay">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="please-wait">Please Wait...</div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
+ 
+  </spinner>  
   <section id="header">
     <a href="#/">
       <div id="logoStart"></div>
@@ -19,9 +30,9 @@
         <h1>You are logged in</h1>
         <button class="btn btn-danger" ng-click = "fbCtrl.changePath()">Go to player</button>
         <button class="fbLogout" ng-click = "fbCtrl.logOut()">LogOut from Facebook</button>
-      <div>
+   
     </div>
   </div>
 </div>
-
+</div>
 

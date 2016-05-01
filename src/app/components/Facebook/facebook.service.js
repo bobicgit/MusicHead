@@ -22,17 +22,17 @@
     self.pictureRequest = pictureRequest;
 
 
-    function checkStatus() {
-      var defer = $q.defer();
-      FB.getLoginStatus(function(response) {
-        if(response.status === 'connected') {
-          defer.resolve(response);
-        } else {
-          defer.reject();
-        }
-      });
-      return defer.promise;
-    }
+      function checkStatus() {
+        var defer = $q.defer();
+        FB.getLoginStatus(function(response) {
+          if(response.status === 'connected') {
+            defer.resolve(response);
+          } else {
+            defer.reject();
+          }
+        });
+        return defer.promise;
+      }
 
 
     function logIn() {
@@ -60,8 +60,8 @@
       var defer = $q.defer();
       FB.getLoginStatus(function(response) {
         if (response.status === 'connected') {
-            FB.logout(function(response) {
-              defer.resolve(response);
+            FB.logout(function() {
+              defer.resolve();
             });
         } else {
           defer.reject();
