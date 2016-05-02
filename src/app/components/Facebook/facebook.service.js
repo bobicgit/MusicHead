@@ -7,9 +7,9 @@
       .module('musicHead')
       .service('FBApiService', FBApi);
 
-  FBApi.$inject = ['$q','$location', 'cachingFactory'];
+  FBApi.$inject = ['$q','$location', 'cachingFactory','spinnerService'];
 
-  function FBApi($q, $location, cachingFactory) {
+  function FBApi($q, $location, cachingFactory, spinnerService) {
 
     var self = this,
         logged = false;
@@ -22,18 +22,20 @@
     self.pictureRequest = pictureRequest;
 
 
-      function checkStatus() {
-        var defer = $q.defer();
-        FB.getLoginStatus(function(response) {
-          if(response.status === 'connected') {
-            defer.resolve(response);
-          } else {
-            defer.reject();
-          }
-        });
-        return defer.promise;
-      }
+    function checkStatus() {
+      var defer = $q.defer();
+      FB.getLoginStatus(function(response) {
+        if(response.status === 'connected') {
+          defer.resolve(response);
+        } else if (response.status === 'unknown') {
+          defer.resolve(response);
+        } else {
+          defer.reject('You are logged out from Facebook!');
+        }
 
+      });
+      return defer.promise;
+    }
 
     function logIn() {
       var defer = $q.defer();
@@ -50,13 +52,14 @@
                 defer.resolve(fbArtistsArray);
               });
         } else {
-          defer.reject();
+          defer.reject('Facebook has a problem with login function');
         }
       }, {scope: 'user_likes'} );
       return defer.promise;
     }
 
     function logOut() {
+      spinnerService.show('mySpinner');
       var defer = $q.defer();
       FB.getLoginStatus(function(response) {
         if (response.status === 'connected') {
@@ -64,7 +67,7 @@
               defer.resolve();
             });
         } else {
-          defer.reject();
+          defer.reject('Facebook can\'t get your login status');
         }
       });
       return defer.promise;
@@ -83,7 +86,7 @@
             cachingFactory.clearCachedUrlId();
             cachingFactory.clearCachedArray();
             cachingFactory.cacheArray(self.fbArtistsArray);
-            defer.resolve(self.fbArtistsArray);            
+            defer.resolve(self.fbArtistsArray);
           }
         });
         return defer.promise;
@@ -96,7 +99,7 @@
           defer.reject(picture.error.data)
         } else {
           defer.resolve(picture);
-        }  
+        }
       });
       return defer.promise;
     }

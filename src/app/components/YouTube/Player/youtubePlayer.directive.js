@@ -64,7 +64,6 @@
               updateTimerDisplay();
               updateProgressBar();
             }, 1000)
-
           }
 
         // This function is called by initialize()

@@ -7,9 +7,9 @@
       .module('musicHead')
       .service('dataService', dataService);
 
-  dataService.$inject = ['FBApiService', 'youtubeFactory', '$q', 'helpersFactory', '$sce', '$location','cachingFactory','toastr'];
+  dataService.$inject = ['FBApiService', 'youtubeFactory', '$q', 'helpersFactory', '$sce', '$location','cachingFactory','toastr','spinnerService'];
 
-  function dataService(FBApiService, youtubeFactory, $q, helpersFactory, $sce, $location, cachingFactory, toastr) {
+  function dataService(FBApiService, youtubeFactory, $q, helpersFactory, $sce, $location, cachingFactory, toastr,spinnerService) {
 
     var that = this,
         id;
@@ -30,10 +30,15 @@
 
     function getMusicVideosFromYt(arrayOfArtists) {
       var arrayOfRequestPromises = [];
-      for(var i = 0 ; i<arrayOfArtists.length; i++) {
-        arrayOfRequestPromises.push(requestArtists(arrayOfArtists[i]));
+      if(arrayOfArtists.length > 0 ) {
+        for(var i = 0 ; i<arrayOfArtists.length; i++) {
+          arrayOfRequestPromises.push(requestArtists(arrayOfArtists[i]));
+        }
+        return $q.all(arrayOfRequestPromises);
+      } else {
+        return $q.reject('No artists, my friend');
       }
-      return $q.all(arrayOfRequestPromises);
+
     }
 
     function requestArtists(artist) {
@@ -43,7 +48,7 @@
     function getVideosAndPlayId(artistsClips) {//artistsClips
       var obj = {},
           clips = [];
-          
+
       angular.forEach(artistsClips, function(array) {
           angular.forEach(array, function(item) {
             clips.push(item);
@@ -59,18 +64,17 @@
           id: id
         }
         return obj;
-      } else {debugger;
+      } else {
         toastr.info('There are no clips for display');
-
       }
-
     }
 
     function getArtists(connected) {
       var deferred = $q.defer();
       if (connected) {
         that.getMusicInfoFromFb()
-          .then(deferred.resolve);
+          .then(deferred.resolve)
+          .catch(deferred.reject);
       } else {
         deferred.resolve(cachingFactory.readInputArrayFromCache());
       }
@@ -83,6 +87,10 @@
         .then(function() {
           youtubeFactory.clearCacheClips();
           $location.path("/");
+          spinnerService.hide('mySpinner');
+        })
+        .catch(function(error) {
+          toastr.error(error);
         });
     }
 
@@ -97,7 +105,6 @@
     function getThumbnailSrc(videoId) {
       return 'http://img.youtube.com/vi/' + videoId + '/mqdefault.jpg';
     }
-
 
   }
 })();

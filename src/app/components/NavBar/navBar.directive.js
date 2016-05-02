@@ -10,7 +10,7 @@
     .module('musicHead')
     .directive('navBar', navBar);
 
-    navBar.$inject = ['YT_event','cachingFactory'];
+    navBar.$inject = ['YT_event','cachingFactory','toastr'];
 
     function navBar() {
 
@@ -21,7 +21,7 @@
       controllerAs: 'navBarCtrl'
     }
 
-    function navBarController(dataService, YT_event, $scope, cachingFactory) {
+    function navBarController(dataService, YT_event, $scope, cachingFactory, toastr) {
 
       var vm = this,
           inputApproach = cachingFactory.readInputApprachFlag();
@@ -33,28 +33,37 @@
       vm.next = next;
       vm.setVolume = setVolume;
       vm.mute = mute;
-      vm.muted=false;
+      vm.muted = false;
       vm.volume = 100;
       vm.profilePictureUrl;
       vm.facebookLogFlag;
 
       dataService.checkLogStatus()
-        .then(function(response) {
-          vm.facebookLogFlag = response.status === 'connected';
-          return vm.facebookLogFlag;
+        .then(setFlag)
+        .then(getProfilePicture)
+        .then(setProfilePictureUrl)
+        .catch(function(error) {
+          toastr.error(error);
         })
-        .then(function(facebookLogFlag) {
-          if(facebookLogFlag) {
+
+      function setFlag(response) {
+        vm.facebookLogFlag = response.status === 'connected';
+        return vm.facebookLogFlag;
+      }
+
+      function getProfilePicture(facebookLogFlag) {
+        if(facebookLogFlag) {
             return dataService.getProfilePicture();
           }
-        })
-        .then(function(picture){
-          if(picture) {
-            vm.profilePictureUrl = picture.data.url;
-          } else {
-            return;
-          }  
-        })
+      }
+
+      function setProfilePictureUrl(picture) {
+        if(picture) {
+          vm.profilePictureUrl = picture.data.url;
+        } else {
+          return;
+        }
+      }
 
       function logOut() {
         dataService.logOutFromFb();

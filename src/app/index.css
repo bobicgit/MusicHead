@@ -462,8 +462,8 @@ img#profilePicture:hover {
 /*/// SPINER*/
 
 .spinner {
-  width: 600px;
-  height: 600px;
+  width: 500px;
+  height: 500px;
   position: relative;
     left:32%;
     top:100px;
@@ -485,7 +485,8 @@ img#profilePicture:hover {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: red;
+  border: 5px white solid;
+  background-color:  #b31217;
   opacity: 0.6;
   position: absolute;
   top: 0;
@@ -506,16 +507,16 @@ img#profilePicture:hover {
 }
 
 @keyframes bounce {
-  0%, 100% { 
+  0%, 100% {
     transform: scale(0.0);
     -webkit-transform: scale(0.0);
-  } 50% { 
+  } 50% {
     transform: scale(1.0);
     -webkit-transform: scale(1.0);
   }
 }
 
-.overlay {  
+.overlay {
     position:absolute;
     top:0;
     left:0;
