@@ -33,19 +33,19 @@
 			return $http({
                 method: 'GET',
                 url: ytRequestObject.url,
-                params: ytRequestObject.params
-            	})
-							.then(showItemsComplete)
-            	.catch(showItemsFail);
+                params: ytRequestObject.params })
+			.then(showItemsComplete)
+      .catch(showItemsFail);
 
-       function showItemsComplete(response) {
-          cache = cache.concat(response.data.items);
-          return response.data.items;       	
-       }
+      function showItemsComplete(response) {
+        cache = cache.concat(response.data.items);
+        return response.data.items;       	
+      }
 
-       function showItemsFail(error) {
-       		return error.data;
-       }
+
+      function showItemsFail(error) {
+				return error.data;
+      }
 		}
 
     function saveCache(arr) {

@@ -44,7 +44,7 @@
       function prepareApp() {
         cachingFactory.clearCachedUrlId();
         youtubeFactory.clearCacheClips();
-        vm.artistsList = vm.artistsList.split(" ");
+        vm.artistsList = vm.artistsList.split(",");
         vm.artistsList = helpersFactory.trimmingArray(vm.artistsList);
         cachingFactory.cacheArray(vm.artistsList);
         cachingFactory.cacheInputApprachFlag(inputApproach);

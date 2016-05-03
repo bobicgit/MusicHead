@@ -23,8 +23,8 @@
 
     function navBarController(dataService, YT_event, $scope, cachingFactory, toastr) {
 
-      var vm = this,
-          inputApproach = cachingFactory.readInputApprachFlag();
+      var vm = this;
+          //inputApproach = cachingFactory.readInputApprachFlag();
 
       vm.logOut = logOut;
       vm.pause = pause;

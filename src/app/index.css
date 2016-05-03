@@ -33,8 +33,13 @@ html, body {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+
 .navbar-collapse span.controlls:hover {
-  color:#333;
+  color:#c9302c;
+}
+.navbar-collapse span.controlls:focus {
+  outline: none;
 }
 
 .player-controlls {
@@ -464,9 +469,10 @@ img#profilePicture:hover {
 .spinner {
   width: 500px;
   height: 500px;
-  position: relative;
-    left:32%;
-    top:100px;
+  position: absolute;
+  left: 50%;
+  margin-left: -250px;
+  top:150px;
 /*  top: 0;
   right: 34%;*/
   /*margin: 0 auto;*/

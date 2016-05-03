@@ -22,7 +22,6 @@
         link: function(scope, element, attributes, youtubePlayerContainerCtrl) {
           var dbTitle,
               myClips = youtubeFactory.readCache(),
-              i = 0,
               routeArtist = $routeParams.artist;
 
     // Condition that checks if we are on a specific artist route
@@ -84,11 +83,18 @@
       // Function called by 'onStateChange' youtube player event
 
           function changeVideo(event) {
+
             if(event.data == YT.PlayerState.ENDED) {
-              (i === myClips.length - 1) ? i=0 : i++;
-              myPlayer.cueVideoById(myClips[i].id.videoId);
+              var nextVideoIndex;
+              angular.forEach(myClips, function(item) {
+                item.id.videoId === scope.videoid ? nextVideoIndex = myClips.indexOf(item) +1 : false;
+              });
+              nextVideoIndex === myClips.length ? (nextVideoIndex = 0, youtubePlayerContainerCtrl.currentPage = 0) : false;
+              myPlayer.cueVideoById(myClips[nextVideoIndex].id.videoId);
               myPlayer.playVideo();
-              scope.videoid = myClips[i].id.videoId;
+              scope.videoid = myClips[nextVideoIndex].id.videoId;
+
+              nextVideoIndex % youtubePlayerContainerCtrl.pageSize === 0 ? youtubePlayerContainerCtrl.currentPage++ : false;
             }
           }
 
