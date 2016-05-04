@@ -23,7 +23,7 @@
 
     function ytContainerController($scope, youtubeFactory, dataService, $routeParams) {
       var vm = this,
-          routeArtist = $routeParams.artist;
+        routeArtist = $routeParams.artist;
 
       vm.apiReady = false;
       vm.currentDuration;
