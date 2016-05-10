@@ -29,8 +29,21 @@
         item = item.trim();
         trimmedArray.push(item);
       });
-      return trimmedArray;
+
+      // preventing repetitions 
+      var trimmedArrayWithoutRepetition = [];
+      var l = trimmedArray.length;
+
+      for (var i = 0 ; i < l ; i ++) {
+        if (!trimmedArrayWithoutRepetition.includes(trimmedArray[i])){
+            trimmedArrayWithoutRepetition.push(trimmedArray[i]);
+        }
+      }
+
+      return trimmedArrayWithoutRepetition;
     }
+
+
 
     function shuffle(array) {
       var currentIndex = array.length, temporaryValue, randomIndex;

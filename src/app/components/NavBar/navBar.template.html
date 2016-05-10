@@ -38,6 +38,9 @@
         </div>
       </div>
 
+      <favourite ng-show="navBarCtrl.inputApproachFlag.approachFlag"></favourite>
+        
+
         <ul class="nav navbar-nav navbar-right">
           <img  id="profilePicture"
                 ng-src="{{navBarCtrl.profilePictureUrl}}"
@@ -45,6 +48,10 @@
          <button  ng-show="navBarCtrl.facebookLogFlag" class="fbLogout" ng-click="navBarCtrl.logOut()"> Logout from Facebook</button>
         </ul>
       </div><!-- /.navbar-collapse -->
+
     </div>
+ 
   </nav>
+
+
 </div>

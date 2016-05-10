@@ -42,10 +42,18 @@
       }
 
       function prepareApp() {
+        
         cachingFactory.clearCachedUrlId();
         youtubeFactory.clearCacheClips();
+        if (localStorage.artists) { // get artists from favourites
+          vm.artistsList = vm.artistsList + ',' + localStorage.artists;
+        }
+        if (!vm.artistsList) {return}
         vm.artistsList = vm.artistsList.split(",");
         vm.artistsList = helpersFactory.trimmingArray(vm.artistsList);
+        if (vm.artistsList[0] === 'undefined' || vm.artistsList[0] === '') {
+          vm.artistsList.splice(0,1);
+        }
         cachingFactory.cacheArray(vm.artistsList);
         cachingFactory.cacheInputApprachFlag(inputApproach);
         vm.artistsList = ''; // clear input
