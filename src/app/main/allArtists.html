@@ -26,7 +26,11 @@
                 class="btn btn-danger btn-lg "
                 role="button"
                 ng-class="{currentArtist : main.routeArtist  == artist }"
-                >{{artist}}</a>
+                >{{artist}}
+            </a>
+            <span class="add-to-favourites" 
+              ng-show="main.inputApproachFlag.approachFlag"
+              ng-click="main.addToFavourites(artist);$event.stopPropagation();">V</span>
           </div>
         </div>
 

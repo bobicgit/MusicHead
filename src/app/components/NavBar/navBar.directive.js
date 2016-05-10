@@ -21,7 +21,7 @@
       controllerAs: 'navBarCtrl'
     }
 
-    function navBarController(dataService, YT_event, $scope, cachingFactory, toastr) {
+    function navBarController($timeout, dataService, YT_event, $scope, cachingFactory, toastr) {
 
       var vm = this;
           //inputApproach = cachingFactory.readInputApprachFlag();
@@ -37,7 +37,10 @@
       vm.volume = 100;
       vm.profilePictureUrl;
       vm.facebookLogFlag;
+      vm.inputApproachFlag = cachingFactory.approachFlag;
 
+
+      
       dataService.checkLogStatus()
         .then(setFlag)
         .then(getProfilePicture)

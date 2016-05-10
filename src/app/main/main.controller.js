@@ -5,13 +5,15 @@
     .module('musicHead')
     .controller('MainController', MainController);
 
-  MainController.$inject = ['dataService','cachingFactory','helpersFactory', 'youtubeFactory', '$routeParams','$location','spinnerService','toastr'];
+  MainController.$inject = ['dataService','cachingFactory','helpersFactory', 'youtubeFactory', '$routeParams','$location','spinnerService','toastr', 'favouritesService'];
 
   /** @ngInject */
-  function MainController(dataService, cachingFactory, helpersFactory, youtubeFactory, $routeParams, $location, spinnerService, toastr) {
+  function MainController( dataService, cachingFactory, helpersFactory, youtubeFactory, $routeParams, $location, spinnerService, toastr, favouritesService) {
 
     var vm = this,
-        inputApproach = cachingFactory.readInputApprachFlag();
+    inputApproach = cachingFactory.readInputApprachFlag();
+
+    vm.favourites = [];
 
     vm.getResource = getResource;
 
@@ -26,6 +28,8 @@
       vm.changeVideo = changeVideo;
       vm.routeArtist = $routeParams.artist;
       vm.keepPage = keepPage;
+      vm.addToFavourites = addToFavourites;
+      vm.inputApproachFlag = cachingFactory.approachFlag;
       //GDZIE TO WRZUCIC
       vm.currentPage;
       vm.pageSize = 9;
@@ -56,6 +60,7 @@
                 toastr.error(error);
               })
           });
+          favouritesService.checkLocalStorage();
       }
 
       function trimArtists(artists) {
@@ -93,6 +98,13 @@
       function keepPage() {
         cachingFactory.saveCurrentPaginationPage(vm.currentPage);
       }
+
+      function addToFavourites (artist) {
+          favouritesService.addToFavourites(artist);
+      }
+
+
+    
   }
 }
 })();

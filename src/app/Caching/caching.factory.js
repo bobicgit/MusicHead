@@ -20,7 +20,10 @@
     currentPage=1,
     facebookProfilePicture = {};
 
+    
+
 		var factory = {
+      approachFlag: {approachFlag:''},
 			cacheArray: cacheArray,
 			readInputArrayFromCache: readInputArrayFromCache,
 			cacheUrlId: cacheUrlId,
@@ -62,6 +65,7 @@
 
     function cacheFacebookLogFlag(flag) {
       facebookLogFlag = flag;
+      factory.approachFlag.approachFlag = false;
     }
 
     function readFacebookLogFlag() {
@@ -78,6 +82,7 @@
 
     function cacheInputApprachFlag(flag) {
       inputApproachFlag = flag;
+      factory.approachFlag.approachFlag = flag;
     }
 
     function readInputApprachFlag() {
