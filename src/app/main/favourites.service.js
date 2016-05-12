@@ -16,7 +16,7 @@
 
     self.activePlaylist = {
       activePlaylist: {
-        name:'playlists'}
+        name:'no playlist created'}
     }
 
 
@@ -34,7 +34,7 @@
     self.updateLocalStorageString = updateLocalStorageString;
 
 
-    function checkLocalStorage () {
+    function checkLocalStorage() {
 
       if (localStorage.favourites) {
         self.favourites.playlists = angular.fromJson(localStorage.favourites).playlists;
@@ -46,7 +46,7 @@
     }
 
 
-    function addToFavourites (artist) {
+    function addToFavourites(artist) {
 
       for (var i = 0; i < self.activePlaylist.activePlaylist.artists.length; i ++) {
         if (self.activePlaylist.activePlaylist.artists[i].name === artist) {
@@ -61,7 +61,7 @@
     }
 
 
-    function toggleActive (artist) {
+    function toggleActive(artist) {
 
       for (var i = 0; i < self.activePlaylist.activePlaylist.artists.length; i ++) {
         if (self.activePlaylist.activePlaylist.artists[i].name === artist) {
@@ -74,7 +74,7 @@
     }
 
 
-    function setActivePlaylist (playlist) {
+    function setActivePlaylist(playlist) {
 
       for (var i = 0; i < self.favourites.playlists.length ; i ++) {
         if (self.favourites.playlists[i].name === playlist) {
@@ -87,7 +87,7 @@
 
 
     function addNewPlaylist(playlist) {
-      
+
       for ( var i = 0 ; i < self.favourites.playlists.length ; i ++) {
         if (self.favourites.playlists[i].name === playlist) {
           return
@@ -98,12 +98,12 @@
         name: playlist,
         artists : []
       });
- 
+
       localStorage.favourites = angular.toJson(self.favourites);
     }
 
 
-    function makeXshowPlaylist (index) {
+    function makeXshowPlaylist(index) {
 
       $timeout(function() {
         self.favourites.playlists[index].showX = false;
@@ -115,14 +115,14 @@
     }
 
 
-    function makeXhidePlaylist (index) {
+    function makeXhidePlaylist(index) {
 
       self.favourites.playlists[index].showXtimeout = false;
       self.favourites.playlists[index].showX = false;
     }
 
 
-    function makeXshowArtist (index) {
+    function makeXshowArtist(index) {
 
        $timeout(function() {
         self.activePlaylist.activePlaylist.artists[index].showX = false;
@@ -134,14 +134,14 @@
     }
 
 
-    function makeXhideArtist (index) {
+    function makeXhideArtist(index) {
 
       self.activePlaylist.activePlaylist.artists[index].showXtimeout = false;
       self.activePlaylist.activePlaylist.artists[index].showX = false;
     }
 
 
-    function removePlaylist (index) {
+    function removePlaylist(index) {
 
       var name = self.favourites.playlists[index].name;
       self.favourites.playlists.splice(index, 1);
@@ -150,10 +150,11 @@
         localStorage.activePlaylist = "";
       }
       localStorage.favourites = angular.toJson(self.favourites);
+      updateLocalStorageString();
     }
 
 
-    function removeArtist (index) {
+    function removeArtist(index) {
 
       self.activePlaylist.activePlaylist.artists.splice(index, 1);
       localStorage.activePlaylist = angular.toJson(self.activePlaylist.activePlaylist);
@@ -161,7 +162,7 @@
     }
 
 
-    function updateLocalStorageString () {
+    function updateLocalStorageString() {
 
       if ( localStorage.activePlaylist ) {
         var activeArtistArray = [];
@@ -171,8 +172,10 @@
             activeArtistArray.push(artist.name);
           }
         });
-      }
       localStorage.artists = activeArtistArray;
+      } else {
+      localStorage.artists = '';
+      }
     }
 
   }

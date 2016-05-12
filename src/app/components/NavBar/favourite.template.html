@@ -1,55 +1,56 @@
 <div>
-  <span class="glyphicon glyphicon-star navbar-right" 
-    ng-mouseenter="fvCtrl.showArtists()"
-    ng-mouseleave="fvCtrl.hideArtists()"></span>
+  <span class="glyphicon glyphicon-star navbar-right"
+        ng-mouseenter="fvCtrl.showArtists()"
+        ng-mouseleave="fvCtrl.hideArtists()"></span>
   <span class="playlist-header"
-    ng-mouseenter="fvCtrl.showPlaylists()"
-    ng-mouseleave="fvCtrl.hidePlaylists()">{{fvCtrl.activePlaylist.activePlaylist.name}}</span>
+        ng-mouseenter="fvCtrl.showPlaylists()"
+        ng-mouseleave="fvCtrl.hidePlaylists()">{{fvCtrl.activePlaylist.activePlaylist.name}}</span>
   <div class="playlists"
-    ng-mouseenter="fvCtrl.showPlaylists()"
-    ng-mouseleave="fvCtrl.hidePlaylists()">
-    <div class="favourite-playlist" 
-      ng-if="fvCtrl.playlistsVisible">
+      ng-mouseenter="fvCtrl.showPlaylists()"
+      ng-mouseleave="fvCtrl.hidePlaylists()">
     <div class="favourite-playlist"
-      ng-repeat="playlist in fvCtrl.playlists.playlists" 
-      ng-click="fvCtrl.setActivePlaylist(playlist.name)" 
-      ng-mouseover="fvCtrl.makeXshowPlaylist($index)"
-      ng-mouseleave="fvCtrl.makeXhidePlaylist($index)">
-      <span class="glyphicon glyphicon-ok glyph"
-        ng-if="playlist.active"></span>
-      <span class="playlist">{{playlist.name}}</span>
-      <span class="remove-favourite" 
-        ng-show="playlist.showX"  
-        ng-click="fvCtrl.removePlaylist($index)">x</span>
+          ng-if="fvCtrl.playlistsVisible">
+      <div class="favourite-playlist"
+            ng-repeat="playlist in fvCtrl.playlists.playlists"
+            ng-click="fvCtrl.setActivePlaylist(playlist.name)"
+            ng-mouseover="fvCtrl.makeXshowPlaylist($index)"
+            ng-mouseleave="fvCtrl.makeXhidePlaylist($index)">
+        <span class="glyphicon glyphicon-ok glyph"
+              ng-if="playlist.active"></span>
+        <span class="playlist">{{playlist.name}}</span>
+        <span class="remove-favourite"
+              ng-show="playlist.showX"
+              ng-click="fvCtrl.removePlaylist($index)">x</span>
+      </div>
+
+      <div class="favourite-playlist"
+            ng-click="fvCtrl.addingNewPlaylist()">
+        <span class="playlist plus">+</span>
+        <input
+          class="new-playlist-input"
+          ng-show="fvCtrl.addingNewPlaylistStatus"
+          ng-model="fvCtrl.newPlaylist"
+          ng-keypress="($event.which === 13)?fvCtrl.addNewPlaylist(fvCtrl.newPlaylist):0"/>
+      </div>
     </div>
 
-    <div class="favourite-playlist" 
-      ng-click="fvCtrl.addingNewPlaylist()">
-      <span class="playlist plus">+</span>
-      <input 
-        class="new-playlist-input" 
-        ng-show="fvCtrl.addingNewPlaylistStatus" 
-        ng-model="fvCtrl.newPlaylist" 
-        ng-keypress="($event.which === 13)?fvCtrl.addNewPlaylist(fvCtrl.newPlaylist):0"/>
+    <div class="favourite"
+          ng-if="fvCtrl.artistsVisible"
+          ng-mouseenter="fvCtrl.showArtists()"
+          ng-mouseleave="fvCtrl.hideArtists()">
+      <div class="favourite-artist"
+          ng-repeat="artist in fvCtrl.activePlaylist.activePlaylist.artists"
+          ng-mouseover="fvCtrl.makeXshowArtist($index)"
+          ng-mouseleave="fvCtrl.makeXhideArtist($index)"
+          ng-click="fvCtrl.toggleActive(artist.name)">
+        <span class="glyphicon glyphicon-ok glyph"
+          ng-if="artist.active"></span>
+        <span class="artist">{{artist.name}}</span>
+        <span class="remove-favourite"
+          ng-show="artist.showX"
+          ng-click="fvCtrl.removeArtist($index)">x</span>
+      </div>
     </div>
   </div>
-
-  <div class="favourite"
-    ng-if="fvCtrl.artistsVisible"
-    ng-mouseenter="fvCtrl.showArtists()"
-    ng-mouseleave="fvCtrl.hideArtists()">
-    <div class="favourite-artist" 
-      ng-repeat="artist in fvCtrl.activePlaylist.activePlaylist.artists"
-      ng-mouseover="fvCtrl.makeXshowArtist($index)"
-      ng-mouseleave="fvCtrl.makeXhideArtist($index)"
-      ng-click="fvCtrl.toggleActive(artist.name)">
-      <span class="glyphicon glyphicon-ok glyph"
-        ng-if="artist.active"></span>
-      <span class="artist">{{artist.name}}</span>
-      <span class="remove-favourite" 
-        ng-show="artist.showX" 
-        ng-click="fvCtrl.removeArtist($index)">x</span>
-    </div>
-  </div>
-  
 </div>
+

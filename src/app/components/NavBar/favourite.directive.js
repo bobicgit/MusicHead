@@ -22,7 +22,7 @@
     function favouriteController($timeout, dataService, YT_event, $scope, cachingFactory, toastr, favouritesService) {
 
       var vm = this;
-     
+
       vm.playlists = favouritesService.favourites;
       vm.activePlaylist = favouritesService.activePlaylist;
 
@@ -98,8 +98,6 @@
           vm.addingNewPlaylistStatus = false;
         }, 50);
       }
-
-       
     }
   }
 })();

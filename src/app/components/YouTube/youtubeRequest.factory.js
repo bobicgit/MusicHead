@@ -13,51 +13,53 @@
     function youtubeFactory($http, youtubeDataService) {
 
     // Accessible members
-        var cache = [];
+      var cache = [];
 
-        var factory = {
-            showItems: showItems,
-            saveCache: saveCache,
-            readCache: readCache,
-            clearCacheClips: clearCacheClips
-        };
+      var factory = {
+          cache : [],
+          showItems: showItems,
+          saveCache: saveCache,
+          readCache: readCache,
+          clearCacheClips: clearCacheClips
+      };
 
     // Returning object of functions
 
-        return factory;
+      return factory;
 
     // Functions declatarions
 
-        function showItems(query) {
-            var ytRequestObject = youtubeDataService.getDataObject("search", query);
-            return $http({
-                method: 'GET',
-                url: ytRequestObject.url,
-                params: ytRequestObject.params })
-            .then(showItemsComplete)
-            .catch(showItemsFail);
+      function showItems(query) {
+          var ytRequestObject = youtubeDataService.getDataObject("search", query);
+          return $http({
+              method: 'GET',
+              url: ytRequestObject.url,
+              params: ytRequestObject.params })
+          .then(showItemsComplete)
+          .catch(showItemsFail);
 
-      function showItemsComplete(response) {
-        cache = cache.concat(response.data.items);
-        return response.data.items;         
+        function showItemsComplete(response) {
+          cache = cache.concat(response.data.items);
+          return response.data.items;
+        }
+
+        function showItemsFail(error) {
+          return error.data;
+        }
       }
 
-
-      function showItemsFail(error) {
-                return error.data;
+      function saveCache(arr) {
+        factory.cache = arr;
+        cache = arr;
       }
-        }
 
-    function saveCache(arr) {
-      cache = arr;
-    }
+      function readCache() {
+          return cache;
+      }
 
-        function readCache() {
-            return cache;
-        }
-
-        function clearCacheClips() {
-            cache = [];
-        }
+      function clearCacheClips() {
+          factory.cache = [];
+          cache = [];
+      }
     }
 })();

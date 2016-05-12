@@ -27,27 +27,16 @@
       var trimmedArray = [];
       angular.forEach(arr, function(item) {
         item = item.trim();
-        trimmedArray.push(item);
-      });
-
-      // preventing repetitions 
-      var trimmedArrayWithoutRepetition = [];
-      var l = trimmedArray.length;
-
-      for (var i = 0 ; i < l ; i ++) {
-        if (!trimmedArrayWithoutRepetition.includes(trimmedArray[i])){
-            trimmedArrayWithoutRepetition.push(trimmedArray[i]);
+        if (-1 === trimmedArray.indexOf(item)){
+          trimmedArray.push(item);
         }
-      }
-
-      return trimmedArrayWithoutRepetition;
+      });
+      return trimmedArray;
     }
-
-
 
     function shuffle(array) {
       var currentIndex = array.length, temporaryValue, randomIndex;
-    // While there remain elements to shuffle...
+      // While there remain elements to shuffle...
       while (0 !== currentIndex) {
       // Pick a remaining element...
         randomIndex = Math.floor(Math.random() * currentIndex);

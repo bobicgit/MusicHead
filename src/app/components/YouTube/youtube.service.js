@@ -16,7 +16,7 @@
 
 		function getUrl(command) {
 			var url = "https://content.googleapis.com/youtube/v3/";
-            return command ? url + command +'?' : url;
+      return command ? url + command +'?' : url;
 		}
 
 		function getDataObject(command, query) {

@@ -42,7 +42,7 @@
       }
 
       function prepareApp() {
-        
+
         cachingFactory.clearCachedUrlId();
         youtubeFactory.clearCacheClips();
         if (localStorage.artists) { // get artists from favourites

@@ -32,7 +32,6 @@
         } else {
           defer.reject('You are logged out from Facebook!');
         }
-
       });
       return defer.promise;
     }

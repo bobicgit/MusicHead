@@ -30,7 +30,6 @@
       vm.keepPage = keepPage;
       vm.addToFavourites = addToFavourites;
       vm.inputApproachFlag = cachingFactory.approachFlag;
-      //GDZIE TO WRZUCIC
       vm.currentPage;
       vm.pageSize = 9;
 
@@ -84,10 +83,8 @@
             var objOfClipsAndId = dataService.getVideosAndPlayId(artistsClips);
             vm.clips = objOfClipsAndId.clips;
             vm.videoId = objOfClipsAndId.id;
-            // spinnerService.hide('mySpinner');
           } else {
             dataService.getVideosAndPlayId(artistsClips);
-            // spinnerService.hide('mySpinner');
           }
       }
 
@@ -100,11 +97,8 @@
       }
 
       function addToFavourites (artist) {
-          favouritesService.addToFavourites(artist);
+        favouritesService.addToFavourites(artist);
       }
-
-
-    
   }
 }
 })();
