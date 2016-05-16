@@ -10,12 +10,9 @@ exports.config = {
 
   // Capabilities to be passed to the webdriver instance.
   onPrepare: function() {
+
     browser.manage().window().setSize(1600, 1000);
-    global.debugPortNumber = 5000;
-    global.initiateDebug = function() {
-      browser.pause(debugPortNumber);
-      debugPortNumber++;
-    };
+
   },
 
   capabilities: {

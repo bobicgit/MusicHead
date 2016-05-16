@@ -19,8 +19,9 @@
               class="btn btn-danger btn-lg "
               role="button"
               ng-class="{currentArtist : !main.routeArtist}">All Artists</a>
-          <div class="col-md-4" ng-repeat = "artist in main.artistsArrayTrimmed
-                              | limitTo: main.pageSize : (main.currentPage - 1)*main.pageSize  ">
+          <div class="col-md-4 artistBtn" 
+                ng-repeat = "artist in main.artistsArrayTrimmed
+                            | limitTo: main.pageSize : (main.currentPage - 1)*main.pageSize">
             <a  ng-click = "main.keepPage()"
                 href="#/allArtists/{{artist}}"
                 class="btn btn-danger btn-lg "
