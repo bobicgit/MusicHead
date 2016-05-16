@@ -78,7 +78,7 @@
       } else {
         deferred.resolve(cachingFactory.readInputArrayFromCache());
       }
-        return deferred.promise;
+      return deferred.promise;
     }
 
     function logOutFromFb() {

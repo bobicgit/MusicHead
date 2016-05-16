@@ -19,7 +19,7 @@ function runProtractor (done) {
 
   gulp.src(path.join(conf.paths.e2e, '/**/*.js'))
     .pipe($.protractor.protractor({
-      configFile: 'protractor.conf.js',
+      configFile: 'C:/Users/user/Desktop/Tasks/MusicHeadRepo/MusicHead/protractor.conf.js',
       args: args
     }))
     .on('error', function (err) {

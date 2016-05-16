@@ -2,7 +2,6 @@
 (function() {
 
   'use strict';
-
   angular
       .module('musicHead')
       .service('FBApiService', FBApi);

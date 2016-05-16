@@ -6,10 +6,17 @@
 'use strict';
 
 var MainPage = function() {
-  this.jumbEl = element(by.css('.jumbotron'));
-  this.h1El = this.jumbEl.element(by.css('h1'));
-  this.imgEl = this.jumbEl.element(by.css('img'));
-  this.thumbnailEls = element(by.css('body')).all(by.repeater('awesomeThing in main.awesomeThings'));
+  this.generateButton = element(by.css('.btn-danger'));
+  this.input = element(by.model('startCtrl.artistsList'));
+  this.leftArrow = element(by.className('glyphicon-chevron-left'));
+  this.rightArrow = element(by.className('glyphicon-chevron-right'));
+  this.clips = element.all(by.repeater('clip in main.clips'));
+  this.navBarDirective = element(by.tagName('nav-bar'));
+  this.nextButton = this.navBarDirective.element(by.css('.glyphicon.glyphicon-fast-forward.controlls'));
+  this.fbLogInBtn = element(by.css('.fbLogin'));
+  this.artistsDivs = element.all(by.repeater('artist in main.artistsArrayTrimmed'));
+  // this.artistsLinks = this.artistsDivs.element(by.tagName('a'));
+
 };
 
 module.exports = new MainPage();

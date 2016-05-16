@@ -28,7 +28,7 @@
                 ng-class="{currentArtist : main.routeArtist  == artist }"
                 >{{artist}}
             </a>
-            <span class="add-to-favourites" 
+            <span class="add-to-favourites"
               ng-show="main.inputApproachFlag.approachFlag"
               ng-click="main.addToFavourites(artist);$event.stopPropagation();">V</span>
           </div>
@@ -65,8 +65,6 @@
     </div>
   </div>
   <youtube-player-container></youtube-player-container>
-
-
 </div>
 
 

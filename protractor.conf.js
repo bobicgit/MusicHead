@@ -1,7 +1,7 @@
 'use strict';
 
 var paths = require('./.yo-rc.json')['generator-gulp-angular'].props.paths;
-
+console.log('############################################');
 // An example configuration file.
 exports.config = {
   // The address of a running selenium server.
@@ -9,6 +9,15 @@ exports.config = {
   //seleniumServerJar: deprecated, this should be set on node_modules/protractor/config.json
 
   // Capabilities to be passed to the webdriver instance.
+  onPrepare: function() {
+    browser.manage().window().setSize(1600, 1000);
+    global.debugPortNumber = 5000;
+    global.initiateDebug = function() {
+      browser.pause(debugPortNumber);
+      debugPortNumber++;
+    };
+  },
+
   capabilities: {
     'browserName': 'chrome'
   },
@@ -23,5 +32,6 @@ exports.config = {
   jasmineNodeOpts: {
     showColors: true,
     defaultTimeoutInterval: 30000
-  }
+  },
+
 };

@@ -74,8 +74,8 @@
           .then(deferred.resolve)
           .catch(deferred.reject);
       } else {
-        deferred.resolve(5);
-        // cachingFactory.readInputArrayFromCache()
+        deferred.resolve(cachingFactory.readInputArrayFromCache());
+        //
       }
         return deferred.promise;
     }
