@@ -1,7 +1,9 @@
 {
   "name": "musicHead",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "jquery": "^2.2.3"
+  },
   "scripts": {
     "test": "gulp test"
   },
