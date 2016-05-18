@@ -31,8 +31,8 @@
     // Create Player
 
           myPlayer =  new YT.Player(element.children()[0], {
-            height: '390',
-            width: '640',
+            // height: '390',
+            // width: '640',
             videoId: scope.videoid,
             playerVars: {
               html5: 1,

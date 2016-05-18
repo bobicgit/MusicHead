@@ -14,7 +14,8 @@
     inputApproach = cachingFactory.readInputApprachFlag();
 
     vm.favourites = [];
-
+    vm.isCollapsed = true;
+    console.log(vm.isCollapsed);
     vm.getResource = getResource;
 
     function getResource() {

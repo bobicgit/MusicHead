@@ -13,25 +13,29 @@
 
   <div class="row">
     <div class="col-md-12">
+<!--       <button type="button" class="btn btn-danger toggleArtistsLinks" ng-click="main.isCollapsed = !main.isCollapsed">Toggle to see artists</button> -->
       <section id = "linkContainer">
         <div class="row" ng-show = 'main.artistsArrayTrimmed.length > 0'>
+        <div uib-collapse='main.isCollapsed'>
           <a  href="#/allArtists"
               class="btn btn-danger btn-lg allArt"
               role="button"
               ng-class="{currentArtist : !main.routeArtist}">All Artists</a>
-          <div class="col-md-4 artistBtn"
-                ng-repeat = "artist in main.artistsArrayTrimmed
-                            | limitTo: main.pageSize : (main.currentPage - 1)*main.pageSize">
-            <a  ng-click = "main.keepPage()"
-                href="#/allArtists/{{artist}}"
-                class="btn btn-danger btn-lg specificArtistLink"
-                role="button"
-                ng-class="{currentArtist : main.routeArtist  == artist }"
-                >{{artist}}
-            </a>
-            <span class="add-to-favourites"
-              ng-show="main.inputApproachFlag.approachFlag"
-              ng-click="main.addToFavourites(artist);$event.stopPropagation();">V</span>
+
+            <div class="col-sm-4 col-xs-6 artistBtn"
+                  ng-repeat = "artist in main.artistsArrayTrimmed
+                              | limitTo: main.pageSize : (main.currentPage - 1)*main.pageSize">
+              <a  ng-click = "main.keepPage()"
+                  href="#/allArtists/{{artist}}"
+                  class="btn btn-danger btn-lg specificArtistLink"
+                  role="button"
+                  ng-class="{currentArtist : main.routeArtist  == artist }"
+                  >{{artist}}
+              </a>
+              <span class="add-to-favourites"
+                ng-show="main.inputApproachFlag.approachFlag"
+                ng-click="main.addToFavourites(artist);$event.stopPropagation();">V</span>
+            </div>
           </div>
         </div>
 
