@@ -45,7 +45,6 @@
     }
 
     function addToFavourites(artist) {
-      console.log(self.activePlaylist.activePlaylist);
       if(self.activePlaylist.activePlaylist.name === 'no playlist created') {
         toastr.info('You have to create and select playlist in order to add artist to it')
       } else {
@@ -98,9 +97,9 @@
 
     function makeXshowPlaylist(index) {
       $timeout(function() {
-        if(self.favourites.playlists[index] === undefined) {
+        if(angular.isUndefined(self.favourites.playlists[index])) {
             toastr.info('You have just deleted a playlist!');
-        } else {
+        }else{
           self.favourites.playlists[index].showX = false;
             if (self.favourites.playlists[index].showXtimeout === true) {
                self.favourites.playlists[index].showX = true;
@@ -117,9 +116,13 @@
 
     function makeXshowArtist(index) {
      $timeout(function() {
-      self.activePlaylist.activePlaylist.artists[index].showX = false;
-      if (self.activePlaylist.activePlaylist.artists[index].showXtimeout === true) {
-         self.activePlaylist.activePlaylist.artists[index].showX = true;
+      if(angular.isUndefined(self.activePlaylist.activePlaylist.artists[index])) {
+        toastr.info('You have just deleted all artists from playlist!');
+      }else{
+        self.activePlaylist.activePlaylist.artists[index].showX = false;
+        if (self.activePlaylist.activePlaylist.artists[index].showXtimeout === true) {
+           self.activePlaylist.activePlaylist.artists[index].showX = true;
+          }
         }
       }, 1000);
       self.activePlaylist.activePlaylist.artists[index].showXtimeout = true;
