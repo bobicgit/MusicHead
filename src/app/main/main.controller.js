@@ -5,19 +5,19 @@
     .module('musicHead')
     .controller('MainController', MainController);
 
-  MainController.$inject = ['dataService','cachingFactory','helpersFactory', 'youtubeFactory', '$routeParams','$location','spinnerService','toastr', 'favouritesService'];
+  MainController.$inject = ['$scope','dataService','cachingFactory','helpersFactory', 'youtubeFactory', '$routeParams','$location','spinnerService','toastr', 'favouritesService'];
 
   /** @ngInject */
-  function MainController( dataService, cachingFactory, helpersFactory, youtubeFactory, $routeParams, $location, spinnerService, toastr, favouritesService) {
+  function MainController($scope, dataService, cachingFactory, helpersFactory, youtubeFactory, $routeParams, $location, spinnerService, toastr, favouritesService) {
 
     var vm = this,
     inputApproach = cachingFactory.readInputApprachFlag();
 
     vm.favourites = [];
-
     vm.getResource = getResource;
 
     function getResource() {
+
 
       spinnerService.show('mySpinner');
 
@@ -32,6 +32,14 @@
       vm.inputApproachFlag = cachingFactory.approachFlag;
       vm.currentPage;
       vm.pageSize = 9;
+      vm.currentClipTitle;
+
+      $scope.$on('newId', function(evt, newid) {
+        var currentClip = vm.clips.filter(function(clip) {
+          return clip.id.videoId === newid;
+        })
+        vm.currentClipTitle = currentClip[0].snippet.title;
+      });
 
       init();
 
@@ -83,6 +91,7 @@
             var objOfClipsAndId = dataService.getVideosAndPlayId(artistsClips);
             vm.clips = objOfClipsAndId.clips;
             vm.videoId = objOfClipsAndId.id;
+            vm.currentClipTitle = vm.clips[0].snippet.title;
           } else {
             dataService.getVideosAndPlayId(artistsClips);
           }

@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 describe('The specific artist view', function () {
   var page,
@@ -55,24 +55,29 @@ describe('The specific artist view', function () {
           browser.wait(isClickable, 5000);
           page.specificArtistLink.click().then(function() {
             page.clips.then(function(clips) {
+<<<<<<< HEAD
             var j = 0;
+=======
+              var j = 0;
+>>>>>>> d60920b16a17644b4cf9bed85ef273028950f18f
               for(var i = 0; i < clips.length; i++) {
                 clips[i].getText().then(function(text) {
-                  console.log(text);
-                    j++;
-                    console.log(j, clips.length, (j === clips.length));
-                    expect(text).toContain('Pink Floyd');
-
-                    if(j === (clips.length)) {
+                  j++;
+                  expect(text).toContain('Pink Floyd');
+                  if(j === (clips.length)) {
                       done();
                     }
-                  });
+                });
                 promises.push(clips[i]);
               }
+<<<<<<< HEAD
+=======
+            });
+          });
+>>>>>>> d60920b16a17644b4cf9bed85ef273028950f18f
         });
       });
     });
   });
 });
-});});
 

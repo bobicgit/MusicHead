@@ -3,7 +3,7 @@
 	width: 300px;
 	top:0%;
 	z-index: 90;
-	right: -20%;
+	right: -10%;
 }
 
 .favourite-artist, .favourite-playlist {
@@ -25,7 +25,10 @@
 	color: white;
 }
 .glyphicon-star {
-	font-size:3.5em !important;
+	font-size:38px;
+  float: right;
+  color: white;
+  margin-right:15px;
 }
 
 .glyph {
@@ -36,18 +39,16 @@
 }
 
 .playlist-header{
-	position: absolute;
-	color: white;
-	right:15%;
-	top:20px;
-	font-size: 2em;
-	z-index: 300;
+  color: white;
+  font-size: 2em;
+  float: right;
+  padding: 0 15px;
 }
 
 .playlists {
 	position: absolute;
 	width: 300px;
-	top: 70px;
+	top: 66px;
 	right: 5%;
 }
 
@@ -73,4 +74,32 @@
 }
 
 
+  .playlist-wrapper {
+    width: 40%;
+    float: right;
+    margin-top: 5px
+  }
 
+@media screen and (max-width: 530px) {
+  .playlist-wrapper {
+      width: 100%;
+      float: left;
+    }
+}
+
+@media (min-width: 530px) and (max-width: 1199px) {
+  .playlists {
+    position: absolute;
+    width: 300px;
+    top: 59px;
+    right: 5%;
+  }
+}
+@media screen and (max-width: 530px) {
+  .playlists {
+    position: absolute;
+    width: 300px;
+    top: 104px;
+    right: 5%;
+  }
+}

@@ -1,0 +1,173 @@
+.navbar {
+  background-color: #fff;
+  background: rgba(0, 0, 0, .7);
+  border: none;
+  padding: 10px 0px;
+  position: fixed;
+  z-index: 100;
+  top:0;
+  width:inherit;
+}
+
+.navbar .container {
+  position: relative;
+}
+
+.navbar .logo {
+  float: left;
+  width: 5%;
+  min-width: 50px;
+}
+.navbar .logo img {
+  width: 100%;
+}
+.logoImg {
+  width:57px;
+}
+
+.navbar .player-controlls {
+  position: absolute;
+  left: 60px;
+  right: 23%;
+  float:left;
+  padding-left: 25px;
+}
+
+.player-controlls .glyphicon {
+  font-size: 22px;
+  color:#fff;
+  float: left;
+  padding-left:10px;
+  margin-bottom: 7px;
+}
+
+.player-controlls span.controlls:hover {
+  color:#c9302c;
+}
+
+.player-controlls span.controlls:focus {
+  outline: none;
+}
+
+.volume-wrapper  input{
+  width: 55%;
+  margin: 10px;
+}
+
+.volume-wrapper {
+  display: inline-block;
+}
+
+.volumeInput{
+  color:#000;
+  max-width: 200px;
+  float:left;
+  margin-top:17px;
+  margin-left:10px;
+}
+
+input[type=range] {
+    background: #D9534F;
+    -webkit-appearance: none;
+    height: 4px;
+}
+input[type=range]::-webkit-slider-thumb {
+    background: #D9534F;
+    width: 15px;
+    height: 15px;
+    -webkit-appearance: none;
+    border: 4px solid #FFFFFF;
+    border-radius: 20px;
+}
+
+#profilePicture {
+  width: 40px;
+  float: right;
+  margin-top:3px;
+}
+
+button.fbLogout {
+  border: none;
+  padding: 0px;
+  border-radius: 5px;
+  float: right;
+  margin-top: 7px;
+  margin-right:10px;
+}
+
+button.fbLogout:hover {
+  background-color: #8b9dc3;
+}
+
+img#profilePicture:hover {
+  opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    background-color: #fff;
+    background: rgba(0, 0, 0, .7);
+    border: none;
+    padding: 10px 0px;
+    position: fixed;
+    z-index: 100;
+    top:0;
+    width:100%;
+  }
+}
+
+@media screen and (max-width: 527px) {
+  #profilePicture {
+    display: none;
+  }
+
+}
+
+@media screen and (min-width: 510px) {
+  .player-controlls {
+    right: 50%;
+  }
+}
+
+@media screen and (min-width: 709px) {
+  .player-controlls .glyphicon {
+    font-size: 41px;
+  }
+  .volume-wrapper input {
+    margin-top: 19px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 708px) {
+  .player-controlls .glyphicon {
+    font-size: 31px;
+  }
+  .volume-wrapper input {
+    margin: 15px;
+  }
+  .player-controlls  {
+    margin-top: 5px;
+  }
+}
+
+@media (min-width: 1201px) {
+  .player-controlls {
+    font-size: 41px;
+    margin-top:5px;
+  }
+  .navbar .glyphicon {
+    padding-left: 30px;
+  }
+  #profilePicture {
+    width: 50px;
+    float: right;
+    margin-top:4px;
+  }
+
+  button.fbLogout {
+    margin-top: 14px;
+    margin-right:20px;
+  }
+}
+
+

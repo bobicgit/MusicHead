@@ -5,6 +5,8 @@
     .module('musicHead')
     .config(routeConfig);
 
+  routeConfig.$inject = ['$routeProvider'];
+
   function routeConfig($routeProvider) {
     $routeProvider
       .when('/', {

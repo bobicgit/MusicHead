@@ -23,7 +23,6 @@
     that.getArtists = getArtists;
     that.getProfilePicture = FBApiService.pictureRequest;
 
-
   // Inside activate, in for loop, i am filling array with promises. I got those promises from requestArtists function
   // that uses youtubeFactory to return promise. Function activate is waiting for all promises to be return, and then
   // return this array of promises. This array is passed to getVideosAndSetId function, to get clips and videoId.
@@ -38,7 +37,6 @@
       } else {
         return $q.reject('No artists, my friend');
       }
-
     }
 
     function requestArtists(artist) {
@@ -105,6 +103,5 @@
     function getThumbnailSrc(videoId) {
       return 'http://img.youtube.com/vi/' + videoId + '/mqdefault.jpg';
     }
-
   }
 })();

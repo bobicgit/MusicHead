@@ -25,7 +25,6 @@
 
       vm.playlists = favouritesService.favourites;
       vm.activePlaylist = favouritesService.activePlaylist;
-
       vm.toggleActive = favouritesService.toggleActive;
       vm.setActivePlaylist = setActivePlaylist;
       vm.addNewPlaylist = addNewPlaylist;
@@ -45,8 +44,6 @@
       vm.hideArtists = hideArtists;
       vm.artistsVisible = false;
       vm.artistsVisibleTimeout = false;
-
-
 
       favouritesService.checkLocalStorage();
 

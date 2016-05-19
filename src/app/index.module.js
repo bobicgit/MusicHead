@@ -3,5 +3,4 @@
 
   angular
     .module('musicHead', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngRoute', 'ui.bootstrap', 'toastr','angularSpinners']);
-
 })();

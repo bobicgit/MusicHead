@@ -22,7 +22,7 @@
         </div>
         <div class="vid-list-container">
           <div class="vid-list">
-            <div class="vid-item col-md-3"
+            <div class="vid-item col-md-3 col-sm-6 col-xs-6"
                  ng-repeat = "clip in main.clips
                               | filter: ytContainerCtrl.filterThumbnails
                               | limitTo: ytContainerCtrl.pageSize : (ytContainerCtrl.currentPage - 1)*ytContainerCtrl.pageSize"

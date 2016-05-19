@@ -5,7 +5,10 @@
     .module('musicHead')
     .controller('FacebookController', fbCtrl);
 
+    fbCtrl.$inject = ['FBApiService','$location','dataService','spinnerService','toastr'];
+
     function fbCtrl(FBApiService, $location, dataService, spinnerService, toastr) {
+
       var vm = this;
 
       vm.getResource = getResource;
@@ -50,7 +53,5 @@
           vm.facebookLogFlag = response.status === 'connected';
         }
       }
-
-
     }
 })();
