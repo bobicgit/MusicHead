@@ -5,7 +5,8 @@
     .module('musicHead')
     .config(config);
 
-  /** @ngInject */
+   config.$inject = ['$logProvider','toastrConfig'];
+
   function config($logProvider, toastrConfig) {
     // Enable log
     $logProvider.debugEnabled(true);
@@ -17,5 +18,4 @@
     toastrConfig.preventDuplicates = true;
     toastrConfig.progressBar = true;
   }
-
 })();

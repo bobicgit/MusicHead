@@ -20,8 +20,6 @@
     currentPage=1,
     facebookProfilePicture = {};
 
-    
-
 		var factory = {
       approachFlag: {approachFlag:''},
 			cacheArray: cacheArray,

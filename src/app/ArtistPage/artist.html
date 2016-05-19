@@ -14,12 +14,13 @@
   <div class="row">
     <div class="col-md-12">
       <section id = "linkContainer">
+      <div class="currentPlaying">Now playing: {{main.currentClipTitle}}</div>
            <div class="row" ng-show = 'main.artistsArrayTrimmed.length > 0'>
            <a href="#/allArtists"
-                class="btn btn-danger btn-lg "
+                class="btn btn-danger btn-lg allArt"
                 role="button"
                 ng-class="{currentArtist : !main.routeArtist}">All Artists</a>
-            <div  class="col-md-4 artistBtn"
+            <div  class="col-md-4 col-xs-6 artistBtn"
                   ng-repeat = "artist in main.artistsArrayTrimmed
                                   | limitTo: main.pageSize :(main.currentPage - 1)*main.pageSize ">
               <a ng-click = "main.keepPage()"

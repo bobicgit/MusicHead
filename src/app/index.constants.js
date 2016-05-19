@@ -14,6 +14,5 @@
         FULLSCREEN:4,
         MUTE: 5,
         VOLUME: 6
-});
-
+    });
 })();

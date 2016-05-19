@@ -10,7 +10,6 @@
 
   // Accessible members
 
-
     var factory = {
       trimmingArray: trimmingArray,
       shuffle: shuffle,
