@@ -223,6 +223,13 @@ iframe {
 	margin-right: auto;
 }
 
+
+/*/////////////LINK CONATINER///////////////*/
+
+.currentPlaying {
+  color:#fff;
+}
+
 section#linkContainer {
 	padding: 15px 15px 0px 15px;
   margin-top: 85px;

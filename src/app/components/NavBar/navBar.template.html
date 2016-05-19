@@ -1,14 +1,11 @@
 <div class="row">
   <nav class="navbar navbar-default">
     <div class="container">
-
-
-        <a  class="logo"
-            href="#/" >
-            <img  src="./assets/images/logo.png"
-                  class="logoImg">
-        </a>
-
+      <a  class="logo"
+          href="#/" >
+        <img  src="./assets/images/logo.png"
+              class="logoImg">
+      </a>
       <div class="player-controlls">
         <span class="glyphicon glyphicon-play controlls"
               ng-click="navBarCtrl.play()"></span>
@@ -33,19 +30,17 @@
         </div>
       </div>
 
-        <favourite ng-show="navBarCtrl.inputApproachFlag.approachFlag"></favourite>
+      <favourite ng-show="navBarCtrl.inputApproachFlag.approachFlag"></favourite>
 
+      <img  id="profilePicture"
+            ng-src="{{navBarCtrl.profilePictureUrl}}"
+            ng-if="navBarCtrl.facebookLogFlag" >
 
-        <img  id="profilePicture"
-              ng-src="{{navBarCtrl.profilePictureUrl}}"
-              ng-if="navBarCtrl.facebookLogFlag" >
-
-        <button ng-show="navBarCtrl.facebookLogFlag"
-                ng-click="navBarCtrl.logOut()"
-                class= "fbLogout">
-          <img src="./assets/images/fbIcon.png">
-        </button>
-
+      <button ng-show="navBarCtrl.facebookLogFlag"
+              ng-click="navBarCtrl.logOut()"
+              class= "fbLogout">
+        <img src="./assets/images/fbIcon.png">
+      </button>
      </div>
   </nav>
 </div>

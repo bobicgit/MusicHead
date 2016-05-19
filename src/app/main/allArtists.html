@@ -15,6 +15,7 @@
     <div class="col-md-12">
 <!--       <button type="button" class="btn btn-danger toggleArtistsLinks" ng-click="main.isCollapsed = !main.isCollapsed">Toggle to see artists</button> -->
       <section id = "linkContainer">
+      <div class="currentPlaying">Now playing: {{main.currentClipTitle}}</div>
         <div class="row" ng-show = 'main.artistsArrayTrimmed.length > 0'>
         <div uib-collapse='main.isCollapsed'>
           <a  href="#/allArtists"

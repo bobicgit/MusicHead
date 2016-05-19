@@ -24,7 +24,6 @@
     function navBarController($timeout, dataService, YT_event, $scope, cachingFactory, toastr) {
 
       var vm = this;
-          //inputApproach = cachingFactory.readInputApprachFlag();
 
       vm.logOut = logOut;
       vm.pause = pause;
@@ -39,8 +38,6 @@
       vm.facebookLogFlag;
       vm.inputApproachFlag = cachingFactory.approachFlag;
 
-
-      
       dataService.checkLogStatus()
         .then(setFlag)
         .then(getProfilePicture)
@@ -96,7 +93,6 @@
         vm.muted=!vm.muted;
         $scope.$broadcast(YT_event.MUTE);
       }
-
     }
   }
 })();
