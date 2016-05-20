@@ -19,7 +19,6 @@
         expect(newArr).toEqual(jasmine.any(Object));
       });
 
-
       it('should not return duplicates elements', function() {
         var arr = ['maciek','michal','arek ','maciek'],
             newArr;
@@ -44,7 +43,6 @@
         newArr = helpersFactory.shuffle(arr);
         expect(newArr).toEqual(jasmine.any(Object));
       });
-
 
       it('should change order of elements in array', function() {
         var arr = ['maciek','michal','arek','kinga'],

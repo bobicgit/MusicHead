@@ -11,7 +11,7 @@ describe('The allArtists view', function () {
 
   describe('allArtists page, main view of application', function() {
     describe('Clips pagination tests', function() {
-      xit('right arrow should be visible', function() {
+      it('right arrow should be visible', function() {
         var currentUrl;
         page.input.sendKeys('pink floyd,moloko');
         page.generateButton.click().then(function() {
@@ -21,7 +21,7 @@ describe('The allArtists view', function () {
         });
       });
 
-      xit('left arrow should be visible, after clicking once right arrow', function() {
+      it('left arrow should be visible, after clicking once right arrow', function() {
         page.input.sendKeys('pink floyd,moloko');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.rightArrow), 2000);
@@ -33,7 +33,7 @@ describe('The allArtists view', function () {
         });
       });
 
-      xit('when there is two or less artists in input, left arrow should be visible, and right arrow should dissapear. After clicking once right arrow', function() {
+      it('when there is two or less artists in input, left arrow should be visible, and right arrow should dissapear. After clicking once right arrow', function() {
         page.input.sendKeys('pink floyd,moloko');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.rightArrow), 2000);
@@ -45,7 +45,7 @@ describe('The allArtists view', function () {
         });
       });
 
-      xit('when there is three or more artists in input, left and right arrow should be visible. After clicking once right arrow', function() {
+      it('when there is three or more artists in input, left and right arrow should be visible. After clicking once right arrow', function() {
         page.input.sendKeys('pink floyd,moloko,m83');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.rightArrow), 2000);
@@ -57,7 +57,7 @@ describe('The allArtists view', function () {
         });
       });
 
-      xit('when there is only one artist given, no arrows should appear', function() {
+      it('when there is only one artist given, no arrows should appear', function() {
         page.input.sendKeys('pink floyd');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.videoItemContainer), 2000);
@@ -69,7 +69,7 @@ describe('The allArtists view', function () {
     });
 
     describe('Clips tests', function() {
-      xit('number of visible clips on one page should be 4. No matter how many artists is given.', function() {
+      it('number of visible clips on one page should be 4. No matter how many artists is given.', function() {
         page.input.sendKeys('pink floyd, m83, moloko');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.videoItemContainer), 2000);
@@ -80,7 +80,7 @@ describe('The allArtists view', function () {
         });
       });
 
-      xit('gain selected class after click on clip', function() {
+      it('gain selected class after click on clip', function() {
         page.input.sendKeys('pink floyd');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.videoItemContainer), 2000);
@@ -98,7 +98,7 @@ describe('The allArtists view', function () {
     });
 
     describe('Link container, link with artits names tests', function() {
-      xit('should create an all artists button with currentArtist class', function() {
+      it('should create an all artists button with currentArtist class', function() {
         page.input.sendKeys('pink floyd, m83, moloko');
         page.generateButton.click().then(function() {
         browser.wait(page.EC.visibilityOf(page.artistsBtnsContainer), 2000);
@@ -108,7 +108,7 @@ describe('The allArtists view', function () {
         });
       });
 
-      xit('create links to the artists', function() {
+      it('create links to the artists', function() {
         page.input.sendKeys('pink floyd, m83, moloko');
         page.generateButton.click().then(function() {
         browser.wait(page.EC.visibilityOf(page.artistsBtnsContainer), 2000);
@@ -119,7 +119,7 @@ describe('The allArtists view', function () {
         });
       });
 
-      xit('create links with artists texts', function() {
+      it('create links with artists texts', function() {
         page.input.sendKeys('pink floyd, m83, moloko');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.artistBtnDiv), 2000);
@@ -132,7 +132,7 @@ describe('The allArtists view', function () {
     });
 
     describe('Contolls in navBar directive tests', function() {
-      xit('after clicking next button, next video from list should gain "selected" class', function() {
+      it('after clicking next button, next video from list should gain "selected" class', function() {
         page.input.sendKeys('pink floyd,moloko');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.navBarPlayerControllsContainer), 2000);
@@ -149,7 +149,7 @@ describe('The allArtists view', function () {
         });
       });
 
-      xit('after click stop button, time of the clip should change to 0:00', function() {
+      it('after click stop button, time of the clip should change to 0:00', function() {
         page.input.sendKeys('pink floyd');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.videoTimeContainer), 2000);
@@ -164,7 +164,7 @@ describe('The allArtists view', function () {
         });
       });
 
-      xit('after click pause button, time of clips should not reset', function() {
+      it('after click pause button, time of clips should not reset', function() {
         page.input.sendKeys('pink floyd');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.videoTimeContainer), 2000);
@@ -180,7 +180,7 @@ describe('The allArtists view', function () {
         });
       });
 
-      xit('click stop button, then play button, clip should start playing', function() {
+      it('click stop button, then play button, clip should start playing', function() {
         page.input.sendKeys('pink floyd');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.videoTimeContainer), 2000);
@@ -199,7 +199,7 @@ describe('The allArtists view', function () {
         });
       });
 
-      xit('should change volume icon on one click', function() {
+      it('should change volume icon on one click', function() {
         page.input.sendKeys('pink floyd');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.navBarPlayerControllsContainer), 2000);
@@ -217,7 +217,7 @@ describe('The allArtists view', function () {
         });
       });
 
-      xit('volume range should remember value after two clicks on volume button', function() {
+      it('volume range should remember value after two clicks on volume button', function() {
         page.input.sendKeys('pink floyd');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.navBarPlayerControllsContainer), 2000);

@@ -43,7 +43,7 @@
       return youtubeFactory.showItems(artist);
     }
 
-    function getVideosAndPlayId(artistsClips) {//artistsClips
+    function getVideosAndPlayId(artistsClips) {
       var obj = {},
           clips = [];
 

@@ -13,7 +13,7 @@ describe('The specific artist view', function () {
 
   describe('specific artist page, subview of application', function() {
     describe('Redirection to specific route ', function() {
-      xit('clicking in artist link, should redirect to route of specific artist', function() {
+      it('clicking in artist link, should redirect to route of specific artist', function() {
         page.input.sendKeys('pink floyd, m83, moloko');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.artistBtnDiv), 2000);
@@ -29,7 +29,7 @@ describe('The specific artist view', function () {
     });
 
     describe('pagination on specific artist route', function() {
-      xit('no pagination arrows should appear', function() {
+      it('no pagination arrows should appear', function() {
         page.input.sendKeys('pink floyd, m83');
         page.generateButton.click().then(function() {
           browser.wait(page.EC.visibilityOf(page.artistBtnDiv), 2000);
@@ -45,7 +45,7 @@ describe('The specific artist view', function () {
     });
 
     describe('clips on specific artist route', function() {
-      xit('clips should be only from specific artist', function(done) {
+      it('clips should be only from specific artist', function(done) {
         var promises = [],
             titlesOfSongs = [];
         page.input.sendKeys('pink floyd, m83');

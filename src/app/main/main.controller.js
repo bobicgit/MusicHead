@@ -64,6 +64,7 @@
                 spinnerService.hide('mySpinner');
               }).catch(function(error) {
                 toastr.error(error);
+                spinnerService.hide('mySpinner');
               })
           });
           favouritesService.checkLocalStorage();

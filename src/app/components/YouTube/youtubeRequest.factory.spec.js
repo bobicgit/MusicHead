@@ -9,7 +9,6 @@
     beforeEach(inject(function(_youtubeFactory_,_youtubeDataService_) {
       youtubeFactory = _youtubeFactory_;
       youtubeDataService = _youtubeDataService_;
-
     }));
 
 // saveCache function tests

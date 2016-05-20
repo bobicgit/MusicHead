@@ -5,15 +5,13 @@
     var dataService,
         cachingFactory,
         rootScope,
-        FBApiService,
         $q;
 
     beforeEach(module('musicHead'));
-    beforeEach(inject(function(_dataService_, _cachingFactory_,_$rootScope_,_FBApiService_,_$q_) {
+    beforeEach(inject(function(_dataService_, _cachingFactory_,_$rootScope_,_$q_) {
       dataService = _dataService_;
       cachingFactory = _cachingFactory_;
       rootScope = _$rootScope_;
-      FBApiService = _FBApiService_;
       $q = _$q_;
     }));
 
@@ -28,25 +26,6 @@
         promise.then(function() {
           expect(cachingFactory.readInputArrayFromCache).toHaveBeenCalled();
         });
-        rootScope.$digest();
-      });
-
-      xit('should call FBApiService.musicRequest to get artists, when user is connected to Facebook ', function() {
-        var connected = true,
-            promise;
-
-        spyOn(FBApiService,'musicRequest').and.callFake(function() {
-          var defer = $q.defer();
-          defer.resolve([1,2]);
-          return defer.promise;
-        });
-
-        promise = dataService.getArtists(connected);
-
-        promise.then(function() {
-          expect(FBApiService.musicRequest).toHaveBeenCalled();
-        });
-
         rootScope.$digest();
       });
 
