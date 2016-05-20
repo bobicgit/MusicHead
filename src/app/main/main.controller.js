@@ -18,7 +18,6 @@
 
     function getResource() {
 
-
       spinnerService.show('mySpinner');
 
       vm.artistsArrayTrimmed;
