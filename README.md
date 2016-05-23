@@ -15,7 +15,7 @@ Basically app features are the same for both approaches:
   - under player there is a list of all fetched clips of all artists or specific artist.
   
 Only one feature is different and depends on the Facebook login status. If you are not logged, you can create a playlists and add to
-them your favourite artists. This feature was written by Beata Wolska.
+them your favourite artists. This feature was written by Beata Wolska. @beata111
 
 I didnt provide facebook privacy policy to my application, so i can not fetch logged user likes in order to generate playlist.
 Unfortunately no one will be able to use my application via Facebook.
