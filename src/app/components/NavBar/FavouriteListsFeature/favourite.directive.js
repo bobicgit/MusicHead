@@ -1,5 +1,4 @@
 
-
 (function() {
 
   'use strict';
@@ -8,13 +7,13 @@
     .module('musicHead')
     .directive('favourite', favourite);
 
-    favourite.$inject = ['YT_event','cachingFactory','toastr'];
+  favourite.$inject = ['YT_event','cachingFactory','toastr'];
 
-    function favourite() {
+  function favourite() {
 
     return {
       restrict: "E",
-      templateUrl: 'app/components/NavBar/favourite.template.html',
+      templateUrl: 'app/components/NavBar/FavouriteListsFeature/favourite.template.html',
       controller: favouriteController,
       controllerAs: 'fvCtrl'
     }
@@ -47,14 +46,14 @@
 
       favouritesService.checkLocalStorage();
 
-      function showPlaylists () {
+      function showPlaylists() {
         if (vm.artistsVisible === false) {
           vm.playlistsVisible = true;
           vm.playlistsVisibleTimeout = false;
         }
       }
 
-      function hidePlaylists () {
+      function hidePlaylists() {
         vm.playlistsVisibleTimeout = true;
         $timeout(function() {
           if (vm.playlistsVisibleTimeout) {
@@ -63,12 +62,12 @@
         }, 200);
       }
 
-      function showArtists () {
+      function showArtists() {
         vm.artistsVisible = true;
         vm.artistsVisibleTimeout = false;
       }
 
-      function hideArtists () {
+      function hideArtists() {
         vm.artistsVisibleTimeout = true;
         $timeout(function() {
           if (vm.artistsVisibleTimeout) {
@@ -77,17 +76,17 @@
         }, 200);
       }
 
-      function setActivePlaylist (playlist) {
+      function setActivePlaylist(playlist) {
         vm.playlistsVisible = false;
         favouritesService.setActivePlaylist(playlist);
       }
 
-      function addingNewPlaylist () {
+      function addingNewPlaylist() {
         vm.addingNewPlaylistStatus = true;
         vm.newPlaylist = '';
       }
 
-      function addNewPlaylist (playlist) {
+      function addNewPlaylist(playlist) {
         if (playlist) {
           favouritesService.addNewPlaylist(playlist);
         }

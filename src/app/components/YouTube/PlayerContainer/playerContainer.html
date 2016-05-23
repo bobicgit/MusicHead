@@ -1,9 +1,8 @@
-
 <section id="player">
-   <div class = "row">
-     <div class="col-md-12" ng-if="!ytContainerCtrl.apiReady && !main.videoId">
-        LOADING
-     </div>
+  <div class="row">
+    <div class="col-md-12" ng-if="!ytContainerCtrl.apiReady && !main.videoId">
+      LOADING
+    </div>
     <div class="col-md-12" ng-if="ytContainerCtrl.apiReady && main.videoId">
       <div class="vid-container">
         <div id="current-time">
@@ -16,7 +15,6 @@
                 max="ytContainerCtrl.currentDuration"
                 ng-model="ytContainerCtrl.progress"
                 ng-change="ytContainerCtrl.getProgressValue()">
-
         <div id="player">
           <youtube-player videoid="main.videoId"></youtube-player>
         </div>
@@ -28,42 +26,42 @@
                               | limitTo: ytContainerCtrl.pageSize : (ytContainerCtrl.currentPage - 1)*ytContainerCtrl.pageSize"
                  ng-click = "main.changeVideo(clip)"
                  ng-class="{selected : main.videoId == clip.id.videoId}" >
-                  <div class="thumbnails">
-                    <img frameborder = '0' ng-src = "{{ytContainerCtrl.link(clip.id.videoId)}}"/>
-                  </div>
-                  <div class="description">
-                      <p class="descTitle">{{clip.snippet.title}}</p>
-                  </div>
-            </div>
+              <div class="thumbnails">
+                <img frameborder = '0' ng-src = "{{ytContainerCtrl.link(clip.id.videoId)}}"/>
+              </div>
+              <div class="description">
+                <p class="descTitle">{{clip.snippet.title}}</p>
+              </div>
+            </div><!-- /.vid-item -->
+          </div><!-- /.vid-list -->
+        </div><!-- /.vid-list-container -->
+        <div class="arrows">
+          <div  class="arrow-left" id="vidLeftArrow"
+                ng-if="ytContainerCtrl.currentPage != 1">
+            <span class="glyphicon glyphicon-chevron-left"
+                  ng-click="ytContainerCtrl.currentPage=ytContainerCtrl.currentPage - 1"></span>
           </div>
-        </div>
-          <div class="arrows">
-            <div  class="arrow-left" id="vidLeftArrow"
-                  ng-if="ytContainerCtrl.currentPage != 1">
-              <span class="glyphicon glyphicon-chevron-left"
-                    ng-click="ytContainerCtrl.currentPage=ytContainerCtrl.currentPage - 1"></span>
-            </div>
-            <div  class="arrow-right" id="vidRightArrow"
-                  ng-if="ytContainerCtrl.currentPage < main.clips.length/ytContainerCtrl.pageSize ">
-              <span class="glyphicon glyphicon-chevron-right"
-                    ng-click="ytContainerCtrl.currentPage = ytContainerCtrl.currentPage + 1"></span>
-            </div>
+          <div  class="arrow-right" id="vidRightArrow"
+                ng-if="ytContainerCtrl.currentPage < main.clips.length/ytContainerCtrl.pageSize ">
+            <span class="glyphicon glyphicon-chevron-right"
+                  ng-click="ytContainerCtrl.currentPage = ytContainerCtrl.currentPage + 1"></span>
           </div>
-          <div class = "rangePaginationBarVideos"
-                ng-if = "main.clips.length > ytContainerCtrl.pageSize">
-            <uib-pagination total-items="main.clips.length" ng-model="ytContainerCtrl.currentPage" max-size="5"  boundary-links="false" rotate="false" items-per-page="ytContainerCtrl.pageSize" direction-links="false">
-          </div>
+        </div><!-- /.arrows -->
+        <div  class = "rangePaginationBarVideos"
+              ng-if = "main.clips.length > ytContainerCtrl.pageSize">
+          <uib-pagination total-items="main.clips.length" ng-model="ytContainerCtrl.currentPage" max-size="5"  boundary-links="false" rotate="false" items-per-page="ytContainerCtrl.pageSize" direction-links="false">
+        </div><!-- /.rangePaginationBarVideos -->
       </div> <!-- /. vid-container -->
-    </div>
-  </div>
-  <div class = "row" id="footerContainer">
+    </div><!-- /.col-md-12 -->
+  </div><!-- /.row -->
+
+  <div class="row" id="footerContainer">
     <div class="col-md-12">
       <div id="footer">
         <p>
            Maciej Mańko &copy; 2016r.
         </p>
-      </div>
+      </div><!-- /#footer -->
     </div>
-  </div>
-
-</section>
+  </div><!-- /#footerContainer -->
+</section><!-- /#player -->

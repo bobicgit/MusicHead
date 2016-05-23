@@ -5,8 +5,8 @@
 	'use strict';
 
 	angular
-	.module('musicHead')
-	.service('youtubeDataService', youtubeDataService);
+    .module('musicHead')
+    .service('youtubeDataService', youtubeDataService);
 
 	function youtubeDataService() {
 		var vm = this;

@@ -5,7 +5,7 @@
           href="#/" >
         <img  src="./assets/images/logo.png"
               class="logoImg">
-      </a>
+      </a><!-- /.favourite-playlist -->
       <div class="player-controlls">
         <span class="glyphicon glyphicon-play controlls"
               ng-click="navBarCtrl.play()"></span>
@@ -16,19 +16,19 @@
         <span class="glyphicon glyphicon-fast-forward controlls"
               ng-click="navBarCtrl.next()"></span>
         <div class="volume-wrapper">
-        <span class="glyphicon controlls"
-              ng-click="navBarCtrl.mute();"
-              ng-class="{'glyphicon-volume-up' : !navBarCtrl.muted, 'glyphicon-volume-off' : navBarCtrl.muted  }"
-              ></span>
-        <input  type='range'
-                min='0'
-                max='100'
-                step='1'
-                class="volumeInput"
-                ng-model="navBarCtrl.volume"
-                ng-change="navBarCtrl.setVolume()"></input>
-        </div>
-      </div>
+          <span class="glyphicon controlls"
+                ng-click="navBarCtrl.mute();"
+                ng-class="{'glyphicon-volume-up' : !navBarCtrl.muted, 'glyphicon-volume-off' : navBarCtrl.muted  }"
+                ></span>
+          <input  type='range'
+                  min='0'
+                  max='100'
+                  step='1'
+                  class="volumeInput"
+                  ng-model="navBarCtrl.volume"
+                  ng-change="navBarCtrl.setVolume()"></input>
+        </div><!-- /.favourite-playlist -->
+      </div><!-- /.player-controlls -->
 
       <favourite ng-show="navBarCtrl.inputApproachFlag.approachFlag"></favourite>
 
@@ -41,6 +41,6 @@
               class= "fbLogout">
         <img src="./assets/images/fbIcon.png">
       </button>
-     </div>
-  </nav>
-</div>
+    </div><!-- /.container -->
+  </nav><!-- /.navbar navbar-default -->
+</div><!-- /.row -->

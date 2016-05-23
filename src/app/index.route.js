@@ -21,7 +21,7 @@
         controllerAs: 'main'
       })
       .when('/allArtists/:artist', {
-        templateUrl: 'app/ArtistPage/artist.html',
+        templateUrl: 'app/main/artist.html',
         controller: 'MainController',
         controllerAs: 'main'
       })

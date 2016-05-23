@@ -14,7 +14,7 @@
         var isThisString = youtubeDataService.getUrl()
         expect(typeof isThisString).toBe('string');
       });
-
+// konkrenty string
       it('should return a string wit argument', function() {
         var command = "search",
             isThisString = youtubeDataService.getUrl(command)

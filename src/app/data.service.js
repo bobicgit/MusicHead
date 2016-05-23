@@ -1,11 +1,10 @@
-
 (function() {
 
   'use strict';
 
   angular
-      .module('musicHead')
-      .service('dataService', dataService);
+    .module('musicHead')
+    .service('dataService', dataService);
 
   dataService.$inject = ['FBApiService', 'youtubeFactory', '$q', 'helpersFactory', '$sce', '$location','cachingFactory','toastr','spinnerService'];
 
@@ -48,19 +47,19 @@
           clips = [];
 
       angular.forEach(artistsClips, function(array) {
-          angular.forEach(array, function(item) {
-            clips.push(item);
+        angular.forEach(array, function(item) {
+          clips.push(item);
         })
       })
+
       if(clips.length > 0) {
         helpersFactory.shuffle(clips);
         youtubeFactory.saveCache(clips);
-
         id = clips[0].id.videoId;
         obj = {
           clips: clips,
           id: id
-        }
+        };
         return obj;
       } else {
         toastr.info('There are no clips for display');

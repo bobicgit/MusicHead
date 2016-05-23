@@ -20,7 +20,6 @@
     self.musicRequest = musicRequest;
     self.pictureRequest = pictureRequest;
 
-
     function checkStatus() {
       var defer = $q.defer();
       FB.getLoginStatus(function(response) {
@@ -39,16 +38,16 @@
       var defer = $q.defer();
       FB.login(function(response) {
         if(response.authResponse) {
-            logged = true;
-            cachingFactory.cacheFacebookLogFlag(logged);
-            pictureRequest()
-              .then(function(picture) {
-                cachingFactory.cacheFacebookProfilePicture(picture);
-              })
-            musicRequest()
-              .then(function(fbArtistsArray) {
-                defer.resolve(fbArtistsArray);
-              });
+          logged = true;
+          cachingFactory.cacheFacebookLogFlag(logged);
+          pictureRequest()
+            .then(function(picture) {
+              cachingFactory.cacheFacebookProfilePicture(picture);
+            })
+          musicRequest()
+            .then(function(fbArtistsArray) {
+              defer.resolve(fbArtistsArray);
+            });
         } else {
           defer.reject('Facebook has a problem with login function');
         }
@@ -61,9 +60,9 @@
       var defer = $q.defer();
       FB.getLoginStatus(function(response) {
         if (response.status === 'connected') {
-            FB.logout(function() {
-              defer.resolve();
-            });
+          FB.logout(function() {
+            defer.resolve();
+          });
         } else {
           defer.reject('Facebook can\'t get your login status');
         }
@@ -104,8 +103,3 @@
   }
 })();
 
-
-///        // ////
-        // FB.api("https://graph.facebook.com/v2.6/1065979653474352/music?access_token=EAALYpwp0yqwBAOIgcaYyMJwYk3LPo7tzM4J5J2wMEwZBsPq1Hk9P05vEJ6BWahIQKShoXtNXZACg2oBTSNk0ZAQxdGgHIzLnfECV7CoNmqYx1j5OOg8zF8ZBBfH2JZC87rD4kGAVv7fm5tthzM6qTznxxfo5uIgzEtV3fY7lSQgZDZD&pretty=0&limit=25&after=MzA5NzU2ODc2ODIZD",
-        //   function(response){console.log(response)});
-        // ////

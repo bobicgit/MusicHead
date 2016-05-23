@@ -3,8 +3,8 @@
   'use strict';
 
   angular
-      .module('musicHead')
-      .service('favouritesService', favouritesService);
+    .module('musicHead')
+    .service('favouritesService', favouritesService);
 
   favouritesService.$inject = ['$window', '$location','$timeout','toastr'];
 
@@ -60,7 +60,6 @@
       }
     }
 
-
     function toggleActive(artist) {
       for (var i = 0; i < self.activePlaylist.activePlaylist.artists.length; i ++) {
         if (self.activePlaylist.activePlaylist.artists[i].name === artist) {
@@ -107,7 +106,7 @@
           }
         }, 1000);
       self.favourites.playlists[index].showXtimeout = true;
-   }
+    }
 
     function makeXhidePlaylist(index) {
       self.favourites.playlists[index].showXtimeout = false;
@@ -159,7 +158,7 @@
             activeArtistArray.push(artist.name);
           }
         });
-      localStorage.artists = activeArtistArray;
+        localStorage.artists = activeArtistArray;
       } else {
         localStorage.artists = '';
       }

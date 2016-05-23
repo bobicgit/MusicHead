@@ -140,7 +140,7 @@ describe('The allArtists view', function () {
           browser.wait(isClickable, 5000);
           page.clips.then(function(clips) {
             page.nextButton.click().then(function() {
-              browser.sleep(2000);
+              // browser.sleep(2000);
               var nextClip = clips[1];
               expect(nextClip.getAttribute('class')).toContain('selected');
               return;

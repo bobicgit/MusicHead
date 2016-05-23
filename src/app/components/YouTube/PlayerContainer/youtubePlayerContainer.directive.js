@@ -10,9 +10,9 @@
     .module('musicHead')
     .directive('youtubePlayerContainer', youtubePlayerContainer);
 
-    youtubePlayerContainer.$inject = ['ytPlayerApi','youtubeFactory', 'dataService', '$routeParams'];
+  youtubePlayerContainer.$inject = ['ytPlayerApi','youtubeFactory', 'dataService', '$routeParams'];
 
-    function youtubePlayerContainer(ytPlayerApi) {
+  function youtubePlayerContainer(ytPlayerApi) {
 
     return {
       restrict: "E",
@@ -23,8 +23,7 @@
 
     function ytContainerController($scope, youtubeFactory, dataService, $routeParams) {
       var vm = this,
-
-      routeArtist = $routeParams.artist;
+          routeArtist = $routeParams.artist;
 
       vm.apiReady = false;
       vm.currentDuration;
@@ -48,12 +47,11 @@
 
 // Sending controlls to youutubeplayer directive for events
 
-
       function getProgressValue() {
         $scope.$broadcast('progress', vm.progress);
       }
 
-      $scope.$on('currentVideoDuration', function () {
+      $scope.$on('currentVideoDuration', function() {
         vm.currentDuration = arguments[1];
       });
 

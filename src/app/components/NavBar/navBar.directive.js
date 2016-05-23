@@ -10,9 +10,9 @@
     .module('musicHead')
     .directive('navBar', navBar);
 
-    navBar.$inject = ['YT_event','cachingFactory','toastr'];
+  navBar.$inject = ['YT_event','cachingFactory','toastr'];
 
-    function navBar() {
+  function navBar() {
 
     return {
       restrict: "E",

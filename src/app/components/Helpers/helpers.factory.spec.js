@@ -11,12 +11,12 @@
 
     describe('trimmingArray function', function() {
 
-      it('should return an array', function() {
+      it('should return an object', function() {
         //console.log(helpersFactory);
         var arr = ['maciek','michal','arek '],
             newArr;
         newArr = helpersFactory.trimmingArray(arr);
-        expect(newArr).toEqual(jasmine.any(Object));
+        expect(newArr).toEqual(jasmine.any(Array));
       });
 
       it('should not return duplicates elements', function() {

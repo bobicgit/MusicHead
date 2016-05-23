@@ -29,20 +29,19 @@
         inputApproach = true;
         dataService.checkLogStatus()
           .then(function(response) {
-              if(response.status === 'connected') {
-                FBApiService.logOut()
-                  .then(prepareApp)
-                  .catch(function(error) {
-                    toastr.error(error);
-                  })
-              } else {
-                prepareApp();
-              }
-          })
+            if(response.status === 'connected') {
+              FBApiService.logOut()
+                .then(prepareApp)
+                .catch(function(error) {
+                  toastr.error(error);
+                })
+            } else {
+              prepareApp();
+            }
+          });
       }
 
       function prepareApp() {
-
         cachingFactory.clearCachedUrlId();
         youtubeFactory.clearCacheClips();
         if (localStorage.artists) { // get artists from favourites

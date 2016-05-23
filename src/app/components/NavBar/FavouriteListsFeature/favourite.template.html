@@ -21,7 +21,7 @@
         <span class="remove-favourite"
               ng-show="playlist.showX"
               ng-click="fvCtrl.removePlaylist($index)">x</span>
-      </div>
+      </div><!-- /.favourite-playlist -->
 
       <div class="favourite-playlist"
             ng-click="fvCtrl.addingNewPlaylist()">
@@ -31,8 +31,8 @@
           ng-show="fvCtrl.addingNewPlaylistStatus"
           ng-model="fvCtrl.newPlaylist"
           ng-keypress="($event.which === 13)?fvCtrl.addNewPlaylist(fvCtrl.newPlaylist):0"/>
-      </div>
-    </div>
+      </div><!-- /.favourite-playlist -->
+    </div><!-- /.favourite-playlist -->
 
     <div class="favourite"
           ng-if="fvCtrl.artistsVisible"
@@ -49,8 +49,8 @@
         <span class="remove-favourite"
           ng-show="artist.showX"
           ng-click="fvCtrl.removeArtist($index)">x</span>
-      </div>
-    </div>
-  </div>
-</div>
+      </div><!-- /.favourite-artist -->
+    </div><!-- /.favourite -->
+  </div><!-- /.playlists -->
+</div><!-- /.playlist-wrapper -->
 

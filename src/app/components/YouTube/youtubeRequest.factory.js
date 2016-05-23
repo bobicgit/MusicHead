@@ -2,64 +2,63 @@
 
 (function() {
 
-    'use strict';
+  'use strict';
 
-    angular
-        .module('musicHead')
-        .factory('youtubeFactory', youtubeFactory);
+  angular
+    .module('musicHead')
+    .factory('youtubeFactory', youtubeFactory);
 
-    youtubeFactory.$inject = ['$http','youtubeDataService'];
+  youtubeFactory.$inject = ['$http','youtubeDataService'];
 
-    function youtubeFactory($http, youtubeDataService) {
+  function youtubeFactory($http, youtubeDataService) {
 
-    // Accessible members
-      var cache = [];
-
-      var factory = {
+  // Accessible members
+    var cache = [],
+        factory = {
           cache : [],
           showItems: showItems,
           saveCache: saveCache,
           readCache: readCache,
           clearCacheClips: clearCacheClips
-      };
+    };
 
-    // Returning object of functions
+  // Returning object of functions
 
-      return factory;
+    return factory;
 
-    // Functions declatarions
+  // Functions declatarions
 
-      function showItems(query) {
-          var ytRequestObject = youtubeDataService.getDataObject("search", query);
-          return $http({
-              method: 'GET',
-              url: ytRequestObject.url,
-              params: ytRequestObject.params })
-          .then(showItemsComplete)
-          .catch(showItemsFail);
+    function showItems(query) {
+        var ytRequestObject = youtubeDataService.getDataObject("search", query);
+        return $http({
+            method: 'GET',
+            url: ytRequestObject.url,
+            params: ytRequestObject.params })
+        .then(showItemsComplete)
+        .catch(showItemsFail);
 
-        function showItemsComplete(response) {
-          cache = cache.concat(response.data.items);
-          return response.data.items;
-        }
-
-        function showItemsFail(error) {
-          return error.data;
-        }
+      function showItemsComplete(response) {
+        cache = cache.concat(response.data.items);
+        return response.data.items;
       }
 
-      function saveCache(arr) {
-        factory.cache = arr;
-        cache = arr;
-      }
-
-      function readCache() {
-          return cache;
-      }
-
-      function clearCacheClips() {
-          factory.cache = [];
-          cache = [];
+      function showItemsFail(error) {
+        return error.data;
       }
     }
+
+    function saveCache(arr) {
+      factory.cache = arr;
+      cache = arr;
+    }
+
+    function readCache() {
+        return cache;
+    }
+
+    function clearCacheClips() {
+        factory.cache = [];
+        cache = [];
+    }
+  }
 })();
