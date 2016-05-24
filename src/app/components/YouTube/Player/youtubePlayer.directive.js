@@ -84,13 +84,30 @@
           if(event.data == YT.PlayerState.ENDED) {
             var nextVideoIndex;
             angular.forEach(myClips, function(item) {
-              item.id.videoId === scope.videoid ? nextVideoIndex = myClips.indexOf(item) +1 : false;
+              item.id.videoId === scope.videoid ? nextVideoIndex = myClips.indexOf(item) + 1 : false;
             });
             nextVideoIndex === myClips.length ? (nextVideoIndex = 0, youtubePlayerContainerCtrl.currentPage = 0) : false;
             myPlayer.cueVideoById(myClips[nextVideoIndex].id.videoId);
             myPlayer.playVideo();
             scope.videoid = myClips[nextVideoIndex].id.videoId;
-            nextVideoIndex % youtubePlayerContainerCtrl.pageSize === 0 ? youtubePlayerContainerCtrl.currentPage++ : false;
+            nextVideoIndex % youtubePlayerContainerCtrl.pageSize === 0 ? youtubePlayerContainerCtrl.currentPage ++ : false;
+          }
+        }
+
+       // Function called by click in a previous button
+
+        function playPrevious() {
+          var currentPlayerState = myPlayer.getPlayerState(),
+              previousVideoIndex;
+          if(currentPlayerState == 1) {
+            angular.forEach(myClips, function(item) {
+              item.id.videoId === scope.videoid ? previousVideoIndex = myClips.indexOf(item) - 1 : false;
+            });
+            previousVideoIndex === -1 ? (previousVideoIndex = myClips.length - 1, youtubePlayerContainerCtrl.currentPage = myClips.length/youtubePlayerContainerCtrl.pageSize +1) : false;
+            myPlayer.cueVideoById(myClips[previousVideoIndex].id.videoId);
+            myPlayer.playVideo();
+            scope.videoid = myClips[previousVideoIndex].id.videoId;
+            previousVideoIndex % youtubePlayerContainerCtrl.pageSize === 3 ? youtubePlayerContainerCtrl.currentPage -- : false;
           }
         }
 
@@ -137,6 +154,15 @@
           myPlayer.seekTo(myPlayer.getDuration());
         });
 
+        scope.$on(YT_event.PREVIOUS, function() {
+          myPlayer.seekTo(0);
+          playPrevious();
+        });
+
+        scope.$on(YT_event.REPEAT, function() {
+          myPlayer.seekTo(0);
+        });
+
         scope.$on(YT_event.MUTE, function() {
           myPlayer.isMuted() ? myPlayer.unMute() : myPlayer.mute();
         });
@@ -148,10 +174,6 @@
 
         scope.$on(YT_event.VOLUME, function(event, volume) {
           myPlayer.setVolume(volume);
-        });
-
-        scope.$on(YT_event.FULLSCREEN, function() {
-          myPlayer.requestFullScreen();
         });
       }
     };

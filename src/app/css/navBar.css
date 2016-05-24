@@ -120,7 +120,6 @@ img#profilePicture:hover {
   #profilePicture {
     display: none;
   }
-
 }
 
 @media screen and (min-width: 510px) {
@@ -129,21 +128,20 @@ img#profilePicture:hover {
   }
 }
 
-@media screen and (min-width: 709px) {
+
+@media (min-width: 709px) {
   .player-controlls .glyphicon {
-    font-size: 41px;
+    font-size: 31px;
+    margin-top:5px;
   }
   .volume-wrapper input {
-    margin-top: 19px;
+    margin-top: 20px;
   }
 }
 
 @media (min-width: 601px) and (max-width: 708px) {
-  .player-controlls .glyphicon {
-    font-size: 31px;
-  }
   .volume-wrapper input {
-    margin: 15px;
+    margin: 11px;
   }
   .player-controlls  {
     margin-top: 5px;
@@ -156,6 +154,7 @@ img#profilePicture:hover {
     margin-top:5px;
   }
   .navbar .glyphicon {
+    font-size: 41px;
     padding-left: 30px;
   }
   #profilePicture {
@@ -163,11 +162,14 @@ img#profilePicture:hover {
     float: right;
     margin-top:4px;
   }
-
+  .volume-wrapper input {
+    margin-top: 24px;
+  }
   button.fbLogout {
     margin-top: 14px;
     margin-right:20px;
   }
 }
+
 
 

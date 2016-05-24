@@ -103,3 +103,12 @@
     right: 5%;
   }
 }
+
+@media (max-width: 709px) {
+  .playlist-header{
+    color: white;
+    font-size: 20px;
+    float: right;
+    padding: 0 15px;
+  }
+}

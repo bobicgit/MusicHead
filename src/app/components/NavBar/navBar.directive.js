@@ -30,6 +30,8 @@
       vm.play = play;
       vm.stop = stop;
       vm.next = next;
+      vm.previous = previous;
+      vm.repeat = repeat;
       vm.setVolume = setVolume;
       vm.mute = mute;
       vm.muted = false;
@@ -83,6 +85,14 @@
 
       function next() {
         $scope.$broadcast(YT_event.NEXT);
+      }
+
+      function previous() {
+        $scope.$broadcast(YT_event.PREVIOUS);
+      }
+
+      function repeat() {
+        $scope.$broadcast(YT_event.REPEAT);
       }
 
       function setVolume() {
