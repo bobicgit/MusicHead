@@ -164,6 +164,7 @@ img#profilePicture:hover {
   }
   .volume-wrapper input {
     margin-top: 24px;
+    outline: none;
   }
   button.fbLogout {
     margin-top: 14px;

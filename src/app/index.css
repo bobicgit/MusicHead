@@ -74,6 +74,7 @@ html, body {
 .selected {
   border-color: rgba(175, 47, 47, 0.1);
   background-color: rgba(228, 228, 235, 0.3);
+  outline: none;
 }
 /*ARROWS*/
 
@@ -131,6 +132,7 @@ html, body {
 }
 #progress-bar {
   margin-bottom: 15px;
+  outline: none;
 }
 
 /*///*/
